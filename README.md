@@ -1,0 +1,1 @@
+# Smart_Ski_Rent_2024
