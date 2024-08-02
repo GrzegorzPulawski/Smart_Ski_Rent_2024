@@ -14,7 +14,7 @@ import java.util.List;
 public class ClientService {
     private final ClientRepository clientRepository;
     public void addClient(CreateClientRequest createClientRequest){
-        boolean existsClient = clientRepository.existsByPhoneNr(createClientRequest.getPhoneNumber());
+        boolean existsClient = clientRepository.existsByPhoneNumber(createClientRequest.getPhoneNumber());
         if (!existsClient){
             Client client = new Client(null, createClientRequest.getFirstName(), createClientRequest.getLastName(), createClientRequest.getIdentityCard(), createClientRequest.getPhoneNumber());
             clientRepository.save(client);
