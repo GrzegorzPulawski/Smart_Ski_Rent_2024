@@ -16,7 +16,7 @@ public class ClientService {
     public void addClient(CreateClientRequest createClientRequest){
         boolean existsClient = clientRepository.existsByPhoneNumber(createClientRequest.getPhoneNumber());
         if (!existsClient){
-            Client client = new Client(null, createClientRequest.getFirstName(), createClientRequest.getLastName(), createClientRequest.getIdentityCard(), createClientRequest.getPhoneNumber());
+            Client client = new Client(null, createClientRequest.getFirstName(), createClientRequest.getLastName(), createClientRequest.getIdentityCard(), createClientRequest.getPhoneNumber(),null);
             clientRepository.save(client);
             return;
         }

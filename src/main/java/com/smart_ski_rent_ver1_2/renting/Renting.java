@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.renting;
 
+import com.smart_ski_rent_ver1_2.client.Client;
 import com.smart_ski_rent_ver1_2.equipment.Equipment;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,5 +24,7 @@ public class Renting {
     private Double rentingPrice;
     @ManyToOne
     private Equipment equipment;
+    @ManyToOne
+    private Client client;
 
 }

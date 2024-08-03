@@ -1,9 +1,12 @@
 package com.smart_ski_rent_ver1_2.client;
 
+import com.smart_ski_rent_ver1_2.renting.Renting;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,4 +28,6 @@ public class Client {
     @Column(name ="phone_number")
     private Integer phoneNumber;
 
+    @OneToMany(mappedBy = "client")
+    private List<Renting> rentingList;
 }

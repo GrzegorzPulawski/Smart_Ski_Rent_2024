@@ -21,7 +21,7 @@ public class Equipment {
     private Double priceEquipment;
 
 
-    @OneToMany
+    @OneToMany(mappedBy = "equipment")
     private List<Renting> renting;
 
 }
