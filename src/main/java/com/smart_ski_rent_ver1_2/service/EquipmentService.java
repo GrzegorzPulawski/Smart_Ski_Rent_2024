@@ -25,12 +25,12 @@ public class EquipmentService {
             throw new EquipmentAlreadyExistsException("Equipment with name: " + createEquipmentRequest.getNameEquipment()+ "already exists. Change name");
         }
     }
-    public void deleteEquipment(Equipment equipment){
-        Optional<Equipment> optionalEquipment = equipmentRepository.findById(equipment.getIdEquipment());
+    public void deleteEquipment(Long idEquipment){
+        Optional<Equipment> optionalEquipment = equipmentRepository.findById(idEquipment);
         if(optionalEquipment.isPresent()) {
-            equipmentRepository.deleteById(equipment.getIdEquipment());
+            equipmentRepository.deleteById(idEquipment);
         } else {
-            throw new EquipmentNotExists("Equipment with id: " + equipment.getIdEquipment() + "not exists");
+            throw new EquipmentNotExists("Equipment with id: " +idEquipment + "not exists");
         }
     }
     public List<Equipment> listEquipments(){
