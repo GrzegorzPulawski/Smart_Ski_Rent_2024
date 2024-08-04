@@ -1,9 +1,5 @@
-package com.smart_ski_rent_ver1_2.dto;
+package com.smart_ski_rent_ver1_2.request;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

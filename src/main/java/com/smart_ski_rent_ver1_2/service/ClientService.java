@@ -1,7 +1,7 @@
 package com.smart_ski_rent_ver1_2.service;
 
-import com.smart_ski_rent_ver1_2.client.Client;
-import com.smart_ski_rent_ver1_2.dto.CreateClientRequest;
+import com.smart_ski_rent_ver1_2.entity.client.Client;
+import com.smart_ski_rent_ver1_2.request.CreateClientRequest;
 import com.smart_ski_rent_ver1_2.repositories.ClientRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

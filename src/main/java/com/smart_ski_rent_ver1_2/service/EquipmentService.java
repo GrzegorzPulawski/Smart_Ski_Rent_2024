@@ -1,7 +1,7 @@
 package com.smart_ski_rent_ver1_2.service;
 
-import com.smart_ski_rent_ver1_2.dto.CreateEquipmentRequest;
-import com.smart_ski_rent_ver1_2.equipment.Equipment;
+import com.smart_ski_rent_ver1_2.request.CreateEquipmentRequest;
+import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import com.smart_ski_rent_ver1_2.exception.EquipmentAlreadyExistsException;
 import com.smart_ski_rent_ver1_2.exception.EquipmentNotExists;
 import com.smart_ski_rent_ver1_2.repositories.EquipmentRepository;

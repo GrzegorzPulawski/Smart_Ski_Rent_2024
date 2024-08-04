@@ -1,6 +1,6 @@
-package com.smart_ski_rent_ver1_2.client;
+package com.smart_ski_rent_ver1_2.entity.client;
 
-import com.smart_ski_rent_ver1_2.renting.Renting;
+import com.smart_ski_rent_ver1_2.entity.renting.Renting;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

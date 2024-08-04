@@ -1,4 +1,4 @@
-package com.smart_ski_rent_ver1_2.dto;
+package com.smart_ski_rent_ver1_2.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

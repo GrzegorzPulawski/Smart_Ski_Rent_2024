@@ -1,7 +1,7 @@
-package com.smart_ski_rent_ver1_2.renting;
+package com.smart_ski_rent_ver1_2.entity.renting;
 
-import com.smart_ski_rent_ver1_2.client.Client;
-import com.smart_ski_rent_ver1_2.equipment.Equipment;
+import com.smart_ski_rent_ver1_2.entity.client.Client;
+import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
