@@ -30,7 +30,7 @@ public class EquipmentService {
         if(optionalEquipment.isPresent()) {
             equipmentRepository.deleteById(idEquipment);
         } else {
-            throw new EquipmentNotExists("Equipment with id: " +idEquipment + "not exists");
+            throw new EquipmentNotExists("Equipment with id: " +idEquipment + " not exists");
         }
     }
     public List<Equipment> listEquipments(){
