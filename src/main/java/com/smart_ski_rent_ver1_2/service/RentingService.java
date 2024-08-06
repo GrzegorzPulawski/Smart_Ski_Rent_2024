@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static java.lang.Math.ceil;
@@ -81,5 +82,8 @@ public class RentingService {
         Duration duration = Duration.between(dateOfReturn, dateRenting);
         double days = duration.toHours() / 24.0;
         return (long) Math.ceil(days);
+    }
+    public List<Renting> listRentings(){
+        return rentingRepository.findAll();
     }
 }

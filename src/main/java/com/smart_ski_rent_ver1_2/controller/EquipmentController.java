@@ -24,7 +24,8 @@ public class EquipmentController {
     }
     @GetMapping
     public List<Equipment> equipmentsList(){
-        log.info("Equipments list below: ");
+        List<Equipment> equipmentList = equipmentService.listEquipments();
+        log.info("List of equipments has: "+  equipmentList.size() +"positions");
         return equipmentService.listEquipments();
     }
     @DeleteMapping

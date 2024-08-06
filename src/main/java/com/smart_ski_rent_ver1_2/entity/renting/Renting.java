@@ -3,6 +3,7 @@ package com.smart_ski_rent_ver1_2.entity.renting;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "rental")
 public class Renting {
@@ -30,9 +33,12 @@ public class Renting {
 
     @Column(name = "price_of_duration")
     private Double priceOfDuration;
+
     @ManyToOne
+    @JoinColumn(name = "equipments_equipment_id")
     private Equipment equipment;
     @ManyToOne
+    @JoinColumn(name = "clients_client_id")
     private Client client;
 
 }

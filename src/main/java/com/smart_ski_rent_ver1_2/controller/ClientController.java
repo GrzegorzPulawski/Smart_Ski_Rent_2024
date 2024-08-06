@@ -25,7 +25,8 @@ public class ClientController {
     }
     @GetMapping
     public List<Client> clientsList(){
-        log.info("Clients list: ");
+        List<Client> clientList = clientService.findAllClients();
+        log.info("List of clients has: " + clientList.size()+"positions");
         return clientService.findAllClients();
     }
 }
