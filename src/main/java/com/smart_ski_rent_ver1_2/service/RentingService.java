@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +62,7 @@ public class RentingService {
         }
         return false;
     }
-    public void returnRenting(Long idRenting) {
+    public Renting returnRenting(Long idRenting, Renting returnData) {
         Optional<Renting> optionalRenting = rentingRepository.findById(idRenting);
         if (optionalRenting.isPresent()) {
             Renting renting = optionalRenting.get();
@@ -71,9 +72,11 @@ public class RentingService {
                 Double rentingPrice = renting.getRentingPrice();
                 //cena ostateczna za wypozyczenie
                 Double priceOfDuration = rentingPrice * getTimeDuration(renting);
-                rentingRepository.save(renting);
+                renting.setPriceOfDuration(priceOfDuration);
+              return   rentingRepository.save(renting);
             }
-        }throw new EntityNotFoundException("Unable to find renting with id: "+ idRenting);
+        }
+        throw new EntityNotFoundException("Unable to find renting with id: "+ idRenting);
     }
     //Ustalenie czasu wypozyczenia
     public Long getTimeDuration(Renting renting){
@@ -85,5 +88,15 @@ public class RentingService {
     }
     public List<Renting> listRentings(){
         return rentingRepository.findAll();
+    }
+    public List <Renting> showRentingById(Long id){
+        List<Renting> rentingList = rentingRepository.findAll();
+        List<Renting> showRenting = new ArrayList<>();
+        for (Renting renting : rentingList){
+            if(renting.getIdRenting() == id){
+               showRenting.add(renting);
+            }
+        }return showRenting;
+
     }
 }
