@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.entity.renting;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import jakarta.persistence.*;
@@ -34,11 +35,15 @@ public class Renting {
     @Column(name = "price_of_duration")
     private Double priceOfDuration;
 
+    @Column(name ="days_of_rental")
+    private Long daysOfRental;
+
     @ManyToOne
     @JoinColumn(name = "equipments_equipment_id")
     private Equipment equipment;
     @ManyToOne
     @JoinColumn(name = "clients_client_id")
     private Client client;
+
 
 }

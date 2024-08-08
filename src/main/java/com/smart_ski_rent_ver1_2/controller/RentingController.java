@@ -25,16 +25,14 @@ public class RentingController {
         rentingService.createRenting(createRentingRequest);
     }
 
-    @PatchMapping("/return/{idRenting}")
-    public ResponseEntity<Renting> returnRenting(@PathVariable ("idRenting") Long idRenting, @RequestBody Renting returnData ) {
+    @PutMapping("/return/{idRenting}")
+    public ResponseEntity<Renting> returnRenting(
+            @PathVariable("idRenting") Long idRenting,
+            @RequestBody Renting updateRenting ) {
         log.info("Renting with id: " + idRenting + " return");
-        try {
-            Renting updatedRenting = rentingService.returnRenting(idRenting, returnData);
-            return ResponseEntity.ok(updatedRenting);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
-      // return rentingService.returnRenting(idRenting, returnData);
+
+    Renting renting = rentingService.returnRenting(idRenting, updateRenting);
+    return  ResponseEntity.ok(renting);
     }
     @GetMapping
     public List<Renting> listRentings(){

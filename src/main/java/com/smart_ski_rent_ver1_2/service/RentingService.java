@@ -3,12 +3,11 @@ package com.smart_ski_rent_ver1_2.service;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import com.smart_ski_rent_ver1_2.entity.renting.Renting;
-import com.smart_ski_rent_ver1_2.exception.EquipmentAlreadyRentedException;
+import com.smart_ski_rent_ver1_2.exception.*;
 import com.smart_ski_rent_ver1_2.repositories.ClientRepository;
 import com.smart_ski_rent_ver1_2.repositories.EquipmentRepository;
 import com.smart_ski_rent_ver1_2.repositories.RentingRepository;
 import com.smart_ski_rent_ver1_2.request.CreateRentingRequest;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static java.lang.Math.ceil;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +28,7 @@ public class RentingService {
         Optional<Client> optionalClient = clientRepository.findById(createRentingRequest.getIdClient());
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
-
+            // trzeba złapać klienta jesli jego id nie istnieje!!!
             Optional<Equipment> optionalEquipment = equipmentRepository.findById(createRentingRequest.getIdEquipment());
             if (optionalEquipment.isPresent()) {
                 Equipment equipment = optionalEquipment.get();
@@ -47,43 +44,50 @@ public class RentingService {
                             .rentingPrice(equipment.getPriceEquipment())
                             .build();
                     rentingRepository.save(renting);
-
-                } else {
-                    throw new EquipmentAlreadyRentedException("Equipment is already  rented");
-                }
-            }
-        }
+                    return;
+                }throw new EquipmentAlreadyRentedException("Equipment is already  rented"+ createRentingRequest.getIdEquipment());
+            }throw new EquipmentNotExists("Equipment with id: " + createRentingRequest.getIdEquipment()+ " does not exist");
+        }throw new ClientNotExistsException("Client with ID " + createRentingRequest.getIdClient() + " does not exist.");
     }
+
+    //metoda mi nie pasuje!!!
     private boolean isRented(Equipment equipment){
         for (Renting renting : equipment.getRenting()) {
-            if (renting.getDateRenting() != null) {
+            if (renting.getDateOfReturn() != null) {
                 return true;
             }
         }
         return false;
     }
-    public Renting returnRenting(Long idRenting, Renting returnData) {
+    public Renting returnRenting(Long idRenting, Renting updateRenting) {
         Optional<Renting> optionalRenting = rentingRepository.findById(idRenting);
         if (optionalRenting.isPresent()) {
             Renting renting = optionalRenting.get();
 
             if (renting.getDateOfReturn() == null) {
-                renting.setDateRenting(LocalDateTime.now());
-                Double rentingPrice = renting.getRentingPrice();
-                //cena ostateczna za wypozyczenie
-                Double priceOfDuration = rentingPrice * getTimeDuration(renting);
-                renting.setPriceOfDuration(priceOfDuration);
+                //ustal czas zdania sprzetu
+                renting.setDateOfReturn(LocalDateTime.now());
+                //ustal ilość dni wypożyczenia (metoda gettimeDuration)
+                renting.setDaysOfRental(getTimeDuration(renting));
+
+                //wylicz cenę ostateczną za okres wypożyczenia
+                Double calculatePriceOfDuration = renting.getRentingPrice() * getTimeDuration(renting);
+                //zapisz cenę ostateczną dla obiektu
+                renting.setPriceOfDuration(calculatePriceOfDuration);
+                //zapisz wszystko w bazie
               return   rentingRepository.save(renting);
-            }
-        }
-        throw new EntityNotFoundException("Unable to find renting with id: "+ idRenting);
+            }   throw new RentingAlreadyReturnException("Renting have rented");
+        }        throw new RentingIsNotExistsException("Unable to find renting with id: "+ idRenting);
     }
     //Ustalenie czasu wypozyczenia
     public Long getTimeDuration(Renting renting){
         LocalDateTime dateRenting = renting.getDateRenting();
         LocalDateTime dateOfReturn = (renting.getDateOfReturn() != null )? renting.getDateOfReturn() : LocalDateTime.now();
-        Duration duration = Duration.between(dateOfReturn, dateRenting);
-        double days = duration.toHours() / 24.0;
+
+        Duration duration = Duration.between(dateRenting, dateOfReturn);
+        long seconds = duration.getSeconds();
+        double hours = seconds/ 3600.0;
+        double days = hours / 24.0;
         return (long) Math.ceil(days);
     }
     public List<Renting> listRentings(){
@@ -97,6 +101,5 @@ public class RentingService {
                showRenting.add(renting);
             }
         }return showRenting;
-
     }
 }
