@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.service;
 
+import com.smart_ski_rent_ver1_2.dto.RentingDTO;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import com.smart_ski_rent_ver1_2.entity.renting.Renting;
@@ -90,15 +91,20 @@ public class RentingService {
         double days = hours / 24.0;
         return (long) Math.ceil(days);
     }
-    public List<Renting> listRentings(){
-        return rentingRepository.findAll();
+    public List<RentingDTO> listRentings(){
+        List<Renting> rentingList= rentingRepository.findAll();
+        List<RentingDTO> listAllRenting = new ArrayList<>();
+        for (Renting renting: rentingList){
+            listAllRenting.add(renting.mapRentingToDTO());
+        }
+        return listAllRenting;
     }
-    public List <Renting> showRentingById(Long id){
+    public List <RentingDTO> showRentingById(Long id){
         List<Renting> rentingList = rentingRepository.findAll();
-        List<Renting> showRenting = new ArrayList<>();
+        List<RentingDTO> showRenting = new ArrayList<>();
         for (Renting renting : rentingList){
             if(renting.getIdRenting() == id){
-               showRenting.add(renting);
+               showRenting.add(renting.mapRentingToDTO());
             }
         }return showRenting;
     }

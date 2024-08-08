@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.controller;
 
+import com.smart_ski_rent_ver1_2.dto.RentingDTO;
 import com.smart_ski_rent_ver1_2.entity.renting.Renting;
 import com.smart_ski_rent_ver1_2.request.CreateRentingRequest;
 import com.smart_ski_rent_ver1_2.service.RentingService;
@@ -35,13 +36,13 @@ public class RentingController {
     return  ResponseEntity.ok(renting);
     }
     @GetMapping
-    public List<Renting> listRentings(){
-        List<Renting> rentingList = rentingService.listRentings();
-        log.info("List of rental has: " + rentingList.size() + "positions");
+    public List<RentingDTO> listRentings(){
+        List<RentingDTO> rentingList = rentingService.listRentings();
+        log.info("List of rental has: " + rentingList.size() + " positions");
         return rentingService.listRentings();
     }
     @GetMapping("/show")
-    public List<Renting> showRentingById(@RequestParam Long idRenting){
+    public List<RentingDTO> showRentingById(@RequestParam Long idRenting){
         log.info("Print renting with id: "+ idRenting);
         return rentingService.showRentingById(idRenting);
     }

@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.entity.equipment;
 
+import com.smart_ski_rent_ver1_2.dto.EquipmentDTO;
 import com.smart_ski_rent_ver1_2.entity.renting.Renting;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,4 +30,5 @@ public class Equipment {
     @OneToMany(mappedBy = "equipment")
     private List<Renting> renting;
 
+    public EquipmentDTO mapEquipmentToDTO(){return new EquipmentDTO(idEquipment, this.nameEquipment, this.priceEquipment);}
 }

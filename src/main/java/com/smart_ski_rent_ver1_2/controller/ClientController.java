@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.controller;
 
+import com.smart_ski_rent_ver1_2.dto.ClientDTO;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.request.CreateClientRequest;
 import com.smart_ski_rent_ver1_2.service.ClientService;
@@ -24,9 +25,9 @@ public class ClientController {
         clientService.addClient(createClientRequest);
     }
     @GetMapping
-    public List<Client> clientsList(){
-        List<Client> clientList = clientService.findAllClients();
-        log.info("List of clients has: " + clientList.size()+"positions");
+    public List<ClientDTO> clientsList(){
+        List<ClientDTO> clientList = clientService.findAllClients();
+        log.info("List of clients has: " + clientList.size() + " positions");
         return clientService.findAllClients();
     }
 }

@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.controller;
 
+import com.smart_ski_rent_ver1_2.dto.EquipmentDTO;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import com.smart_ski_rent_ver1_2.request.CreateEquipmentRequest;
 import com.smart_ski_rent_ver1_2.service.EquipmentService;
@@ -23,9 +24,9 @@ public class EquipmentController {
         equipmentService.createEquipment(createEquipmentRequest);
     }
     @GetMapping
-    public List<Equipment> equipmentsList(){
-        List<Equipment> equipmentList = equipmentService.listEquipments();
-        log.info("List of equipments has: "+  equipmentList.size() +"positions");
+    public List<EquipmentDTO> equipmentsList(){
+        List<EquipmentDTO> equipmentList = equipmentService.listEquipments();
+        log.info("List of equipments has: "+  equipmentList.size() +" positions");
         return equipmentService.listEquipments();
     }
     @DeleteMapping

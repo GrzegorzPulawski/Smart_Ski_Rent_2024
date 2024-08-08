@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.entity.client;
 
+import com.smart_ski_rent_ver1_2.dto.ClientDTO;
 import com.smart_ski_rent_ver1_2.entity.renting.Renting;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,4 +31,6 @@ public class Client {
 
     @OneToMany(mappedBy = "client")
     private List<Renting> rentingList;
+
+    public ClientDTO mapClientToDTO (){return new ClientDTO(idClient, this.firstName, this.lastName, this.identityCard, this.phoneNumber);}
 }
