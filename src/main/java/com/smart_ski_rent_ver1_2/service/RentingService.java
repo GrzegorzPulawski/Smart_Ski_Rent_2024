@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,5 +108,17 @@ public class RentingService {
                showRenting.add(renting.mapRentingToDTO());
             }
         }return showRenting;
+    }
+    public Double generateDailyRevenueReport(LocalDate date) {
+        // Pobierz wszystkie transakcje zakończone w danym dniu
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.plusDays(1).atStartOfDay();
+
+        List<Renting> rentalsForDay = rentingRepository.findByDateOfReturnBetween(startOfDay, endOfDay);
+
+        // Sumowanie przychodów
+        return rentalsForDay.stream()
+                .mapToDouble(Renting::getPriceOfDuration)
+                .sum();
     }
 }
