@@ -36,18 +36,22 @@ public class RentingService {
                 Equipment equipment = optionalEquipment.get();
 
                 //Sprawdzam czy sprzet nie jest wypożyczony? czy o taką logikę businesową nam chodziło?
-                if (!isRented(equipment)) {
+            //    if (!isRented(equipment)) {
                     //Kreujemy wypozyczenie
                     Renting renting = Renting.builder()
                             .client(client)
                             .equipment(equipment)
+                            .firstName(client.getFirstName())
+                            .lastName(client.getLastName())
+                            .phoneNumber(client.getPhoneNumber())
+                            .identityCard(client.getIdentityCard())
                             .dateRenting(LocalDateTime.now())
-                            //sprawdzić czy pobrac cene z renting czy z equipment
+                            .nameEquipment(equipment.getNameEquipment())
                             .rentingPrice(equipment.getPriceEquipment())
                             .build();
                     rentingRepository.save(renting);
                     return;
-                }throw new EquipmentAlreadyRentedException("Equipment is already  rented"+ createRentingRequest.getIdEquipment());
+             //   }throw new EquipmentAlreadyRentedException("Equipment is already  rented"+ createRentingRequest.getIdEquipment());
             }throw new EquipmentNotExists("Equipment with id: " + createRentingRequest.getIdEquipment()+ " does not exist");
         }throw new ClientNotExistsException("Client with ID " + createRentingRequest.getIdClient() + " does not exist.");
     }
