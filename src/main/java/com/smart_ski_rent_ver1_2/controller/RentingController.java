@@ -4,7 +4,6 @@ import com.smart_ski_rent_ver1_2.dto.RentingDTO;
 import com.smart_ski_rent_ver1_2.entity.renting.Renting;
 import com.smart_ski_rent_ver1_2.request.CreateRentingRequest;
 import com.smart_ski_rent_ver1_2.service.RentingService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

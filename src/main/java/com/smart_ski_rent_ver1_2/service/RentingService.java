@@ -36,7 +36,7 @@ public class RentingService {
                 Equipment equipment = optionalEquipment.get();
 
                 //Sprawdzam czy sprzet nie jest wypożyczony? czy o taką logikę businesową nam chodziło?
-            //    if (!isRented(equipment)) {
+            //    if (isNotRented(equipment)) {
                     //Kreujemy wypozyczenie
                     Renting renting = Renting.builder()
                             .client(client)
@@ -57,13 +57,13 @@ public class RentingService {
     }
 
     //metoda mi nie pasuje!!!
-    private boolean isRented(Equipment equipment){
+    private boolean isNotRented(Equipment equipment){
         for (Renting renting : equipment.getRenting()) {
-            if (renting.getDateOfReturn() != null) {
-                return true;
+            if (renting.getDateOfReturn() == null) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
     public Renting returnRenting(Long idRenting, Renting updateRenting) {
         Optional<Renting> optionalRenting = rentingRepository.findById(idRenting);
