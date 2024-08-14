@@ -5,33 +5,52 @@ import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import com.smart_ski_rent_ver1_2.request.CreateEquipmentRequest;
 import com.smart_ski_rent_ver1_2.service.EquipmentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
 @RestController
-@RequestMapping("/api/equipments")
+@RequestMapping("/api/equipment")
 public class EquipmentController {
+
     private final EquipmentService equipmentService;
 
     public EquipmentController(EquipmentService equipmentService) {
         this.equipmentService = equipmentService;
     }
-    @PostMapping
-    public void createEquipment(@RequestBody CreateEquipmentRequest createEquipmentRequest){
-        log.info("Create equipment" + createEquipmentRequest);
-        equipmentService.createEquipment(createEquipmentRequest);
-    }
+
     @GetMapping
-    public List<EquipmentDTO> equipmentsList(){
-        List<EquipmentDTO> equipmentList = equipmentService.listEquipments();
-        log.info("List of equipments has: "+  equipmentList.size() +" positions");
-        return equipmentService.listEquipments();
+    public ResponseEntity<List<Equipment>> getAllEquipment() {
+        return ResponseEntity.ok(equipmentService.getAllEquipment());
     }
-    @DeleteMapping
-    public void deleteEquipment(@RequestParam Long idEquipment){
-        log.info("Equipment is deleted with id: " + idEquipment );
-        equipmentService.deleteEquipment(idEquipment);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Equipment> getEquipmentById(@PathVariable Long id) {
+        return equipmentService.getEquipmentById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Equipment> createEquipment(@RequestBody Equipment equipment) {
+        return ResponseEntity.ok(equipmentService.saveEquipment(equipment));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Equipment> updateEquipment(@PathVariable Long id, @RequestBody Equipment equipmentDetails) {
+        return equipmentService.getEquipmentById(id).map(
+                equipment -> {
+                    equipment.setNameEquipment(equipmentDetails.getNameEquipment());
+                    equipment.setPriceEquipment(equipmentDetails.getPriceEquipment());
+                    return ResponseEntity.ok(equipmentService.saveEquipment(equipment));
+                }
+        ).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEquipment(@PathVariable Long id) {
+        equipmentService.deleteEquipment(id);
+        return ResponseEntity.ok().build();
     }
 }

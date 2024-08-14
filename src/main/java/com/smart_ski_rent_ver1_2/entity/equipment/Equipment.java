@@ -8,17 +8,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name = "equipments")
 public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "equipment_id")
-    private Long idEquipment;
+    private Long id;
 
     @Column(name ="name_Equipment")
     private String nameEquipment;
@@ -26,9 +25,40 @@ public class Equipment {
     @Column(name = "price_Equipment")
     private Double priceEquipment;
 
+    public Long getId() {
+        return id;
+    }
 
-    @OneToMany(mappedBy = "equipment")
-    private List<Renting> renting;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public EquipmentDTO mapEquipmentToDTO(){return new EquipmentDTO(idEquipment, this.nameEquipment, this.priceEquipment);}
+    public String getNameEquipment() {
+        return nameEquipment;
+    }
+
+    public void setNameEquipment(String nameEquipment) {
+        this.nameEquipment = nameEquipment;
+    }
+
+    public Double getPriceEquipment() {
+        return priceEquipment;
+    }
+
+    public void setPriceEquipment(Double priceEquipment) {
+        this.priceEquipment = priceEquipment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Equipment equipment = (Equipment) o;
+        return Objects.equals(id, equipment.id) && Objects.equals(nameEquipment, equipment.nameEquipment) && Objects.equals(priceEquipment, equipment.priceEquipment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nameEquipment, priceEquipment);
+    }
 }
