@@ -20,7 +20,7 @@ public class EquipmentService {
     public void createEquipment(CreateEquipmentRequest createEquipmentRequest){
         Optional<Equipment> optionalEquipment = equipmentRepository.findByNameEquipment(createEquipmentRequest.getNameEquipment());
         if (optionalEquipment.isEmpty()){
-            Equipment equipment = new Equipment(null, createEquipmentRequest.getNameEquipment(),createEquipmentRequest.getPriceEquipment(),null);
+            Equipment equipment = new Equipment(null, createEquipmentRequest.getNameEquipment(),createEquipmentRequest.getPriceEquipment());
          //   equipment.setNameEquipment(createEquipmentRequest.getNameEquipment());
             equipmentRepository.save(equipment);
         } else {

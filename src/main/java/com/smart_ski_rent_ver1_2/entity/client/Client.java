@@ -29,8 +29,8 @@ public class Client {
     @Column(name ="phone_number")
     private Integer phoneNumber;
 
-    @OneToMany(mappedBy = "client")
-    private List<Renting> rentingList;
+ //   @OneToMany(mappedBy = "client")
+ //   private List<Renting> rentingList;
 
     public ClientDTO mapClientToDTO (){return new ClientDTO(idClient, this.firstName, this.lastName, this.identityCard, this.phoneNumber);}
 }

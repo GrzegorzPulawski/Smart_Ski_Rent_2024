@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -41,8 +42,13 @@ public class RentingController {
         log.info("List of rental has: " + rentingList.size() + " positions");
         return rentingService.listRentings();
     }
+  //  @GetMapping("/show")
+   // public List<RentingDTO> showRentingById(@RequestParam Long idRenting){
+    //    log.info("Print renting with id: "+ idRenting);
+     //   return rentingService.showRentingById(idRenting);
+   // }
     @GetMapping("/show")
-    public List<RentingDTO> showRentingById(@RequestParam Long idRenting){
+    public Optional<Renting> showRentingById(@RequestParam Long idRenting){
         log.info("Print renting with id: "+ idRenting);
         return rentingService.showRentingById(idRenting);
     }

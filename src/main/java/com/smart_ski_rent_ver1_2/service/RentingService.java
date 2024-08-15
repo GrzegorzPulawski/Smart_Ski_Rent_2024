@@ -57,14 +57,14 @@ public class RentingService {
     }
 
     //metoda mi nie pasuje!!!
-    private boolean isNotRented(Equipment equipment){
-        for (Renting renting : equipment.getRenting()) {
-            if (renting.getDateOfReturn() == null) {
-                return false;
-            }
-        }
-        return true;
-    }
+ //   private boolean isNotRented(Equipment equipment){
+  //      for (Renting renting : equipment.getRenting()) {
+   //         if (renting.getDateOfReturn() == null) {
+   //             return false;
+    //        }
+    //    }
+    //    return true;
+  //  }
     public Renting returnRenting(Long idRenting, Renting updateRenting) {
         Optional<Renting> optionalRenting = rentingRepository.findById(idRenting);
         if (optionalRenting.isPresent()) {
@@ -104,14 +104,17 @@ public class RentingService {
         }
         return listAllRenting;
     }
-    public List <RentingDTO> showRentingById(Long id){
-        List<Renting> rentingList = rentingRepository.findAll();
-        List<RentingDTO> showRenting = new ArrayList<>();
-        for (Renting renting : rentingList){
-            if(renting.getIdRenting() == id){
-               showRenting.add(renting.mapRentingToDTO());
-            }
-        }return showRenting;
+  //  public List <RentingDTO> showRentingById(Long id){
+    //    List<Renting> rentingList = rentingRepository.findAll();
+      //  List<RentingDTO> showRenting = new ArrayList<>();
+        //for (Renting renting : rentingList){
+          //  if(renting.getIdRenting() == id){
+            //   showRenting.add(renting.mapRentingToDTO());
+           // }
+       // }return showRenting;
+   // }
+    public Optional<Renting> showRentingById(Long id){
+        return rentingRepository.findById(id);
     }
     public Double generateDailyRevenueReport(LocalDate date) {
         // Pobierz wszystkie transakcje zakończone w danym dniu

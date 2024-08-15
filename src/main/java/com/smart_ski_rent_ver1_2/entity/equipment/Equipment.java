@@ -27,8 +27,8 @@ public class Equipment {
     private Double priceEquipment;
 
 
-    @OneToMany(mappedBy = "equipment")
-    private List<Renting> renting;
+  //  @OneToMany(mappedBy = "equipment")
+ //   private List<Renting> renting;
 
     public EquipmentDTO mapEquipmentToDTO(){return new EquipmentDTO(idEquipment, this.nameEquipment, this.priceEquipment);}
 }
