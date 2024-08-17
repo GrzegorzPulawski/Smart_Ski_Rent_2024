@@ -12,14 +12,9 @@ import java.time.LocalDateTime;
 public class RentingDTO {
     private Long idRenting;
 
-    private String firstName;
-    private String lastName;
-    private Integer phoneNumber;
-    private String identityCard;
     private LocalDateTime dateRenting;
     private LocalDateTime dateOfReturn;
-    private String nameEquipment;
-    private Double rentingPrice;
+
     private Double priceOfDuration;
     private Long daysOfRental;
 }

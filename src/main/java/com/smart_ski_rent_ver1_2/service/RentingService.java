@@ -41,13 +41,7 @@ public class RentingService {
                     Renting renting = Renting.builder()
                             .client(client)
                             .equipment(equipment)
-                            .firstName(client.getFirstName())
-                            .lastName(client.getLastName())
-                            .phoneNumber(client.getPhoneNumber())
-                            .identityCard(client.getIdentityCard())
                             .dateRenting(LocalDateTime.now())
-                            .nameEquipment(equipment.getNameEquipment())
-                            .rentingPrice(equipment.getPriceEquipment())
                             .build();
                     rentingRepository.save(renting);
                     return;
@@ -69,15 +63,14 @@ public class RentingService {
         Optional<Renting> optionalRenting = rentingRepository.findById(idRenting);
         if (optionalRenting.isPresent()) {
             Renting renting = optionalRenting.get();
-
+                Equipment equipment =optionalRenting.get().getEquipment();
             if (renting.getDateOfReturn() == null) {
                 //ustal czas zdania sprzetu
                 renting.setDateOfReturn(LocalDateTime.now());
                 //ustal ilość dni wypożyczenia (metoda gettimeDuration)
                 renting.setDaysOfRental(getTimeDuration(renting));
-
                 //wylicz cenę ostateczną za okres wypożyczenia
-                Double calculatePriceOfDuration = renting.getRentingPrice() * getTimeDuration(renting);
+                Double calculatePriceOfDuration = equipment.getPriceEquipment() * getTimeDuration(renting);
                 //zapisz cenę ostateczną dla obiektu
                 renting.setPriceOfDuration(calculatePriceOfDuration);
                 //zapisz wszystko w bazie
