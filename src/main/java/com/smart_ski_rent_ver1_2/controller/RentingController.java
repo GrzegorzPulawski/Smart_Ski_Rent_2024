@@ -5,6 +5,7 @@ import com.smart_ski_rent_ver1_2.entity.renting.Renting;
 import com.smart_ski_rent_ver1_2.request.CreateRentingRequest;
 import com.smart_ski_rent_ver1_2.service.RentingService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,6 @@ public class RentingController {
         log.info("Created renting: "+ createRentingRequest);
         rentingService.createRenting(createRentingRequest);
     }
-
     @PutMapping("/return/{idRenting}")
     public ResponseEntity<Renting> returnRenting(
             @PathVariable("idRenting") Long idRenting,
@@ -42,15 +42,16 @@ public class RentingController {
         log.info("List of rental has: " + rentingList.size() + " positions");
         return rentingService.listRentings();
     }
-  //  @GetMapping("/show")
-   // public List<RentingDTO> showRentingById(@RequestParam Long idRenting){
-    //    log.info("Print renting with id: "+ idRenting);
-     //   return rentingService.showRentingById(idRenting);
-   // }
     @GetMapping("/show")
-    public Optional<Renting> showRentingById(@RequestParam Long idRenting){
+    public ResponseEntity<Renting> showRentingById(@RequestParam Long idRenting){
         log.info("Print renting with id: "+ idRenting);
-        return rentingService.showRentingById(idRenting);
+        Optional<Renting> renting = rentingService.showRentingById(idRenting);
+
+        if (renting.isPresent()) {
+            return ResponseEntity.ok(renting.get()); // Zwraca 200 OK i obiekt Renting
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Zwraca 404 Not Found
+        }
     }
     @GetMapping("/report")
     public Double getDailyRevenue(@RequestParam("date") String dateString) {
