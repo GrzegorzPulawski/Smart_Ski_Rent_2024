@@ -23,10 +23,11 @@ public class RentingController {
         this.rentingService = rentingService;
     }
     @PostMapping
-    public void createRenting(@RequestBody CreateRentingRequest createRentingRequest){
+    public ResponseEntity<Void> createRenting(@RequestBody CreateRentingRequest createRentingRequest){
         log.info("Created renting: "+ createRentingRequest);
-        rentingService.createRenting(createRentingRequest);
-    }
+            rentingService.createRenting(createRentingRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+       }
     @PutMapping("/return/{idRenting}")
     public ResponseEntity<Renting> returnRenting(
             @PathVariable("idRenting") Long idRenting,

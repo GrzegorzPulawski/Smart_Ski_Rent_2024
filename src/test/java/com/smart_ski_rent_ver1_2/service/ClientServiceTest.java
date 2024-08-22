@@ -26,7 +26,7 @@ public class ClientServiceTest {
     private ClientRepository clientRepository;
     @InjectMocks
     private  ClientService clientService;
-    private Client client;
+
     private CreateClientRequest createClientRequest;
 
     @BeforeEach
