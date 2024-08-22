@@ -1,13 +1,10 @@
 package com.smart_ski_rent_ver1_2.entity.client;
 
 import com.smart_ski_rent_ver1_2.dto.ClientDTO;
-import com.smart_ski_rent_ver1_2.entity.renting.Renting;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor

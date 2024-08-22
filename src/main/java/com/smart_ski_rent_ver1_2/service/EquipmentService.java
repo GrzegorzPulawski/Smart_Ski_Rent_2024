@@ -20,8 +20,9 @@ public class EquipmentService {
     public void createEquipment(CreateEquipmentRequest createEquipmentRequest){
         Optional<Equipment> optionalEquipment = equipmentRepository.findByNameEquipment(createEquipmentRequest.getNameEquipment());
         if (optionalEquipment.isEmpty()){
-            Equipment equipment = new Equipment(null, createEquipmentRequest.getNameEquipment(),createEquipmentRequest.getPriceEquipment());
-         //   equipment.setNameEquipment(createEquipmentRequest.getNameEquipment());
+            Equipment equipment = new Equipment();
+          equipment.setNameEquipment(createEquipmentRequest.getNameEquipment());
+          equipment.setPriceEquipment(createEquipmentRequest.getPriceEquipment());
             equipmentRepository.save(equipment);
         } else {
             throw new EquipmentAlreadyExistsException("Equipment with name: " + createEquipmentRequest.getNameEquipment()+ "already exists. Change name");
@@ -42,5 +43,4 @@ public class EquipmentService {
             listAllEquipment.add(equipment.mapEquipmentToDTO());
         }return listAllEquipment;
     }
-
 }

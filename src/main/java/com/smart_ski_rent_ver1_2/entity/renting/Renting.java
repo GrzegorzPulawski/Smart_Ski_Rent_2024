@@ -1,6 +1,5 @@
 package com.smart_ski_rent_ver1_2.entity.renting;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smart_ski_rent_ver1_2.dto.RentingDTO;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
@@ -29,10 +28,8 @@ public class Renting {
     private LocalDateTime dateRenting;
     @Column (name = "date_return")
     private LocalDateTime dateOfReturn;
-
     @Column(name = "price_of_duration")
     private Double priceOfDuration;
-
     @Column(name ="days_of_rental")
     private Long daysOfRental;
 

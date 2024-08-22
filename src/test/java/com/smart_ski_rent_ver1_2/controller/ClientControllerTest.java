@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,14 +21,11 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-// Ten import miałem źle import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
 
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
@@ -92,6 +88,6 @@ public class ClientControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(allClients.size())))
                 .andExpect(jsonPath("$[0].firstName", is("Marcin")))
-                .andExpect((ResultMatcher) jsonPath("$[1].firstName", is("Jan")));
+                .andExpect(jsonPath("$[1].firstName", is("Jan")));
     }
 }

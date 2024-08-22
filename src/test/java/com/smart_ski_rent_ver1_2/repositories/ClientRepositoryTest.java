@@ -12,9 +12,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 @ActiveProfiles("test")
 public class ClientRepositoryTest {
-    @Autowired
+   @Autowired
    private ClientRepository clientRepository;
-
    @Test
    @DisplayName("Zapisywanie pracownika")
     void givenClient_whenSave_thenReturnSavedClient() {
@@ -24,14 +23,12 @@ public class ClientRepositoryTest {
               "Jarek",
                "Tayson",
                "ABC123456",
-               123456789
-        );
-
-        // when
+               123456789);
+         // when
     Client save = clientRepository.save(client1);
-
         // then
-      assertThat(save).isNotNull();assertThat(save.getIdClient()).isGreaterThan(0);
+      assertThat(save).isNotNull();
+      assertThat(save.getIdClient()).isGreaterThan(0);
       assertThat(save).isEqualTo(client1);
     }
     @Test

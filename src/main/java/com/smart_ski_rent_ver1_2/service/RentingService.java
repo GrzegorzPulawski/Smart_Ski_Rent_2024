@@ -25,7 +25,6 @@ public class RentingService {
     private final RentingRepository rentingRepository;
     private final ClientRepository clientRepository;
     private final EquipmentRepository equipmentRepository;
-
     public void createRenting(CreateRentingRequest createRentingRequest) {
         Optional<Client> optionalClient = clientRepository.findById(createRentingRequest.getIdClient());
         if (optionalClient.isPresent()) {
@@ -34,9 +33,6 @@ public class RentingService {
             Optional<Equipment> optionalEquipment = equipmentRepository.findById(createRentingRequest.getIdEquipment());
             if (optionalEquipment.isPresent()) {
                 Equipment equipment = optionalEquipment.get();
-
-                //Sprawdzam czy sprzet nie jest wypożyczony? czy o taką logikę businesową nam chodziło?
-            //    if (isNotRented(equipment)) {
                     //Kreujemy wypozyczenie
                     Renting renting = Renting.builder()
                             .client(client)
@@ -45,20 +41,9 @@ public class RentingService {
                             .build();
                     rentingRepository.save(renting);
                     return;
-             //   }throw new EquipmentAlreadyRentedException("Equipment is already  rented"+ createRentingRequest.getIdEquipment());
             }throw new EquipmentNotExists("Equipment with id: " + createRentingRequest.getIdEquipment()+ " does not exist");
         }throw new ClientNotExistsException("Client with ID " + createRentingRequest.getIdClient() + " does not exist.");
     }
-
-    //metoda mi nie pasuje!!!
- //   private boolean isNotRented(Equipment equipment){
-  //      for (Renting renting : equipment.getRenting()) {
-   //         if (renting.getDateOfReturn() == null) {
-   //             return false;
-    //        }
-    //    }
-    //    return true;
-  //  }
     public Renting returnRenting(Long idRenting, Renting updateRenting) {
         Optional<Renting> optionalRenting = rentingRepository.findById(idRenting);
         if (optionalRenting.isPresent()) {
@@ -97,15 +82,6 @@ public class RentingService {
         }
         return listAllRenting;
     }
-  //  public List <RentingDTO> showRentingById(Long id){
-    //    List<Renting> rentingList = rentingRepository.findAll();
-      //  List<RentingDTO> showRenting = new ArrayList<>();
-        //for (Renting renting : rentingList){
-          //  if(renting.getIdRenting() == id){
-            //   showRenting.add(renting.mapRentingToDTO());
-           // }
-       // }return showRenting;
-   // }
     public Optional<Renting> showRentingById(Long id){
         return rentingRepository.findById(id);
     }

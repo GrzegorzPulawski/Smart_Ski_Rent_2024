@@ -1,7 +1,6 @@
 package com.smart_ski_rent_ver1_2.controller;
 
 import com.smart_ski_rent_ver1_2.dto.EquipmentDTO;
-import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import com.smart_ski_rent_ver1_2.request.CreateEquipmentRequest;
 import com.smart_ski_rent_ver1_2.service.EquipmentService;
 import lombok.extern.slf4j.Slf4j;

@@ -48,11 +48,7 @@ public class RentingController {
         log.info("Print renting with id: "+ idRenting);
         Optional<Renting> renting = rentingService.showRentingById(idRenting);
 
-        if (renting.isPresent()) {
-            return ResponseEntity.ok(renting.get()); // Zwraca 200 OK i obiekt Renting
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Zwraca 404 Not Found
-        }
+        return renting.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     @GetMapping("/report")
     public Double getDailyRevenue(@RequestParam("date") String dateString) {
