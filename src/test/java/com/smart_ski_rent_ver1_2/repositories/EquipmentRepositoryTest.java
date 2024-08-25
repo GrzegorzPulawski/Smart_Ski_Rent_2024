@@ -1,6 +1,7 @@
 package com.smart_ski_rent_ver1_2.repositories;
 
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
+import com.smart_ski_rent_ver1_2.repositories.EquipmentRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,6 @@ public class EquipmentRepositoryTest {
         //then
         assertThat(equipmentList.size()).isEqualTo(2);
         assertThat(equipmentList.get(0).getNameEquipment()).isEqualTo("Atomic");
-
+        assertThat(equipmentList.get(1).getNameEquipment()).isEqualTo("Rossignol");
     }
 }

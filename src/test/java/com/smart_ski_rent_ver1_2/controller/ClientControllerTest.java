@@ -53,7 +53,6 @@ public class ClientControllerTest {
          // Wysłanie żądania POST do endpointu kontrolera
         mockMvc.perform(post("/api/clients")
                         .contentType(MediaType.APPLICATION_JSON)
-                      //  .with(csrf())
                         .content(objectMapper.writeValueAsString(createClientRequest)))
                         .andExpect(status().isOk());
         // then
