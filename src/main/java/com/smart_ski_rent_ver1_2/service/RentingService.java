@@ -68,6 +68,10 @@ public class RentingService {
         LocalDateTime dateRenting = renting.getDateRenting();
         LocalDateTime dateOfReturn = (renting.getDateOfReturn() != null )? renting.getDateOfReturn() : LocalDateTime.now();
 
+        if (dateRenting == null) {
+            throw new IllegalArgumentException("DateRenting must not be null");
+        }
+
         Duration duration = Duration.between(dateRenting, dateOfReturn);
         long seconds = duration.getSeconds();
         double hours = seconds/ 3600.0;
