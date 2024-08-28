@@ -1,8 +1,11 @@
-package com.smart_ski_rent_ver1_2.repositories;
+package com.smart_ski_rent_ver1_2.service;
 
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import com.smart_ski_rent_ver1_2.entity.renting.Renting;
+import com.smart_ski_rent_ver1_2.repositories.ClientRepository;
+import com.smart_ski_rent_ver1_2.repositories.EquipmentRepository;
+import com.smart_ski_rent_ver1_2.repositories.RentingRepository;
 import com.smart_ski_rent_ver1_2.request.CreateRentingRequest;
 import com.smart_ski_rent_ver1_2.service.RentingService;
 import org.junit.jupiter.api.Test;
