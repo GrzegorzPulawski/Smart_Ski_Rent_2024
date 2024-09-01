@@ -17,7 +17,7 @@ public class AppUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Konwersja roli na GrantedAuthority
-        return Collections.singleton(new SimpleGrantedAuthority(user.getUsername()));
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole().name()));
     }
 
     @Override

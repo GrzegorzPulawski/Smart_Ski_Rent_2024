@@ -1,7 +1,6 @@
 package com.smart_ski_rent_ver1_2.repositories;
 
-import com.smart_ski_rent_ver1_2.entity.client.Client;
-import com.smart_ski_rent_ver1_2.repositories.ClientRepository;
+import com.smart_ski_rent_ver1_2.exception.client.Client;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

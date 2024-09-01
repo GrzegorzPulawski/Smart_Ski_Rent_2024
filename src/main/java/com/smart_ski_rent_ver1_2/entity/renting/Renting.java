@@ -1,7 +1,7 @@
 package com.smart_ski_rent_ver1_2.entity.renting;
 
 import com.smart_ski_rent_ver1_2.dto.RentingDTO;
-import com.smart_ski_rent_ver1_2.entity.client.Client;
+import com.smart_ski_rent_ver1_2.exception.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

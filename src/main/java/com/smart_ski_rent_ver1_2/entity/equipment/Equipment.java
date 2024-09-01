@@ -16,9 +16,9 @@ public class Equipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "equipment_id")
     private Long idEquipment;
-    @Column(name ="name_Equipment")
+    @Column(name ="name_equipment")
     private String nameEquipment;
-    @Column(name = "price_Equipment")
+    @Column(name = "price_equipment")
     private Double priceEquipment;
 
     public EquipmentDTO mapEquipmentToDTO(){return new EquipmentDTO(idEquipment, this.nameEquipment, this.priceEquipment);}

@@ -11,7 +11,7 @@ public class AppUser {
         @Column(name ="user_id")
         private Long id;
         @Column(name="user_name")
-        private String username;
+        private String userName;
         @Column(name = "password")
         private String password;
 
@@ -24,7 +24,7 @@ public class AppUser {
 
     public AppUser( String username, String password, AppUserRole role) {
         this.id = id;
-        this.username = username;
+        this.userName = userName;
         this.password = password;
         this.role = role;
     }
@@ -38,11 +38,11 @@ public class AppUser {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = userName;
     }
 
     public String getPassword() {

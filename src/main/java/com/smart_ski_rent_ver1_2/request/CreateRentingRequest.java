@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 public class CreateRentingRequest {
     private Long idClient;
     private Long idEquipment;
-    //Czy jest potrzebne? Może wystarczy cena equipment?
-  //  private Double rentingPrice;
+
 }

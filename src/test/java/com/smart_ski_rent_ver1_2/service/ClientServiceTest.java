@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 import com.smart_ski_rent_ver1_2.dto.ClientDTO;
-import com.smart_ski_rent_ver1_2.entity.client.Client;
+import com.smart_ski_rent_ver1_2.exception.client.Client;
 import com.smart_ski_rent_ver1_2.repositories.ClientRepository;
 import com.smart_ski_rent_ver1_2.request.CreateClientRequest;
 import org.junit.jupiter.api.BeforeEach;

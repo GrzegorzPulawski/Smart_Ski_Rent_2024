@@ -1,4 +1,4 @@
-package com.smart_ski_rent_ver1_2.entity.client;
+package com.smart_ski_rent_ver1_2.exception.client;
 
 import com.smart_ski_rent_ver1_2.dto.ClientDTO;
 import jakarta.persistence.*;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name= "clients")
+@Entity
+@Table(name = "clients")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,8 @@ public class Client {
     @Column(name ="phone_number")
     private Integer phoneNumber;
 
-    public ClientDTO mapClientToDTO (){return new ClientDTO(idClient, this.firstName, this.lastName, this.identityCard, this.phoneNumber);}
+ //   @OneToMany(mappedBy = "client")
+ //   private List<Renting> rentingList;
 
+    public ClientDTO mapClientToDTO (){return new ClientDTO(idClient, this.firstName, this.lastName, this.identityCard, this.phoneNumber);}
 }
