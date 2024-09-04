@@ -7,28 +7,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class AppUserDetails {
-   // private final AppUser user;
+public class AppUserDetails implements UserDetails {
+    private final AppUser appUser;
 
- //   public AppUserDetails(AppUser user) {
-   //     this.user = user;
-   // }
-
-   // @Override
-   // public Collection<? extends GrantedAuthority> getAuthorities() {
+    public AppUserDetails(AppUser appUser) {
+        this.appUser = appUser;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         // Konwersja roli na GrantedAuthority
-     //   return Collections.singleton(new SimpleGrantedAuthority(user.getRole().name()));
-   // }
+        return Collections.singleton(new SimpleGrantedAuthority(appUser.getRole().name()));
+    }
 
-   // @Override
-   // public String getPassword() {
-     //   return user.getPassword();
-   // }
+   @Override
+    public String getPassword() {
+      return appUser.getPassword();
+    }
 
-   // @Override
-   // public String getUsername() {
-     //   return user.getUsername();
-   // }
+   @Override
+    public String getUsername() {
+        return appUser.getAppUserName();
+    }
 
 
     public boolean isAccountNonExpired() {

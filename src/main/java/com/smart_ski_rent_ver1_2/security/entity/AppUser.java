@@ -1,6 +1,7 @@
 package com.smart_ski_rent_ver1_2.security.entity;
 
 import jakarta.persistence.*;
+import javax.management.relation.Role;
 
 @Entity
 @Table(name="user")
@@ -15,9 +16,8 @@ public class AppUser {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role")
-    private AppUserRole role;
-
+    @Column(name="user_role")
+    public AppUserRole role;
 
     public AppUser() {
     }
@@ -28,6 +28,7 @@ public class AppUser {
         this.password = password;
         this.role = role;
     }
+
 
     public Long getId() {
         return id;

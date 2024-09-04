@@ -1,7 +1,12 @@
 package com.smart_ski_rent_ver1_2.security;
 
+import com.smart_ski_rent_ver1_2.security.service.AppUserDetailsService;
+import com.smart_ski_rent_ver1_2.security.service.AppUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +22,13 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+     private final AppUserDetailsService appUserDetailsService;
+    private final PasswordEncoder passwordEncoder;
+
+    public SecurityConfig(AppUserDetailsService appUserDetailsService, PasswordEncoder passwordEncoder) {
+        this.appUserDetailsService = appUserDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -24,7 +36,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers( "index.html").permitAll()
-                        .requestMatchers(  "/api/**").hasRole("API")
+                        .requestMatchers(  "/api/**").hasRole("USER")
+                        .requestMatchers(  "/api/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())
@@ -32,23 +45,21 @@ public class SecurityConfig {
 
         return http.build();
     }
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
-                .build();
-        UserDetails api = User.builder()
-                .username("api")
-                .password(passwordEncoder().encode("password"))
-                .roles("API")
-                .build();
+ //   @Bean
+   // public UserDetailsService userDetailsService() {
+     //   UserDetails user = User.builder()
+       //         .username("user")
+         //       .password(passwordEncoder().encode("password"))
+           //     .roles("USER")
+             //   .build();
+       // UserDetails api = User.builder()
+         //       .username("api")
+           //     .password(passwordEncoder().encode("password"))
+             //   .roles("API")
+               // .build();
 
-        return new InMemoryUserDetailsManager(user, api);
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+     //   return new InMemoryUserDetailsManager(user, api);
+   // }
+
+
 }
