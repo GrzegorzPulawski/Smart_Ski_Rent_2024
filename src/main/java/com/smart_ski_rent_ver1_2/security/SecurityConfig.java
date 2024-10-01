@@ -35,13 +35,17 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers( "index.html").permitAll()
-                        .requestMatchers(  "/api/**").hasRole("USER")
-                        .requestMatchers(  "/api/**").hasRole("ADMIN")
+                        .requestMatchers( "index.html","/api/appuser/login").permitAll()
+                        .requestMatchers(  "/api/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/api/appuser/login") // Wskazuje na niestandardową stronę logowania
+                        .defaultSuccessUrl("/") // Adres, na który przekieruje po udanym logowaniu
+                        .permitAll()
+                )
                 .httpBasic(withDefaults());
+        http.formLogin().disable();  // Wyłącz domyślny formularz logowania
 
         return http.build();
     }

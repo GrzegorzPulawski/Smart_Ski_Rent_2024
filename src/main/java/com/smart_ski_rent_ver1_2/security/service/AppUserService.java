@@ -34,4 +34,13 @@ public class AppUserService{
     public Optional<AppUser> findUserByUsername(String username) {
         return userRepository.findByAppUserName(username);
     }
+
+    public AppUser loginUser(String appUserName, String password){
+       Optional<AppUser> optionalAppUser = userRepository.findByAppUserName(appUserName);
+        if(optionalAppUser.isPresent() && passwordEncoder.matches(password, optionalAppUser.get().getPassword())) {
+            return optionalAppUser.get();
+        }else{
+            throw new RuntimeException("Błędne dane");
+        }
+    }
 }
