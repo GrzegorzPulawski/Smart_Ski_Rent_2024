@@ -24,8 +24,8 @@ const AppHeader = () => {
                 <Link to={"/list"}>
                     <div>NartyListuj</div>
                 </Link>
-                <Link to={"/butyList"}>
-                    <div>ButyListuj</div>
+                <Link to={"/logout"}>
+                    <div>Wylogowanie</div>
                 </Link>
             </div>
         </div>

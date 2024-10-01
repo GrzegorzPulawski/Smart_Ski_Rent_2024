@@ -8,6 +8,9 @@ const EquipmentList = () => {
     const [nazwaZmiennej, setterDoKolekcji] = useState([]);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log("Token:", token); // Dodaj to logowanie
+
         connection.get("/api/equipments")
             .then((response) => {
                 if (Array.isArray(response.data)) {
@@ -30,7 +33,7 @@ const EquipmentList = () => {
                 <div className="three">Cena</div>
                 <div className="five"></div>
             </div>
-            {Array.isArray(nazwaZmiennej) &&nazwaZmiennej.map((value) => (
+            {nazwaZmiennej.map((value) => (
                 <Grid container className={classes.NartyTableRow} key={value.idEquipment}>
                     <Grid item xs={2}>{value.idEquipment}</Grid>
                     <Grid item xs={2}>{value.nameEquipment}</Grid>

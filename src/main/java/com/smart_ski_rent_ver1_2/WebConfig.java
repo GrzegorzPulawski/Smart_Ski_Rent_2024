@@ -14,5 +14,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000") // zmień na swój frontendowy adres (port, domena)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // metody HTTP
                 .allowedHeaders("*"); // wszystkie nagłówki
+
     }
 }

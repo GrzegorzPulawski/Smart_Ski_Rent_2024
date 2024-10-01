@@ -1,11 +1,11 @@
 package com.smart_ski_rent_ver1_2.security.controller;
 
+import com.smart_ski_rent_ver1_2.security.dto.AuthResponse;
 import com.smart_ski_rent_ver1_2.security.dto.LoginRequest;
 import com.smart_ski_rent_ver1_2.security.entity.AppUser;
 import com.smart_ski_rent_ver1_2.security.service.AppUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,13 +33,14 @@ public class AppUserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest) {
         System.out.println("Login attempt: " + loginRequest.getAppUserName() + " / " + loginRequest.getPassword());
         try {
             AppUser appUser = appUserService.loginUser(loginRequest.getAppUserName(), loginRequest.getPassword());
-            return ResponseEntity.ok("Login udany" + appUser.getAppUserName());
+            String token = "stworzono Token";
+            return ResponseEntity.ok(new AuthResponse(token));
         }catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse("Zły login; "+e.getMessage()));
         }
     }
 }
