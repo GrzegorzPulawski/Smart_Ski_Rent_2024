@@ -3,9 +3,11 @@ import React from "react";
 import {Grid} from "@mui/material";
 import connection from "../../axios.js";
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const EquipmentList = () => {
     const [nazwaZmiennej, setterDoKolekcji] = useState([]);
+    const navigate = useNavigate(); // Hook do nawigacji
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -19,14 +21,24 @@ const EquipmentList = () => {
                     setterDoKolekcji(response.data.equipments); // Jeśli dane są w kluczu 'equipments'
                 }
             })
-
             .catch((error) => {
                 console.log("Błąd podczas pobierania danych:", error);
             });
     }, []);
+    // Przekierowanie do komponentu FormEquipment
+    const goToAddEquipment = () => {
+        navigate("/formEquipment"); // Przekierowanie do formularza dodawania sprzętu
+    };
+
+
 
     return (
         <div className={classes.Narty}>
+            <h2>Lista sprzętu</h2>
+
+            {/* Przycisk do przekierowania do formularza dodawania */}
+            <button onClick={goToAddEquipment}>Add Equipment</button>
+
             <div className={classes.NartyTableHeader}>
                 <div className="one">Id</div>
                 <div className="two">Nazwa sprzętu</div>

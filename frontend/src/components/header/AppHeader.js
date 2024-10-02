@@ -15,14 +15,14 @@ const AppHeader = () => {
                 <Link to={"/"}>
                     <div>Home</div>
                 </Link>
-                <Link to={"/form"}>
-                    <div>Formularz klienta</div>
+                <Link to={"/clientlist"}>
+                    <div>Klient</div>
                 </Link>
                 <Link to={"/rent"}>
                     <div>Wypożycz</div>
                 </Link>
                 <Link to={"/list"}>
-                    <div>NartyListuj</div>
+                    <div>Sprzęt</div>
                 </Link>
                 <Link to={"/logout"}>
                     <div>Wylogowanie</div>

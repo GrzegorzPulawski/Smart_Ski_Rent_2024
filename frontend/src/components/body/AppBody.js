@@ -5,6 +5,7 @@ import Home from "../home/Home";
 import EquipmentList from "../equipmentlist/EquipmentList";
 import Login from "../login/Login";
 import LogoutButton from "../logout/LogoutButton";
+import FormEquipment from "../formequipment/FormEquipment";
 
 
 const AppBody = () => {
@@ -15,7 +16,9 @@ const AppBody = () => {
                 <Route path={"/"} element={<Home/>}></Route>
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/list"} element={<EquipmentList/>}> </Route>
+                <Route path={"/clientlist"} element={<ClientList/>}> </Route>
                 <Route path={"/logout"} element={<LogoutButton/>}></Route>
+                <Route path={"/formequipment"} element={<FormEquipment/>}></Route>
             </Routes>
         </div>
     );
