@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import classes from "../renting/Renting.module.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import connection from "../../axios";
+import {useNavigate} from "react-router-dom";
 
 
 function Renting() {
@@ -10,6 +11,8 @@ function Renting() {
     const [selectedClient, setSelectedClient] = useState("");
     const [selectedEquipment, setSelectedEquipment] = useState([]);
     const[confirmationMessage, setConfiramtionMessage] = useState('');
+
+    const navigate = useNavigate(); // Inicjalizuj useNavigate
 
     useEffect(() => {
         // Pobierz listę klientów
@@ -91,6 +94,14 @@ function Renting() {
                 <Row className={classes.Button}>
                     <Button variant={"light"} onClick={submit}>Zatwierdź zmiany</Button>
                     {confirmationMessage && <p>{confirmationMessage}</p>}
+                </Row>
+                {/* Przycisk nawigacyjny do listy wypożyczeń */}
+                <Row className={classes.Button}>
+                    <Col>
+                        <Button variant="primary" onClick={() => navigate('/rentingList')} className={classes.RentingButton}>
+                            Zobacz listę wypożyczeń
+                        </Button>
+                    </Col>
                 </Row>
             </Container>
         </div>

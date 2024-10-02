@@ -48,6 +48,26 @@
 .EquipmentList input[type="checkbox"] {
     margin-right: 10px; /* Space between checkbox and label */
 }
+.FormRow {
+    margin-bottom: 1rem;
+}
+
+.Button {
+    margin-top: 1rem;
+}
+
+.RentingButton {
+    background-color: #007bff; /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu */
+    border: none; /* Bez obramowania */
+    padding: 0.5rem 1rem; /* Wewnętrzne odstępy */
+    border-radius: 0.25rem; /* Zaokrąglone rogi */
+    transition: background-color 0.3s ease; /* Animacja przy przejściu */
+}
+
+.RentingButton:hover {
+    background-color: #0056b3; /* Kolor tła przycisku po najechaniu */
+}
 
 @media (max-width: 768px) {
     .Form {
