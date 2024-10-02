@@ -4,6 +4,7 @@ import {Grid} from "@mui/material";
 import connection from "../../axios.js";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import Button from "@mui/material/Button";
 
 const EquipmentList = () => {
     const [nazwaZmiennej, setterDoKolekcji] = useState([]);
@@ -37,7 +38,13 @@ const EquipmentList = () => {
             <h2>Lista sprzętu</h2>
 
             {/* Przycisk do przekierowania do formularza dodawania */}
-            <button onClick={goToAddEquipment}>Add Equipment</button>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={goToAddEquipment}
+                style={{ margin: '10px' }}>
+                Dodaj Sprzęt
+            </Button>
 
             <div className={classes.NartyTableHeader}>
                 <div className="one">Id</div>

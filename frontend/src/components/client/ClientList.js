@@ -2,9 +2,13 @@ import connection from "../../axios";
 import {useState, useEffect} from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import React from "react";
+import classes from "./ClientList.module.css";
+import {useNavigate} from "react-router-dom";
+import Button from '@mui/material/Button';
 
 const ClientList =  () => {
-    const [clientList, setterClientList] = useState([]);
+    const [clientList1, setterClientList] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() =>{
         connection.get("/api/clients")
@@ -17,9 +21,21 @@ const ClientList =  () => {
             });
     },[]);
 
+    const goToAddClient = () =>{
+        navigate("/formClient");
+    }
+
     return(
         <div>
             <h2>Lista klientów</h2>
+
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={goToAddClient}
+                style={{ margin: '10px' }}>
+                Dodaj Klienta
+            </Button>
 
             <Container className={classes.FormRow}>
                 <Row>
@@ -30,7 +46,7 @@ const ClientList =  () => {
                     <Col>Numer telefonu</Col>
                 </Row>
             </Container>
-            {clientList.map(value => (
+            {clientList1.map(value => (
                 <Container key={value.idClient} className={classes.FormRow}>
                     <Row>
                         <Col md={3}>{value.idClient}</Col>

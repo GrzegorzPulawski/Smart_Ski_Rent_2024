@@ -30,15 +30,15 @@ function FormEquipment() {
     };
 
     return (
-        <div className={classes.FormNarty}>
-            <div className={"container"}>
-                <label>Nazwa Sprzętu</label>
+        <div className={classes.FormEquipment}>
+            <div className={classes.GridContainer}>
+                <label htmlFor="input name">Nazwa Sprzętu</label>
                 <input
                     id={'input-name'}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <label>Cena sprzętu</label>
+                <label htmlFor="{'input-price'}">Cena sprzętu</label>
                 <input
                     id={'input-price'}
                     type="number"

@@ -6,7 +6,8 @@ import EquipmentList from "../equipmentlist/EquipmentList";
 import Login from "../login/Login";
 import LogoutButton from "../logout/LogoutButton";
 import FormEquipment from "../formequipment/FormEquipment";
-
+import ClientList from "../client/ClientList";
+import FormClient from "../client/FormClient";
 
 const AppBody = () => {
 
@@ -19,6 +20,7 @@ const AppBody = () => {
                 <Route path={"/clientlist"} element={<ClientList/>}> </Route>
                 <Route path={"/logout"} element={<LogoutButton/>}></Route>
                 <Route path={"/formequipment"} element={<FormEquipment/>}></Route>
+                <Route path={"/formClient"} element={<FormClient/>}></Route>
             </Routes>
         </div>
     );

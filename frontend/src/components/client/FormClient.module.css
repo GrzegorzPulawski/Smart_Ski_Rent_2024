@@ -1,4 +1,4 @@
-.FormEquipment {
+.ClientForm {
     max-width: 400px; /* Ograniczenie szerokości formularza */
     margin: 0 auto; /* Wyśrodkowanie formularza */
     padding: 20px;
@@ -23,7 +23,7 @@ input {
     border-radius: 4px; /* Zaokrąglone rogi inputów */
 }
 
-button.Confirm {
+button.FormConfirm {
     margin-top: 10px; /* Margines górny dla przycisku */
     padding: 10px 15px; /* Padding dla przycisku */
     background-color: #007bff; /* Kolor tła przycisku */
@@ -33,7 +33,7 @@ button.Confirm {
     cursor: pointer; /* Zmiana kursora na wskaźnik */
 }
 
-button.Confirm:hover {
+button.FormConfirm:hover {
     background-color: #0056b3; /* Ciemniejszy kolor przy najechaniu */
 }
 
