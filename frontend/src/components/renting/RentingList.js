@@ -3,7 +3,7 @@ import {Grid} from "@mui/material";
 import classes from "./RentingList.module.css"
 import {Button} from "react-bootstrap";
 import connection from "../../axios";
-import moment from "momment";
+import moment from "mogitment";
 
 
 const RentingList = () => {
