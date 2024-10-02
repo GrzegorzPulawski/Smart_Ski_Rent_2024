@@ -1,9 +1,12 @@
 package com.smart_ski_rent_ver1_2.controller;
 
 import com.smart_ski_rent_ver1_2.dto.ClientDTO;
+import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.request.CreateClientRequest;
 import com.smart_ski_rent_ver1_2.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,4 +32,13 @@ public class ClientController {
         log.info("List of clients has: " + clientList.size() + " positions");
         return clientService.findAllClients();
     }
+    @GetMapping("/findByLastName")
+    public ResponseEntity<List<ClientDTO>> getClientByLastName(@RequestParam("lastName") String lastName) {
+        List<ClientDTO> clients = clientService.findByLastName(lastName);
+        if (clients.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clients);
+        }
+        return ResponseEntity.ok(clients);
+    }
+
 }

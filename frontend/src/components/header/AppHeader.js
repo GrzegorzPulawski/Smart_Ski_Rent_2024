@@ -18,7 +18,7 @@ const AppHeader = () => {
                 <Link to={"/clientlist"}>
                     <div>Klient</div>
                 </Link>
-                <Link to={"/rent"}>
+                <Link to={"/renting"}>
                     <div>Wypożycz</div>
                 </Link>
                 <Link to={"/list"}>

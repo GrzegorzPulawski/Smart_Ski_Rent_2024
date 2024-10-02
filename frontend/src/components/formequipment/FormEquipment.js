@@ -3,6 +3,7 @@ import classes from "./FormEquipment.module.css";
 import connection from "../../axios";
 import {useState} from "react";
 
+
 function FormEquipment() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');

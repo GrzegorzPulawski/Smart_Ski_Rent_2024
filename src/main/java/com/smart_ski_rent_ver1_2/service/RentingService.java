@@ -30,9 +30,10 @@ public class RentingService {
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
             // trzeba złapać klienta jesli jego id nie istnieje!!!
-            Optional<Equipment> optionalEquipment = equipmentRepository.findById(createRentingRequest.getIdEquipment());
-            if (optionalEquipment.isPresent()) {
-                Equipment equipment = optionalEquipment.get();
+            for (Long idEquipment : createRentingRequest.getIdEquipment()) {
+                Optional<Equipment> optionalEquipment = equipmentRepository.findById(idEquipment);
+                if (optionalEquipment.isPresent()) {
+                    Equipment equipment = optionalEquipment.get();
                     //Kreujemy wypozyczenie
                     Renting renting = Renting.builder()
                             .client(client)
@@ -40,11 +41,15 @@ public class RentingService {
                             .dateRenting(LocalDateTime.now())
                             .build();
                     rentingRepository.save(renting);
-                    return;
-            }throw new EquipmentNotExists("Equipment with id: " + createRentingRequest.getIdEquipment()+ " does not exist");
-        }throw new ClientNotExistsException("Client with ID " + createRentingRequest.getIdClient() + " does not exist.");
-    }
-    public Renting returnRenting(Long idRenting, Renting updateRenting) {
+                } else {
+                    throw new EquipmentNotExists("Equipment with id: " + idEquipment + " does not exist");
+                }
+            }
+            }else{
+                throw new ClientNotExistsException("Client with ID " + createRentingRequest.getIdClient() + " does not exist.");
+            }
+        }
+        public Renting returnRenting(Long idRenting, Renting updateRenting) {
         Optional<Renting> optionalRenting = rentingRepository.findById(idRenting);
         if (optionalRenting.isPresent()) {
             Renting renting = optionalRenting.get();

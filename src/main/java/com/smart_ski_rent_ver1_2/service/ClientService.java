@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,4 +32,11 @@ public class ClientService {
             listAllClients.add(client.mapClientToDTO());
         }return listAllClients;
     }
+    public List<ClientDTO> findByLastName(String lastName) {
+        List<Client> clients =  clientRepository.findByLastName(lastName);
+        return clients.stream()
+                .map(client -> new ClientDTO(client.getIdClient(), client.getFirstName(), client.getLastName(), client.getIdentityCard(), client.getPhoneNumber()))
+                .collect(Collectors.toList());
+    }
+
 }

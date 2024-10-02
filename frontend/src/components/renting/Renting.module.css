@@ -1,0 +1,58 @@
+.Form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Ustawia 3 kolumny */
+    gap: 20px; /* Odstęp między kolumnami */
+    margin: 20px; /* Margines dookoła */
+}
+
+.FormRow {
+    display: flex;
+    flex-direction: column; /* Ustawia etykietę i pole w kolumnie */
+}
+
+.form-input-label {
+    margin-bottom: 5px; /* Odstęp pod etykietą */
+    font-weight: bold; /* Pogrubiona czcionka */
+}
+
+.form-input-field {
+    padding: 10px; /* Wewnętrzny odstęp w polach tekstowych */
+    border: 1px solid #ccc; /* Kolor i styl obramowania */
+    border-radius: 4px; /* Zaokrąglone rogi */
+    transition: border-color 0.3s; /* Animacja dla zmiany koloru obramowania */
+}
+
+.form-input-field:focus {
+    border-color: #007bff; /* Zmiana koloru obramowania podczas fokusa */
+    outline: none; /* Usunięcie domyślnego konturu */
+}
+
+.Button {
+    grid-column: span 3; /* Przycisk zajmuje całą szerokość */
+    display: flex;
+    justify-content: center; /* Wyśrodkowanie przycisku */
+    margin-top: 20px; /* Odstęp nad przyciskiem */
+
+}
+.EquipmentList {
+    display: flex;
+    flex-direction: column;
+}
+
+.EquipmentList div {
+    display: flex;
+    align-items: center; /* Align checkbox and label vertically */
+    margin-bottom: 5px; /* Space between checkboxes */
+}
+
+.EquipmentList input[type="checkbox"] {
+    margin-right: 10px; /* Space between checkbox and label */
+}
+
+@media (max-width: 768px) {
+    .Form {
+        grid-template-columns: 1fr; /* Jedna kolumna na małych ekranach */
+    }
+
+
+}

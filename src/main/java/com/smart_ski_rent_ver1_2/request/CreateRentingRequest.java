@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateRentingRequest {
     private Long idClient;
-    private Long idEquipment;
-    //Czy jest potrzebne? Może wystarczy cena equipment?
-  //  private Double rentingPrice;
+    private List<Long> idEquipment;
+
 }
