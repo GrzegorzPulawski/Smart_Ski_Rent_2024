@@ -40,5 +40,5 @@ public class Renting {
     @JoinColumn(name = "clients_client_id")
     private Client client;
 
-    public RentingDTO mapRentingToDTO(){return new RentingDTO(idRenting, this.dateRenting, this.dateOfReturn, this.priceOfDuration, this.daysOfRental);}
+    public RentingDTO mapRentingToDTO(){return new RentingDTO(idRenting, this.client.getLastName(),  this.dateRenting, this.equipment.getNameEquipment(), this.dateOfReturn, this.priceOfDuration, this.daysOfRental);}
 }

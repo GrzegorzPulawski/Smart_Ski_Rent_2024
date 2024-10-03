@@ -10,6 +10,7 @@ import ClientList from "../client/ClientList";
 import FormClient from "../client/FormClient";
 import Renting from "../renting/Renting";
 import RentingList from "../renting/RentingList";
+import ReturnRenting from "../renting/ReturnRenting";
 
 const AppBody = () => {
 
@@ -25,6 +26,7 @@ const AppBody = () => {
                 <Route path={"/formClient"} element={<FormClient/>}></Route>
                 <Route path={"/renting"} element={<Renting/>}></Route>
                 <Route path={"/rentingList"} element={<RentingList/>}></Route>
+                <Route path={"/returnRenting"} element={<ReturnRenting/>}></Route>
             </Routes>
         </div>
     );

@@ -1,0 +1,28 @@
+.Form  div {
+    border: 1px solid var(--border-color);
+    padding: 20px 20px 20px 20px;
+    background: var(--nawigacja);
+    color: ghostwhite;
+    display: flex;
+    justify-content: center;
+}
+.Button{
+    margin: 6px 200px 0px 200px;
+}
+.ButtonContainer {
+    display: flex;
+    justify-content: center; /* Center the button */
+    margin-top: 20px; /* Add some margin for spacing */
+}
+
+.CustomButton {
+    padding: 12px 24px; /* Increase padding for a larger button */
+    font-size: 18px; /* Make the font size larger */
+    border-radius: 8px; /* Add rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.CustomButton:hover {
+    background-color: #0056b3; /* Darker blue on hover (adjust as needed) */
+    color: white; /* Change text color on hover */
+}

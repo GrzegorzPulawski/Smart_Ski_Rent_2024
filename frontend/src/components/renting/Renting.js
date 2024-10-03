@@ -92,8 +92,9 @@ function Renting() {
                 </Row>
 
                 <Row className={classes.Button}>
-                    <Button variant={"light"} onClick={submit}>Zatwierdź zmiany</Button>
                     {confirmationMessage && <p>{confirmationMessage}</p>}
+                    <Button variant={"light"} onClick={submit} className={classes.RentingButton}>Utwórz wypożyczenie</Button>
+
                 </Row>
                 {/* Przycisk nawigacyjny do listy wypożyczeń */}
                 <Row className={classes.Button}>

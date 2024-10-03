@@ -10,8 +10,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RentingDTO {
     private Long idRenting;
-
+    private String lastName;
     private LocalDateTime dateRenting;
+    private String nameEquipment;
     private LocalDateTime dateOfReturn;
     private Double priceOfDuration;
     private Long daysOfRental;
