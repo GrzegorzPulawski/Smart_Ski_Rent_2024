@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import classes from "../renting/Renting.module.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import connection from "../../axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 
 function Renting() {
@@ -40,6 +40,9 @@ function Renting() {
                 // Clear the selected client and equipment
                 setSelectedClient("");
                 setSelectedEquipment([]);
+                setTimeout(() => {
+                    navigate("/rentingList");
+                }, 3000);
             })
             .catch(error => {
                 console.log(error);

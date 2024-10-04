@@ -17,7 +17,7 @@ function FormEquipment() {
             'priceEquipment': price
         };
 
-        connection.post("/api/equipments", createEquipment)
+        connection.post("/api/equipments/add", createEquipment)
             .then((response) => {
                 console.log("Odpowiedź serwera:", response);
                 setConfirmationMessage("Sprzęt został pomyślnie dodany!"); // Ustawiamy komunikat sukcesu
@@ -26,7 +26,7 @@ function FormEquipment() {
             })
             .catch((error) => {
                 console.log("Błąd:", error);
-                setConfirmationMessage("Wystąpił błąd podczas dodawania sprzętu.");
+                setConfirmationMessage("Wystąpił błąd podczas dodawania sprzętu, upewnij się czy masz uprawnienia");
             });
     };
 

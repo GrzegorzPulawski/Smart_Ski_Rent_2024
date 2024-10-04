@@ -31,7 +31,9 @@ const EquipmentList = () => {
         navigate("/formEquipment"); // Przekierowanie do formularza dodawania sprzętu
     };
 
-
+    const goToDeleteEquipment = () => {
+        navigate("/equipmentDelete"); // Przekierowanie do formularza dodawania sprzętu
+    };
 
     return (
         <div className={classes.Narty}>
@@ -60,6 +62,13 @@ const EquipmentList = () => {
                     <Grid item xs={2}></Grid>
                 </Grid>
             ))}
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={goToDeleteEquipment}
+                style={{ margin: '10px' }}>
+                Usuń Sprzęt
+            </Button>
         </div>
     );
 }

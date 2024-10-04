@@ -4,7 +4,8 @@ import classes from "./RentingList.module.css"
 import connection from "../../axios";
 import moment from "moment";
 import ReturnRenting from "./ReturnRenting";
-import {Alert} from "react-bootstrap";
+import {Alert, Button} from "react-bootstrap";
+import {Link, useNavigate} from "react-router-dom";
 
 
 const RentingList = () => {
@@ -12,6 +13,7 @@ const RentingList = () => {
     const [selectedRentings, setSelectedRentings] = useState([])
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate();
 
 
     useEffect(()=>{
@@ -33,6 +35,15 @@ const RentingList = () => {
                 return [...prevSelected, idRenting]; // Select
             }
         });
+    };
+    // Potwierdzenie i przekierowanie do umowy
+    const handleConfirmSelection = () => {
+        if (selectedRentings.length > 0) {
+            // Przekierowanie do komponentu RentalAgreement z ID umowy
+            navigate("/rentalAgreement", { state: { rentingId: selectedRentings[0] } }); // Zakładam, że wybierasz tylko jedną umowę
+        } else {
+            setErrorMessage("Proszę zaznaczyć co najmniej jedną umowę.");
+        }
     };
 
     return(
@@ -77,9 +88,14 @@ const RentingList = () => {
             }
             {successMessage && <Alert variant="success" className="mt-3">{successMessage}</Alert>}
             {errorMessage && <Alert variant="danger" className="mt-3">{errorMessage}</Alert>}
-            <ReturnRenting selectedRentings={selectedRentings} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} />
+            {/* Przycisk do potwierdzenia zaznaczenia */}
+            <Button onClick={handleConfirmSelection}>Wydrukuj umowę wypożyczenia</Button>
 
-
+            <ReturnRenting
+                selectedRentings={selectedRentings}
+                setSuccessMessage={setSuccessMessage}
+                setErrorMessage={setErrorMessage}
+            />
         </div>
     );
 }

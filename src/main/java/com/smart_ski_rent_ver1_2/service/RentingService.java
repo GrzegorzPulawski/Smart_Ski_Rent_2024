@@ -91,9 +91,15 @@ public class RentingService {
         }
         return listAllRenting;
     }
-    public Optional<Renting> showRentingById(Long id){
-        return rentingRepository.findById(id);
+
+    public Optional<RentingDTO> showRentingById(Long id) {
+        Optional<Renting> renting = rentingRepository.findById(id);
+
+        // Użyj mapRentingToDTO() do konwersji Renting na RentingDTO
+        return renting.map(Renting::mapRentingToDTO);
     }
+
+
     public Double generateDailyRevenueReport(LocalDate date) {
         // Pobierz wszystkie transakcje zakończone w danym dniu
         LocalDateTime startOfDay = date.atStartOfDay();

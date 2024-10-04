@@ -5,6 +5,7 @@ import com.smart_ski_rent_ver1_2.security.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,7 +36,10 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers( "index.html","/api/appuser/login").permitAll()
+                        .requestMatchers( "index.html","/api/appuser/login","api/home").permitAll()
+                        // Tylko dla ADMIN: POST i DELETE na /api/formEquipment
+                        .requestMatchers( "/api/equipments/add").hasRole("ADMIN")
+                        .requestMatchers( "/api/equipments/delete").hasRole("ADMIN")
                         .requestMatchers(  "/api/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )

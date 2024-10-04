@@ -2,16 +2,17 @@ import React from "react";
 import classes from "./AppBody.module.css";
 import {  Route, Routes} from "react-router-dom";
 import Home from "../home/Home";
-import EquipmentList from "../equipmentlist/EquipmentList";
+import EquipmentList from "../equipment/EquipmentList";
 import Login from "../login/Login";
 import LogoutButton from "../logout/LogoutButton";
-import FormEquipment from "../formequipment/FormEquipment";
+import FormEquipment from "../equipment/FormEquipment";
 import ClientList from "../client/ClientList";
 import FormClient from "../client/FormClient";
 import Renting from "../renting/Renting";
 import RentingList from "../renting/RentingList";
 import ReturnRenting from "../renting/ReturnRenting";
-
+import RentalAgreement from "../renting/RentalAgreement";
+import EquipmentDelete from "../equipment/EquipmentDelete";
 const AppBody = () => {
 
     return(
@@ -27,6 +28,8 @@ const AppBody = () => {
                 <Route path={"/renting"} element={<Renting/>}></Route>
                 <Route path={"/rentingList"} element={<RentingList/>}></Route>
                 <Route path={"/returnRenting"} element={<ReturnRenting/>}></Route>
+                <Route path={"/rentalAgreement"} element={<RentalAgreement/>}></Route>
+                <Route path={"/equipmentDelete"} element={<EquipmentDelete/>}></Route>
             </Routes>
         </div>
     );

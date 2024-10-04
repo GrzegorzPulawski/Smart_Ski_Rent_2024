@@ -43,13 +43,16 @@ public class RentingController {
         log.info("List of rental has: " + rentingList.size() + " positions");
         return rentingService.listRentings();
     }
-    @GetMapping("/show")
-    public ResponseEntity<Renting> showRentingById(@RequestParam Long idRenting){
-        log.info("Print renting with id: "+ idRenting);
-        Optional<Renting> renting = rentingService.showRentingById(idRenting);
 
-        return renting.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    @GetMapping("/show")
+    public ResponseEntity<RentingDTO> showRentingById(@RequestParam Long idRenting) {
+        log.info("Print renting with id: " + idRenting);
+        Optional<RentingDTO> rentingDTO = rentingService.showRentingById(idRenting);
+
+        return rentingDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
+
+
     @GetMapping("/report")
     public Double getDailyRevenue(@RequestParam("date") String dateString) {
         LocalDate date = LocalDate.parse(dateString);

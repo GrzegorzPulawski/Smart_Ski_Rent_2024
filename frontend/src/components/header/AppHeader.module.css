@@ -25,5 +25,12 @@
     display:inline-block;
     font-size: large;
     color: azure;
-
+}
+@media print {
+    .AppHeader {
+        display: none; /* Ukryj nagłówek aplikacji */
+    }
+    .ButtonPrint {
+        display: none; /* Opcjonalnie, ukryj przycisk drukowania */
+    }
 }
