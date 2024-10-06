@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.service;
 
+import com.smart_ski_rent_ver1_2.company.repository.CompanyRepository;
 import com.smart_ski_rent_ver1_2.dto.RentingDTO;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
@@ -25,6 +26,7 @@ public class RentingService {
     private final RentingRepository rentingRepository;
     private final ClientRepository clientRepository;
     private final EquipmentRepository equipmentRepository;
+
     public void createRenting(CreateRentingRequest createRentingRequest) {
         Optional<Client> optionalClient = clientRepository.findById(createRentingRequest.getIdClient());
         if (optionalClient.isPresent()) {

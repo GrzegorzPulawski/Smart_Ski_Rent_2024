@@ -3,10 +3,13 @@ import classes from "./AppHeader.module.css";
 import {Link} from "react-router-dom";
 
 const AppHeader = () => {
-    return(
+    const username = localStorage.getItem('username');
+
+    return (
         <div className={classes.AppHeader}>
             <div className={classes.HeaderLeft}>
                 <p>Mała Wypożyczalnia Nart</p>
+                <p className={classes.HeaderUser}>Zalogowany jest: {username}</p>
             </div>
             <div className={classes.HeaderRight}>
                 <Link to={"/login"}>
@@ -30,6 +33,7 @@ const AppHeader = () => {
             </div>
         </div>
     );
+};
 
-}
 export default AppHeader;
+

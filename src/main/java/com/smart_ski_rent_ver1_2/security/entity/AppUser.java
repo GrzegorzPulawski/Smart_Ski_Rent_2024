@@ -9,33 +9,32 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long id;
+    private Long userId;
     @Column(name = "app_user_name")
     private String appUserName;
     @Column(name = "password")
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="user_role")
+    @Column(name = "user_role")
     public AppUserRole role;
 
     public AppUser() {
     }
 
-    public AppUser(Long id, String appUserName, String password, AppUserRole role) {
-        this.id = id;
+    public AppUser(Long userId, String appUserName, String password, AppUserRole role) {
+        this.userId = userId;
         this.appUserName = appUserName;
         this.password = password;
         this.role = role;
     }
 
-
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getAppUserName() {
@@ -62,3 +61,5 @@ public class AppUser {
         this.role = role;
     }
 }
+
+

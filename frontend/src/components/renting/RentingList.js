@@ -15,7 +15,6 @@ const RentingList = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
 
-
     useEffect(()=>{
         connection.get("/api/rentings")
             .then((response)=>{
