@@ -8,7 +8,7 @@ const AppHeader = () => {
     return (
         <div className={classes.AppHeader}>
             <div className={classes.HeaderLeft}>
-                <p>Mała Wypożyczalnia Nart</p>
+                <p>Smart Ski Rent</p>
                 <p className={classes.HeaderUser}>Zalogowany jest: {username}</p>
             </div>
             <div className={classes.HeaderRight}>
@@ -27,8 +27,8 @@ const AppHeader = () => {
                 <Link to={"/list"}>
                     <div>Sprzęt</div>
                 </Link>
-                <Link to={"/logout"}>
-                    <div>Wylogowanie</div>
+                <Link to={"/dailyReport"}>
+                    <div>Raporty</div>
                 </Link>
             </div>
         </div>

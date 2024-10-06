@@ -14,6 +14,7 @@ import ReturnRenting from "../renting/ReturnRenting";
 import RentalAgreement from "../renting/RentalAgreement";
 import EquipmentDelete from "../equipment/EquipmentDelete";
 import CompanySave from "../company/CompanySave";
+import DailyRevenueReport from "../reports/DailyRevenueReport";
 const AppBody = () => {
 
     return(
@@ -32,6 +33,7 @@ const AppBody = () => {
                 <Route path={"/rentalAgreement"} element={<RentalAgreement/>}></Route>
                 <Route path={"/equipmentDelete"} element={<EquipmentDelete/>}></Route>
                 <Route path={"/companySave"} element={<CompanySave/>}></Route>
+                <Route path={"/dailyReport"} element={<DailyRevenueReport/>}></Route>
             </Routes>
         </div>
     );

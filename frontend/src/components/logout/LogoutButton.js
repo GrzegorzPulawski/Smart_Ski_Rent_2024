@@ -20,7 +20,7 @@ const LogoutButton = () => {
     };
     return(
         <div>
-        <button onClick={handleLogout}>Wyloguj się</button>
+        <button onClick={handleLogout}>Potwierdź wylogowanie</button>
     {message && <p style={{ color: 'green' }}>{message}</p>}
         </div>
     );

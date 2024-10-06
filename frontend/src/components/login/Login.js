@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import connection from "../../axios";
 import {Button, Col} from "react-bootstrap";
 import classes from "../renting/Renting.module.css";
+
 
 const Login = () => {
     const [appUserName, setAppUserName] = useState('');
@@ -73,6 +74,9 @@ const Login = () => {
                     Wprowdź dane firmy
                 </Button>
             </Col>
+            <Button variant="outline-secondary" onClick={()=> navigate('/logout')} className={classes.RentingButton}>
+                <div>Wylogowanie</div>
+            </Button>
         </form>
     );
 };

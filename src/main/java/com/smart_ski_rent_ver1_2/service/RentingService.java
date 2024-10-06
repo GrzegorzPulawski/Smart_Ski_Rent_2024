@@ -108,7 +108,6 @@ public class RentingService {
         LocalDateTime endOfDay = date.plusDays(1).atStartOfDay();
 
         List<Renting> rentalsForDay = rentingRepository.findByDateOfReturnBetween(startOfDay, endOfDay);
-
         // Sumowanie przychodów
         return rentalsForDay.stream()
                 .mapToDouble(Renting::getPriceOfDuration)
