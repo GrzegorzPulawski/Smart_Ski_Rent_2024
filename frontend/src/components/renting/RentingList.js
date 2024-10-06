@@ -47,6 +47,22 @@ const RentingList = () => {
 
     return(
         <div>
+            <div className={classes.ButtonContainer}>
+                <Button
+                    variant="primary" // Change the variant for a different color
+                    onClick={handleConfirmSelection}
+                    disabled={selectedRentings.length === 0}
+                    className={`btn-lg ${classes.CustomButton}`} // Adding custom classes
+                >Wydrukuj umowę wypożyczenia
+                </Button>
+            <ReturnRenting
+                selectedRentings={selectedRentings}
+                setSuccessMessage={setSuccessMessage}
+                setErrorMessage={setErrorMessage}
+            />
+                {successMessage && <Alert variant="success" className="mt-3">{successMessage}</Alert>}
+                {errorMessage && <Alert variant="danger" className="mt-3">{errorMessage}</Alert>}
+            </div>
             <Grid container  className={classes.TableHeader}>
                 <Grid item xs={1} className={classes.HeaderCell}>Select</Grid>
                 <Grid item xs={1} className={classes.HeaderCell}>Id</Grid>
@@ -85,16 +101,7 @@ const RentingList = () => {
                     </Grid>)
                 })
             }
-            {successMessage && <Alert variant="success" className="mt-3">{successMessage}</Alert>}
-            {errorMessage && <Alert variant="danger" className="mt-3">{errorMessage}</Alert>}
-            {/* Przycisk do potwierdzenia zaznaczenia */}
-            <Button onClick={handleConfirmSelection}>Wydrukuj umowę wypożyczenia</Button>
 
-            <ReturnRenting
-                selectedRentings={selectedRentings}
-                setSuccessMessage={setSuccessMessage}
-                setErrorMessage={setErrorMessage}
-            />
         </div>
     );
 }

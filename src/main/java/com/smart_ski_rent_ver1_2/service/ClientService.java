@@ -26,7 +26,7 @@ public class ClientService {
         throw new EntityNotFoundException("Klient o podanym numerze telefonu już istnieje: "+ createClientRequest.getPhoneNumber());
     }
     public List<ClientDTO> findAllClients(){
-        List<Client> clientList = clientRepository.findAll();
+        List<Client> clientList = clientRepository.findAllByOrderByIdClientDesc();
         List<ClientDTO> listAllClients = new ArrayList<>();
         for(Client client : clientList) {
             listAllClients.add(client.mapClientToDTO());

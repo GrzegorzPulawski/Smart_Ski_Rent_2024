@@ -86,7 +86,7 @@ public class RentingService {
         return (long) Math.ceil(days);
     }
     public List<RentingDTO> listRentings(){
-        List<Renting> rentingList= rentingRepository.findAll();
+        List<Renting> rentingList= rentingRepository.findAllByOrderByDateRentingDesc();
         List<RentingDTO> listAllRenting = new ArrayList<>();
         for (Renting renting: rentingList){
             listAllRenting.add(renting.mapRentingToDTO());

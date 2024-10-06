@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface RentingRepository extends JpaRepository<Renting, Long> {
     List<Renting> findByDateOfReturnBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
-    List<Renting> findAllByOrderByRentingDateDesc();
+    List<Renting> findAllByOrderByDateRentingDesc();
 }

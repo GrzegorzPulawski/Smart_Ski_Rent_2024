@@ -6,23 +6,25 @@
     display: flex;
     justify-content: center;
 }
-.Button{
-    margin: 6px 200px 0px 200px;
-}
 .ButtonContainer {
     display: flex;
-    justify-content: center; /* Center the button */
-    margin-top: 20px; /* Add some margin for spacing */
+    justify-content: center;
+    align-items: center; /* This will vertically align the buttons */
 }
 
 .CustomButton {
-    padding: 12px 24px; /* Increase padding for a larger button */
-    font-size: 18px; /* Make the font size larger */
-    border-radius: 8px; /* Add rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Add some margin to separate the buttons */
 }
 
 .CustomButton:hover {
-    background-color: #0056b3; /* Darker blue on hover (adjust as needed) */
-    color: white; /* Change text color on hover */
+    background-color: #0056b3;
+    color: white;
 }
+
+
+
+
