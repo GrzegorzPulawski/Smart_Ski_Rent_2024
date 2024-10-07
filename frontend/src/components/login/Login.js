@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import connection from "../../axios";
 import {Button, Col} from "react-bootstrap";
-import classes from "../renting/Renting.module.css";
+import classes from "./Login.module.css";
 
 
 const Login = () => {
@@ -52,6 +52,7 @@ const Login = () => {
             });
     };
     return (
+        <>
         <form onSubmit={handleSubmit}>
             <input
                 type="text"
@@ -74,10 +75,16 @@ const Login = () => {
                     Wprowdź dane firmy
                 </Button>
             </Col>
+            <Col>
             <Button variant="outline-secondary" onClick={()=> navigate('/logout')} className={classes.RentingButton}>
                 <div>Wylogowanie</div>
             </Button>
+            </Col>
         </form>
+    <div className={classes.Footer}>
+        Program napisała firma Mandragora. Kontakt w celu zakupu: tel.502109609
+    </div>
+</>
     );
 };
 export default Login;
