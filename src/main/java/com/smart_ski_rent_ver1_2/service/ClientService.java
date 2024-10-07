@@ -2,6 +2,7 @@ package com.smart_ski_rent_ver1_2.service;
 
 import com.smart_ski_rent_ver1_2.dto.ClientDTO;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
+import com.smart_ski_rent_ver1_2.exception.ClientNotExistsException;
 import com.smart_ski_rent_ver1_2.request.CreateClientRequest;
 import com.smart_ski_rent_ver1_2.repositories.ClientRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -37,6 +38,15 @@ public class ClientService {
         return clients.stream()
                 .map(client -> new ClientDTO(client.getIdClient(), client.getFirstName(), client.getLastName(), client.getIdentityCard(), client.getPhoneNumber()))
                 .collect(Collectors.toList());
+    }
+    public void deleteClient(Long idClient ){
+        boolean existsClient = clientRepository.existsById(idClient);
+        if(existsClient) {
+            clientRepository.deleteById(idClient);
+        }else{
+            throw  new ClientNotExistsException("Klient o "+idClient+" id nie istnieje. Wprowadż poprawne dane");
+        }
+
     }
 
 }

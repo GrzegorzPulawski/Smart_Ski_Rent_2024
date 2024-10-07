@@ -96,7 +96,6 @@ public class RentingService {
 
     public Optional<RentingDTO> showRentingById(Long id) {
         Optional<Renting> renting = rentingRepository.findById(id);
-
         // Użyj mapRentingToDTO() do konwersji Renting na RentingDTO
         return renting.map(Renting::mapRentingToDTO);
     }

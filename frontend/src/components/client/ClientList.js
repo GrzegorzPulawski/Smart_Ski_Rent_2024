@@ -24,7 +24,9 @@ const ClientList =  () => {
     const goToAddClient = () =>{
         navigate("/formClient");
     }
-
+    const goToDeleteClient = () =>{
+        navigate("/deleteClient");
+    }
     return(
         <div>
             <h2>Lista klientów</h2>
@@ -35,6 +37,13 @@ const ClientList =  () => {
                 onClick={goToAddClient}
                 style={{ margin: '10px' }}>
                 Dodaj Klienta
+            </Button>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={goToDeleteClient}
+                style={{ margin: '10px' }}>
+                Usuń Klienta
             </Button>
 
             <Container className={classes.FormRow}>

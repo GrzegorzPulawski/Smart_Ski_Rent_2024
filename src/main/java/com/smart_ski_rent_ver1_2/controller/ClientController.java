@@ -40,5 +40,10 @@ public class ClientController {
         }
         return ResponseEntity.ok(clients);
     }
+    @DeleteMapping("/delete")
+    public void deleteClientById(@RequestParam("idClient") Long idClient){
+        log.info("Delete client with ID: "+idClient);
+        clientService.deleteClient(idClient);
+    }
 
 }
