@@ -16,6 +16,8 @@ import EquipmentDelete from "../equipment/EquipmentDelete";
 import CompanySave from "../company/CompanySave";
 import DailyRevenueReport from "../reports/DailyRevenueReport";
 import DeleteClient from "../client/DeleteClient";
+import CreateUser from "../user/CreateUser";
+import DeleteUser from "../user/DeleteUser";
 const AppBody = () => {
 
     return(
@@ -36,6 +38,8 @@ const AppBody = () => {
                 <Route path={"/companySave"} element={<CompanySave/>}></Route>
                 <Route path={"/dailyReport"} element={<DailyRevenueReport/>}></Route>
                 <Route path={"/deleteClient"} element={<DeleteClient/>}></Route>
+                <Route path={"/createUser"} element={<CreateUser/>}></Route>
+                <Route path={"/deleteUser"} element={<DeleteUser/>}></Route>
             </Routes>
         </div>
     );

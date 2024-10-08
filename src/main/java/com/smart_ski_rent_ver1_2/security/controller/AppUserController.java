@@ -21,15 +21,22 @@ public class AppUserController {
         this.appUserService = appUserService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/devel/register")
     public ResponseEntity<?> registerUser(@RequestBody AppUser appUser) {
         log.info("Created user with name: " + appUser.getAppUserName());
         appUserService.createUser(appUser);
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
     }
-    @GetMapping
+    @GetMapping("/devel/findAll")
     public List<AppUser> findAllUsers(){
        return appUserService.findAllUsers();
+    }
+
+    @DeleteMapping("/devel/delete/{idUser}")
+    public ResponseEntity<?> deleteUserById(@PathVariable Long idUser){
+        log.info("Delete User with ID: "+idUser);
+        appUserService.deleteUserById(idUser);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/login")

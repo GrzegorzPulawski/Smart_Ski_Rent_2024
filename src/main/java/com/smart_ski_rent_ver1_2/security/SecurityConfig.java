@@ -38,9 +38,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers( "index.html","/api/appuser/login","api/home").permitAll()
                         // Tylko dla ADMIN: POST i DELETE na /api/formEquipment
+
                         .requestMatchers( "/api/equipments/add").hasRole("ADMIN")
                         .requestMatchers( "/api/equipments/delete").hasRole("ADMIN")
-                        .requestMatchers(  "/api/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/appusers/devel/register").hasRole("DEVEL")
+                        .requestMatchers(  "/api/**").hasAnyRole("USER", "ADMIN", "DEVEL")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

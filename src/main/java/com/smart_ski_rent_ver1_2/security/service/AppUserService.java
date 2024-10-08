@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.security.service;
 
+import com.smart_ski_rent_ver1_2.exception.ClientNotExistsException;
 import com.smart_ski_rent_ver1_2.security.entity.AppUser;
 import com.smart_ski_rent_ver1_2.security.repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,14 @@ public class AppUserService{
 
     public Optional<AppUser> findUserByUsername(String username) {
         return userRepository.findByAppUserName(username);
+    }
+    public void deleteUserById(Long idUser) {
+        boolean existsUser = userRepository.existsById(idUser);
+        if (existsUser) {
+            userRepository.deleteById(idUser);
+        } else {
+            throw new ClientNotExistsException("Użytkownik o ID: " + idUser + "nie istnieje");
+        }
     }
     public AppUser loginUser(String appUserName, String password){
        Optional<AppUser> optionalAppUser = userRepository.findByAppUserName(appUserName);
