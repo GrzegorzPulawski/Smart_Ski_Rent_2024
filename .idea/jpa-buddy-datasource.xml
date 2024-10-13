@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="fb6cf309-715d-4d37-9dd6-08b378f38be3" name="smart_ski_rent" url="jdbc:mysql://localhost:3306/smart_ski_rent" driverClass="com.mysql.cj.jdbc.Driver" />
+    </data-sources>
+  </component>
+</project>
