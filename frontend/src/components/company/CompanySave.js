@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import connection from "../../axios";
+import classes from "./CompanySave.module.css";
 
 const CompanyForm = () => {
     const [companyName, setCompanyName] = useState('');
@@ -28,43 +29,46 @@ const CompanyForm = () => {
     };
 
     return (
-        <div>
+        <div className={classes.CompanyForm}>
             <h2>Dodaj Dane Firmy</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form onSubmit={handleSubmit} className={classes.Form}>
+                <div className={classes.FormGroup}>
                     <label htmlFor="companyName">Nazwa Firmy:</label>
                     <input
                         type="text"
                         id="companyName"
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
+                        className={classes.Input}
                         required
                     />
                 </div>
-                <div>
+                <div className={classes.FormGroup}>
                     <label htmlFor="companyNIP">NIP Firmy:</label>
                     <input
                         type="number"
                         id="companyNIP"
                         value={companyNIP}
                         onChange={(e) => setCompanyNIP(e.target.value)}
+                        className={classes.Input}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="companyNIP">Login użytkownika:</label>
+                <div className={classes.FormGroup}>
+                    <label htmlFor="nameUser">Login użytkownika:</label>
                     <input
                         type="text"
                         id="nameUser"
                         value={nameUser}
                         onChange={(e) => setNameUser(e.target.value)}
+                        className={classes.Input}
                         required
                     />
                 </div>
-                <button type="submit">Zapisz</button>
+                <button type="submit" className={classes.Button}>Zapisz</button>
             </form>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>{success}</p>}
+            {error && <p className={classes.Error}>{error}</p>}
+            {success && <p className={classes.Success}>{success}</p>}
         </div>
     );
 };

@@ -13,7 +13,6 @@ const LogoutButton = () => {
         localStorage.removeItem('token');
         setMessage("Poprawnie wylogowano.");
 
-
         setTimeout(() => {
             navigate("/login"); // Przekierowanie na stronę logowania
         }, 2000); // Opóźnienie 2 sekundy

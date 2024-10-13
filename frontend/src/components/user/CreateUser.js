@@ -3,30 +3,36 @@ import connection from "../../axios";
 import {useNavigate} from "react-router-dom";
 import {Col} from "react-bootstrap";
 
-
 const CreateUser = () => {
     const [appUserName, setAppUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [roleUser, setRoleUser] = useState(''); // Może lepiej zrobić z tego pole select
+    const [role, setRole] = useState(''); // Może lepiej zrobić z tego pole select
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage ]= useState('');
+
 
        let navigate = useNavigate();
         const handleDeleteClick = ()=>{
             navigate('/deleteUser');
     }
+        const handleListUserClick = ()=>{
+            navigate('/userList')
+        }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const appUser = {
             appUserName,
             password,
-            roleUser,
+            role,
         };
         try {
-            const response = await connection.post('/api/appuser/devel/register', appUser);
+            const response = await connection.post('/api/appusers/devel/register', appUser);
             setSuccessMessage('Zarejestrowano użytkownika pomyślnie');
             setError(''); // Wyczyść ewentualne błędy
+
+
         } catch (err) {
             console.error("Błąd rejestracji:", err);
 
@@ -42,7 +48,7 @@ const CreateUser = () => {
 
         return (
             <div>
-                <h2>Rejestracja Użytkownika</h2>
+                <h2>Rejestracja Użytkownika - opcja dostępna tylko dla administratora</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Nadaj Nazwę użytkownika:</label>
@@ -65,8 +71,8 @@ const CreateUser = () => {
                     <div>
                         <label>Nadaj Rolę Użytkownika:</label>
                         <input
-                            value={roleUser}
-                            onChange={(e) => setRoleUser(e.target.value)}
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
                             required
                         />
                     </div>
@@ -76,9 +82,14 @@ const CreateUser = () => {
                             Usuń konto
                         </button>
                     </Col>
+                    <Col>
+                        <button type="submit" onClick={handleListUserClick}>
+                         Pokaż użytkowników
+                        </button>
+                    </Col>
                 </form>
-                {successMessage && <p style={{color: 'green'}}>{successMessage}</p>}
-                {error && <p style={{color: 'red'}}>{error}</p>}
+                {successMessage && <p style={{color: 'green'}}>{"Założono konto poprawnie"}</p>}
+                {error && <p style={{color: 'red'}}>{"Nie masz uprawnień"}</p>}
             </div>
         );
     };

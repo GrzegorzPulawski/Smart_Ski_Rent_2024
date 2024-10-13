@@ -12,6 +12,18 @@
     align-items: center; /* Wyśrodkowanie w pionie */
     margin-left: 20px;
 }
+.HeaderTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+.HeaderTitle:hover {
+    color: #ffcc00; /* Change text color on hover */
+}
+
+
 
 .HeaderRight {
     margin-left: auto;
@@ -27,10 +39,11 @@
     color: azure;
 }
 
-/* Nowa klasa dla użytkownika */
 .HeaderUser {
-    margin-left: 10px; /* Odstęp między nazwą firmy a zalogowanym użytkownikiem */
-    color: azure; /* Upewnij się, że kolor tekstu pasuje do stylu */
+    margin-left: 20px;
+    font-size: 1rem;
+    color: #ffffff;
+    opacity: 0.9; /* Slightly dimmed text */
 }
 
 @media print {

@@ -11,7 +11,7 @@ const DeleteUser = () => {
 
         try {
             // Wysyłanie żądania DELETE na endpoint
-            await connection.delete(`/api/appuser/devel/delete/${idUser}`);
+            await connection.delete(`/api/appusers/devel/delete/${idUser}`);
 
             // Ustawienie komunikatu o sukcesie, jeśli użytkownik zostanie pomyślnie usunięty
             setSuccessMessage(`User with ID ${idUser} was successfully deleted.`);

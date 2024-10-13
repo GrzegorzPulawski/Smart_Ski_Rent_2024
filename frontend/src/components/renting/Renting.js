@@ -1,43 +1,50 @@
-import React, { useEffect, useState } from "react";
-import classes from "../renting/Renting.module.css";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import classes from './Renting.module.css';
 import connection from "../../axios";
-import {Link, useNavigate} from "react-router-dom";
-
 
 function Renting() {
     const [clients, setClients] = useState([]);
-    const [equipment, setEquipment] = useState([]);
+    const [filteredClients, setFilteredClients] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const [selectedClient, setSelectedClient] = useState("");
+    const [equipment, setEquipment] = useState([]);
     const [selectedEquipment, setSelectedEquipment] = useState([]);
-    const[confirmationMessage, setConfiramtionMessage] = useState('');
+    const [confirmationMessage, setConfirmationMessage] = useState('');
 
-    const navigate = useNavigate(); // Inicjalizuj useNavigate
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Pobierz listę klientów
         connection.get('/api/clients')
-            .then(response => setClients(response.data))
+            .then(response => {
+                setClients(response.data);
+                setFilteredClients(response.data);  // Initialize with full list
+            })
             .catch(error => console.error("Error fetching clients:", error));
 
-        // Pobierz listę sprzętu
-        connection.get('/api/equipments') // Zaktualizuj to na odpowiedni endpoint
+        connection.get('/api/equipments')
             .then(response => setEquipment(response.data))
             .catch(error => console.error("Error fetching equipment:", error));
     }, []);
 
+    const handleSearch = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        setFilteredClients(clients.filter(client =>
+            client.lastName.toLowerCase().includes(query.toLowerCase()) // Filter by last name
+        ));
+    };
+
     const submit = () => {
         const createRenting = {
-
-            idClient: selectedClient, // tutaj powinno być id klienta
-            idEquipment: selectedEquipment // tutaj powinno być id sprzętu
+            idClient: selectedClient, // Selected client ID
+            idEquipment: selectedEquipment // Selected equipment IDs
         };
 
         connection.post('/api/rentings', createRenting)
             .then(response => {
-                console.log(response);
-                setConfiramtionMessage ("Utworzono wypożyczenie!");
-                // Clear the selected client and equipment
+                setConfirmationMessage("Utworzono wypożyczenie!");
                 setSelectedClient("");
                 setSelectedEquipment([]);
                 setTimeout(() => {
@@ -45,17 +52,15 @@ function Renting() {
                 }, 3000);
             })
             .catch(error => {
-                console.log(error);
-                setConfiramtionMessage ("Wystąpił błąd podczas tworzenia wypożyczenia!");
+                setConfirmationMessage("Wystąpił błąd podczas tworzenia wypożyczenia!");
             });
     };
+
     const handleCheckboxChange = (id) => {
         setSelectedEquipment(prevSelected => {
             if (prevSelected.includes(id)) {
-                // If already selected, remove it
                 return prevSelected.filter(equipmentId => equipmentId !== id);
             } else {
-                // Otherwise, add it to the selected array
                 return [...prevSelected, id];
             }
         });
@@ -66,10 +71,21 @@ function Renting() {
             <Container className={classes.Form}>
                 <Row>
                     <Col className={classes.FormRow}>
-                        <label className={'form-input-label'}>Wybierz klienta:</label>
-                        <select value={selectedClient} onChange={(e) => setSelectedClient(e.target.value)} className={'form-input-field'}>
+                        <label className={'form-input-label'}>Wyszukaj klienta po nazwisku:</label>
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={handleSearch}
+                            placeholder="Wpisz nazwisko klienta"
+                            className={'form-input-field'}
+                        />
+                        <select
+                            value={selectedClient}
+                            onChange={(e) => setSelectedClient(e.target.value)}
+                            className={'form-input-field'}
+                        >
                             <option value="">Wybierz klienta</option>
-                            {clients.map(client => (
+                            {filteredClients.map(client => (
                                 <option key={client.idClient} value={client.idClient}>
                                     {client.lastName} {client.firstName}
                                 </option>
@@ -77,7 +93,7 @@ function Renting() {
                         </select>
                     </Col>
                     <Col className={classes.FormRow}>
-                        <label className={'form-input-label'}>Wybierz sprzęt:</label>
+                        <label className={'form-input-label'}>Wybierz sprzęt do wypozyczenia:</label>
                         <div className={classes.EquipmentList}>
                             {equipment.map(equip => (
                                 <div key={equip.idEquipment}>
@@ -97,9 +113,8 @@ function Renting() {
                 <Row className={classes.Button}>
                     {confirmationMessage && <p>{confirmationMessage}</p>}
                     <Button variant={"light"} onClick={submit} className={classes.RentingButton}>Utwórz wypożyczenie</Button>
-
                 </Row>
-                {/* Przycisk nawigacyjny do listy wypożyczeń */}
+
                 <Row className={classes.Button}>
                     <Col>
                         <Button variant="primary" onClick={() => navigate('/rentingList')} className={classes.RentingButton}>
@@ -113,3 +128,5 @@ function Renting() {
 }
 
 export default Renting;
+
+

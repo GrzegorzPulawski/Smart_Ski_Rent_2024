@@ -4,14 +4,16 @@ import {Link} from "react-router-dom";
 
 const AppHeader = () => {
     const username = localStorage.getItem('username');
-
     return (
         <div className={classes.AppHeader}>
             <div className={classes.HeaderLeft}>
-                <Link to={"/createUser"}><div>Smart Ski Rent</div></Link>
-                <p className={classes.HeaderUser}>Zalogowany jest: {username}</p>
+                <Link to={"/createUser"}>
+                    <div className={classes.HeaderTitle}>Smart Ski Rent</div>
+                </Link>
+                <div className={classes.HeaderUser}>Zalogowany jest: {username}</div>
             </div>
-            <div className={classes.HeaderRight}>
+
+    <div className={classes.HeaderRight}>
                 <Link to={"/login"}>
                     <div>Login</div>
                 </Link>

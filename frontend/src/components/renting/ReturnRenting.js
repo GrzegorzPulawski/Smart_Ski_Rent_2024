@@ -4,6 +4,8 @@ import connection from "../../axios";
 import classes from "./ReturnRenting.module.css";
 
 const ReturnRenting = ({ selectedRentings, setSuccessMessage, setErrorMessage }) => {
+
+
     const submitReturns = () => {
         selectedRentings.forEach(idRenting => {
             const updateRenting = {}; // You can add properties here if needed
@@ -12,8 +14,8 @@ const ReturnRenting = ({ selectedRentings, setSuccessMessage, setErrorMessage })
                 .then((response) => {
                     setSuccessMessage(`Zwrot wypożyczenia z Nr ID: ${idRenting} został pomyślnie zatwierdzony.`);
                     setTimeout(() => {
-                        window.location.reload(); // Refresh the page after 3 seconds
-                    }, 5000);
+                        window.location.reload(); // Refresh the page after 5 seconds
+                    }, 2000);
                 })
                 .catch((error) => {
                     setErrorMessage(`Błąd zwrotu dla wypożyczenia z Nr ID: ${idRenting}: ${error.message}`);

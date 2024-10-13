@@ -2,15 +2,13 @@ package com.smart_ski_rent_ver1_2.company.service;
 
 import com.smart_ski_rent_ver1_2.company.DTO.CompanyDTO;
 import com.smart_ski_rent_ver1_2.company.entity.Company;
-import com.smart_ski_rent_ver1_2.company.repository.CompanyRepository;
+import com.smart_ski_rent_ver1_2.repositories.repository.CompanyRepository;
 import com.smart_ski_rent_ver1_2.exception.NoCompanyForThisLoginException;
 import com.smart_ski_rent_ver1_2.security.entity.AppUser;
 import com.smart_ski_rent_ver1_2.security.repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.Optional;
 
 @Service
