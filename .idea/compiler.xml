@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Smart_Ski_Rent_2024" target="18" />
+      <module name="Smart_Ski_Rent_2024" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
