@@ -60,7 +60,7 @@ public class ClientServiceTest {
         Client client2 = new Client(2L, "Jane", "Doe", "ID67890", 987654321);
         List<Client> clientList = Arrays.asList(client1, client2);
 
-        given(clientRepository.findAll()).willReturn(clientList);
+        given(clientRepository.findAllByOrderByIdClientDesc()).willReturn(clientList);
 
         // when
         List<ClientDTO> clientDTOList = clientService.findAllClients();
