@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // umożliwia CORS dla wszystkich endpointów
-                .allowedOrigins("http://localhost:3000") // zmień na swój frontendowy adres (port, domena)
+                .allowedOrigins("https://smart-ski-rent-01-35db1f76586e.herokuapp.com") // zmień na swój frontendowy adres (port, domena)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // metody HTTP
                 .allowedHeaders("*"); // wszystkie nagłówki
 
