@@ -4,7 +4,6 @@ import com.smart_ski_rent_ver1_2.company.DTO.CompanyDTO;
 import com.smart_ski_rent_ver1_2.company.entity.Company;
 import com.smart_ski_rent_ver1_2.exception.CompanyNotExistsException;
 import com.smart_ski_rent_ver1_2.repositories.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

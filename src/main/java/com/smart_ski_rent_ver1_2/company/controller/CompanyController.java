@@ -39,9 +39,9 @@ public class CompanyController {
         }
 
     @GetMapping("/findByUser")
-    public ResponseEntity<?> getCompanyByUser(@RequestParam String nameUser) {
+    public ResponseEntity<?> getCompanyByUser(@RequestParam String nameUserCompany) {
         try {
-            Company company = companyService.findCompanyByUser(nameUser);
+            Company company = companyService.findCompanyByUser(nameUserCompany);
             return ResponseEntity.ok(company);
         } catch (CompanyNotExistsException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
