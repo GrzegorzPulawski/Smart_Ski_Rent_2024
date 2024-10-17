@@ -47,30 +47,13 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/api/appuser/login") // Wskazuje na niestandardową stronę logowania
+                        .loginPage("/api/appusers/login") // Wskazuje na niestandardową stronę logowania
                         .defaultSuccessUrl("/") // Adres, na który przekieruje po udanym logowaniu
                         .permitAll()
                 )
                 .httpBasic(withDefaults());
-        http.formLogin().disable();  // Wyłącz domyślny formularz logowania
 
         return http.build();
     }
- //   @Bean
-   // public UserDetailsService userDetailsService() {
-     //   UserDetails user = User.builder()
-       //         .username("user")
-         //       .password(passwordEncoder().encode("password"))
-           //     .roles("USER")
-             //   .build();
-       // UserDetails api = User.builder()
-         //       .username("api")
-           //     .password(passwordEncoder().encode("password"))
-             //   .roles("API")
-               // .build();
-
-     //   return new InMemoryUserDetailsManager(user, api);
-   // }
-
 
 }
