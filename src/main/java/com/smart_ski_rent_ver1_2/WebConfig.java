@@ -17,7 +17,9 @@ public class WebConfig implements WebMvcConfigurer {
                         "https://smart-ski-rent-01-35db1f76586e.herokuapp.com" // adres produkcyjny
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // metody HTTP
-                .allowedHeaders("*"); // wszystkie nagłówki
+                .allowedHeaders("*") // wszystkie nagłówki
+                 .allowCredentials(true);
+
     }
 
     @Override
