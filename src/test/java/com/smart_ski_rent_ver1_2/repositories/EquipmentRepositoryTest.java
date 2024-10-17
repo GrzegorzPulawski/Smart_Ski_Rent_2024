@@ -29,6 +29,7 @@ public class EquipmentRepositoryTest {
         assertThat(save).isEqualTo(equipment1);
     }
     @Test
+    @DisplayName("Listowanie sprzętu")
     public void givenEquipment_whenFindAll_thenReturnListOfEquipment(){
         //given
         Equipment equipment1 = new Equipment(1L, "Atomic", 50.0);
