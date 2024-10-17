@@ -4,53 +4,83 @@
     width: 90vw;
     margin: auto;
     display: flex;
-    align-items: center; /* Wyśrodkowanie w pionie */
+    align-items: center;
+    justify-content: space-between; /* Dodano dla rozłożenia elementów */
+    padding: 0 10px; /* Zwiększ odstępy dla mobilnych */
 }
 
 .HeaderLeft {
-    display: flex; /* Umożliwia ustawienie elementów w linii */
-    align-items: center; /* Wyśrodkowanie w pionie */
-    margin-left: 20px;
+    display: flex;
+    flex-direction: column; /* Dla mobilnych wiersz po wierszu */
+    align-items: flex-start;
+    margin-left: 10px; /* Zmniejszony margines dla mobilnych */
 }
+
 .HeaderTitle {
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
     text-decoration: none;
-    transition: color 0.3s ease; /* Smooth hover effect */
-}
-.HeaderTitle:hover {
-    color: #ffcc00; /* Change text color on hover */
-}
-
-
-
-.HeaderRight {
-    margin-left: auto;
-    height: auto;
-    width: auto;
-    position: page;
-}
-
-.HeaderRight div {
-    margin: 15px 30px 20px;
-    display: inline-block;
-    font-size: large;
-    color: azure;
+    transition: color 0.3s ease;
 }
 
 .HeaderUser {
-    margin-left: 20px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #ffffff;
-    opacity: 0.9; /* Slightly dimmed text */
+    opacity: 0.9;
+    margin-top: 5px; /* Dodano odstęp między użytkownikiem a tytułem */
+}
+
+.HeaderRight {
+    display: flex;
+    flex-wrap: wrap; /* Pozwala na zawijanie elementów w mobilnym */
+    justify-content: center; /* Wyśrodkowanie na mniejszych ekranach */
+    gap: 10px; /* Odstęp między linkami */
+}
+
+.HeaderRight div {
+    margin: 10px;
+    font-size: large;
+    color: azure;
+    text-align: center;
+}
+
+/* Media queries for mobile responsiveness */
+@media (max-width: 768px) {
+    .AppHeader {
+        flex-direction: column; /* Stosujemy kolumny dla małych ekranów */
+        height: auto;
+    }
+
+    .HeaderLeft {
+        align-items: center; /* Wyśrodkuj na mniejszych ekranach */
+        margin-left: 0; /* Usuń zbędny margines */
+    }
+
+    .HeaderRight {
+        flex-direction: column; /* Menu w jednej kolumnie */
+        align-items: center; /* Wyśrodkuj elementy */
+    }
+
+    .HeaderRight div {
+        font-size: medium; /* Zmniejsz rozmiar tekstu dla mobilnych */
+        margin: 5px 0; /* Zmniejsz marginesy dla mobilnych */
+    }
+
+    .HeaderTitle {
+        font-size: 1.2rem; /* Zmniejsz rozmiar tytułu dla mniejszych ekranów */
+    }
+
+    .HeaderUser {
+        font-size: 0.7rem;
+    }
 }
 
 @media print {
     .AppHeader {
-        display: none; /* Ukryj nagłówek aplikacji */
+        display: none;
     }
     .ButtonPrint {
-        display: none; /* Opcjonalnie, ukryj przycisk drukowania */
+        display: none;
     }
 }
