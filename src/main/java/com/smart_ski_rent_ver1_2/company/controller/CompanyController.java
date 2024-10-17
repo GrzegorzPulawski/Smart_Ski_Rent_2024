@@ -3,12 +3,15 @@ package com.smart_ski_rent_ver1_2.company.controller;
 import com.smart_ski_rent_ver1_2.company.DTO.CompanyDTO;
 import com.smart_ski_rent_ver1_2.company.entity.Company;
 import com.smart_ski_rent_ver1_2.company.service.CompanyService;
-import com.smart_ski_rent_ver1_2.exception.NoCompanyForThisLoginException;
+import com.smart_ski_rent_ver1_2.exception.CompanyNotExistsException;
+import com.smart_ski_rent_ver1_2.security.dto.UserCompanyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/company")
@@ -28,16 +31,22 @@ public class CompanyController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    @GetMapping("/data/{loginUser}")
-    public ResponseEntity<Company> getCompanyByLoginUser(@PathVariable String loginUser){
+    @GetMapping
+    public List<CompanyDTO> findAllCompany(){
+            return companyService.finAllCompany();
+        }
+
+    @GetMapping("/findByUser")
+    public ResponseEntity<?> getCompanyByUser(@RequestParam String nameUser) {
         try {
-            Company company = companyService.getCompanyByLoginUser(loginUser);
+            Company company = companyService.findCompanyByUser(nameUser);
             return ResponseEntity.ok(company);
-        } catch (NoCompanyForThisLoginException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (CompanyNotExistsException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
 }
+
 
 
 

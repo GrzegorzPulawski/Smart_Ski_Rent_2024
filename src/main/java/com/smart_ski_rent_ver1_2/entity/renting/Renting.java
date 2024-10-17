@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.entity.renting;
 
+import com.smart_ski_rent_ver1_2.company.entity.Company;
 import com.smart_ski_rent_ver1_2.dto.RentingDTO;
 import com.smart_ski_rent_ver1_2.entity.client.Client;
 import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
@@ -39,6 +40,8 @@ public class Renting {
     @ManyToOne
     @JoinColumn(name = "clients_client_id")
     private Client client;
+
+
 
     public RentingDTO mapRentingToDTO(){return new RentingDTO(idRenting, this.client.getFirstName(), this.client.getLastName(), this.client.getIdentityCard(), this.client.getPhoneNumber(),  this.dateRenting, this.equipment.getNameEquipment(), this.equipment.getPriceEquipment(), this.dateOfReturn, this.priceOfDuration, this.daysOfRental);}
 }

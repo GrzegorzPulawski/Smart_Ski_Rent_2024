@@ -12,5 +12,6 @@ import java.util.List;
 public class CreateRentingRequest {
     private Long idClient;
     private List<Long> idEquipment;
+    private Long idcompany;
 
 }

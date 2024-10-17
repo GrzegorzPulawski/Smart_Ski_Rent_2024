@@ -6,7 +6,8 @@ import {Button} from "react-bootstrap";
 
 function DisplayRentalAgreement({ renting }) {
     console.log("Dane wypożyczenia:", renting);
-    const companyData = JSON.parse(localStorage.getItem('companyData'));
+
+
 
     // Format the renting date
     const dateRentingFormat = moment(renting.dateRenting).format('DD/MM/YY HH:mm');
@@ -18,8 +19,8 @@ function DisplayRentalAgreement({ renting }) {
             </Grid>
             <Grid item xs={12}>Została zawarta z datą: {dateRentingFormat} godzina.</Grid>
             <Grid item xs={12}>Na wypożyczenie sprzętu zimowego</Grid>
-            <Grid item xs={12}>Od firmy: {companyData.companyName|| "N/A"}</Grid>
-            <Grid item xs={12}>która ma NIP: {companyData.companyNIP || "N/A"} </Grid>
+            <Grid item xs={12}>Od firmy: {renting.companyName|| "N/A"}</Grid>
+            <Grid item xs={12}>która ma NIP: {renting.companyNIP || "N/A"} </Grid>
             <Grid item xs={12}>Klient Pani/Pan: {renting.firstName} {renting.lastName}</Grid>
             <Grid item xs={12}>Nr telefonu kontaktowego: {renting.phoneNumber}</Grid>
             <Grid item xs={12}>Nr dowodu: {renting.identityCard}</Grid>

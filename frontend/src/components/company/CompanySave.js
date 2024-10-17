@@ -5,7 +5,6 @@ import classes from "./CompanySave.module.css";
 const CompanyForm = () => {
     const [companyName, setCompanyName] = useState('');
     const [companyNIP, setCompanyNIP] = useState('');
-    const [nameUser, setNameUser] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -16,14 +15,13 @@ const CompanyForm = () => {
             const response = await connection.post('/api/company/save', {
                 companyName,
                 companyNIP,
-                nameUser,
             });
 
             // Zaktualizuj stan sukcesu
             setSuccess('Dane firmy zostały zapisane pomyślnie!');
             setError('');
         } catch (error) {
-            setError('Wystąpił błąd. Użytkownik o imieniu '+nameUser+' już istnieje w bazie danych');
+            setError('Wystąpił błąd. Firma o nazwie '+companyName+' już istnieje w bazie danych');
             setSuccess('');
         }
     };
@@ -54,17 +52,7 @@ const CompanyForm = () => {
                         required
                     />
                 </div>
-                <div className={classes.FormGroup}>
-                    <label htmlFor="nameUser">Login użytkownika:</label>
-                    <input
-                        type="text"
-                        id="nameUser"
-                        value={nameUser}
-                        onChange={(e) => setNameUser(e.target.value)}
-                        className={classes.Input}
-                        required
-                    />
-                </div>
+
                 <button type="submit" className={classes.Button}>Zapisz</button>
             </form>
             {error && <p className={classes.Error}>{error}</p>}

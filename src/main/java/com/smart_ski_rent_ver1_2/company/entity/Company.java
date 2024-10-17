@@ -1,5 +1,7 @@
 package com.smart_ski_rent_ver1_2.company.entity;
 
+import com.smart_ski_rent_ver1_2.company.DTO.CompanyDTO;
+import com.smart_ski_rent_ver1_2.security.entity.AppUser;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,7 +9,7 @@ import jakarta.persistence.*;
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="company_id")
+    @Column(name = "company_id")
     private Long idCompany;
 
     @Column(name = "company_name")
@@ -16,17 +18,20 @@ public class Company {
     @Column(name = "company_nip")
     private String companyNIP;
 
-    @Column (name ="name_user")
-    private String nameUser;
+    @Column(name="user_company")
+    private String nameUserCompany;
 
 
-    public Company(){};
 
-    public Company(Long idCompany, String companyName, String companyNIP, String nameUser) {
+
+    public Company() {
+    }
+
+    public Company(Long idCompany, String companyName, String companyNIP, String nameUserCompany) {
         this.idCompany = idCompany;
         this.companyName = companyName;
         this.companyNIP = companyNIP;
-        this.nameUser = nameUser;
+        this.nameUserCompany = nameUserCompany;
     }
 
     public Long getIdCompany() {
@@ -49,17 +54,17 @@ public class Company {
         return companyNIP;
     }
 
+    public String getNameUserCompany() {
+        return nameUserCompany;
+    }
+
+    public void setNameUserCompany(String nameUserCompany) {
+        this.nameUserCompany = nameUserCompany;
+    }
+
     public void setCompanyNIP(String companyNIP) {
         this.companyNIP = companyNIP;
     }
-
-    public String getNameUser() {
-        return nameUser;
-    }
-
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
-    }
+    public CompanyDTO mapCompanyToDTO(){return  new CompanyDTO(idCompany,this.companyName, this.companyNIP, this.nameUserCompany);}
 }
-
 

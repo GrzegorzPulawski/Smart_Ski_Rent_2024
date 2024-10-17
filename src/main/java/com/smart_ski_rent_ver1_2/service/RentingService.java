@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RentingService {
+public class   RentingService {
     private final RentingRepository rentingRepository;
     private final ClientRepository clientRepository;
     private final EquipmentRepository equipmentRepository;
@@ -30,11 +30,13 @@ public class RentingService {
         Optional<Client> optionalClient = clientRepository.findById(createRentingRequest.getIdClient());
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
+
             // trzeba złapać klienta jesli jego id nie istnieje!!!
             for (Long idEquipment : createRentingRequest.getIdEquipment()) {
                 Optional<Equipment> optionalEquipment = equipmentRepository.findById(idEquipment);
                 if (optionalEquipment.isPresent()) {
                     Equipment equipment = optionalEquipment.get();
+
                     //Kreujemy wypozyczenie
                     Renting renting = Renting.builder()
                             .client(client)

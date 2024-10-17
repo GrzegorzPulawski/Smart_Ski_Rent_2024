@@ -4,13 +4,13 @@ public class CompanyDTO {
     private Long idCompany;
     private String companyName;
     private String companyNIP;
-    private String nameUser;
+    private String userToCompany;
 
-    public CompanyDTO(Long idCompany, String companyName, String companyNIP, String nameUser) {
+    public CompanyDTO(Long idCompany, String companyName, String companyNIP, String userToCompany) {
         this.idCompany = idCompany;
         this.companyName = companyName;
         this.companyNIP = companyNIP;
-        this.nameUser = nameUser;
+        this.userToCompany = userToCompany;
     }
 
     public Long getIdCompany() {
@@ -37,12 +37,12 @@ public class CompanyDTO {
         this.companyNIP = companyNIP;
     }
 
-    public String getNameUser() {
-        return nameUser;
+    public String getUserToCompany() {
+        return userToCompany;
     }
 
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
+    public void setUserToCompany(String userToCompany) {
+        this.userToCompany = userToCompany;
     }
 }
 

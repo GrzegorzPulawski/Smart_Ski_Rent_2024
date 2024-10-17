@@ -2,58 +2,57 @@ package com.smart_ski_rent_ver1_2.company.service;
 
 import com.smart_ski_rent_ver1_2.company.DTO.CompanyDTO;
 import com.smart_ski_rent_ver1_2.company.entity.Company;
-import com.smart_ski_rent_ver1_2.repositories.repository.CompanyRepository;
-import com.smart_ski_rent_ver1_2.exception.NoCompanyForThisLoginException;
-import com.smart_ski_rent_ver1_2.security.entity.AppUser;
-import com.smart_ski_rent_ver1_2.security.repositories.AppUserRepository;
+import com.smart_ski_rent_ver1_2.exception.CompanyNotExistsException;
+import com.smart_ski_rent_ver1_2.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
-    @Autowired
-    private AppUserRepository appUserRepository;
+
 
     public CompanyDTO saveCompanyData(CompanyDTO companyDTO) {
-        Optional<Company> existingNameUser = companyRepository
-                .findByNameUser(companyDTO.getNameUser());
-        if(existingNameUser.isPresent()){
-            throw new IllegalArgumentException("Użytkownik " + companyDTO.getNameUser() + " już istnieje w systemie.");
+        Optional<Company> existingCompanyName = companyRepository.findByCompanyName(companyDTO.getCompanyName());
+
+        if (existingCompanyName.isPresent()) {
+            throw new IllegalArgumentException("Firma " + companyDTO.getCompanyName() + " już istnieje w systemie.");
         }
 
         Company company = new Company();
         company.setCompanyName(companyDTO.getCompanyName());
         company.setCompanyNIP(companyDTO.getCompanyNIP());
-        company.setNameUser(companyDTO.getNameUser());
-
         companyRepository.save(company);
         return companyDTO;
     }
-    public Company getCompanyByLoginUser(String loginUser) {
-        // Znajdź użytkownika na podstawie loginu
-        Optional<AppUser> userOptional = appUserRepository.findByAppUserName(loginUser);
 
-        // Jeśli użytkownik istnieje
-        if (userOptional.isPresent()) {
-            AppUser user = userOptional.get();
-            // Wyszukaj firmę na podstawie nazwy użytkownika (nameUser)
-            Optional<Company> companyOptional = companyRepository.findByNameUser(user.getAppUserName());
-
-            // Jeśli firma istnieje i nazwa użytkownika się zgadza
-            if (companyOptional.isPresent() && companyOptional.get().getNameUser().equals(loginUser)) {
-                return companyOptional.get();
-            }
+    public List<CompanyDTO> finAllCompany() {
+        List<Company> companyList = companyRepository.findAll();
+        List<CompanyDTO> companyDTOList = new ArrayList<>();
+        for (Company company : companyList) {
+            companyDTOList.add(company.mapCompanyToDTO());
         }
-        // Rzucenie wyjątku w przypadku, gdy użytkownik lub firma nie pasują
-        throw new NoCompanyForThisLoginException("Login nie pasuje do danych żadnej firmy");
+        return companyDTOList;
     }
 
-}
+    public Company findCompanyByUser(String nameUserCompany) {
+        Optional<Company> company = companyRepository.findCompanyByNameUserCompany(nameUserCompany);
 
+        if (company.isPresent()) {
+            return company.get(); // Jeśli firma istnieje, zwracamy ją
+        } else {
+            // Rzucamy wyjątek z własnym komunikatem, aby poinformować, że firma nie istnieje
+            throw new CompanyNotExistsException("Firma dla użytkownika " + nameUserCompany + " nie została znaleziona.");
+        }
+    }
+
+
+}
 
 
 
