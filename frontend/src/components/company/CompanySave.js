@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import connection from "../../axios";
 import classes from "./CompanySave.module.css";
 
-const CompanyForm = () => {
+const CompanySave = () => {
     const [companyName, setCompanyName] = useState('');
     const [companyNIP, setCompanyNIP] = useState('');
+    const [nameUserCompany, setNameUserCompany]  = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -15,6 +16,7 @@ const CompanyForm = () => {
             const response = await connection.post('/api/company/save', {
                 companyName,
                 companyNIP,
+                nameUserCompany,
             });
 
             // Zaktualizuj stan sukcesu
@@ -42,7 +44,7 @@ const CompanyForm = () => {
                     />
                 </div>
                 <div className={classes.FormGroup}>
-                    <label htmlFor="companyNIP">NIP Firmy:</label>
+                    <label htmlFor="companyNIP">NIP firmy</label>
                     <input
                         type="number"
                         id="companyNIP"
@@ -52,7 +54,17 @@ const CompanyForm = () => {
                         required
                     />
                 </div>
-
+                <div className={classes.FormGroup}>
+                    <label htmlFor="companyNIP">Login</label>
+                    <input
+                        type="text"
+                        id="nameUserCompany"
+                        value={nameUserCompany}
+                        onChange={(e) => setNameUserCompany(e.target.value)}
+                        className={classes.Input}
+                        required
+                    />
+                </div>
                 <button type="submit" className={classes.Button}>Zapisz</button>
             </form>
             {error && <p className={classes.Error}>{error}</p>}
@@ -61,4 +73,4 @@ const CompanyForm = () => {
     );
 };
 
-export default CompanyForm;
+export default CompanySave;

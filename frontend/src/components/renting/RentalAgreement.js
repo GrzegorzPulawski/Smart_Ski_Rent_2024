@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import classes from "./RentalAgreement.module.css";
-import { Button, Form, Alert } from "react-bootstrap";
+
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Alert } from 'react-bootstrap'; // Assuming you're using react-bootstrap
+import DisplayRentalAgreement from './DisplayRentalAgreement'; // Import your display component
 import connection from "../../axios";
-import DisplayRentalAgreement from "./DisplayRentalAgreement"; // Import the display component
-import { useLocation } from "react-router-dom"; // Hook to get passed state
 
 function RentalAgreement() {
     const [rentingShow, setRentingShow] = useState(null); // To store renting data
@@ -28,7 +28,7 @@ function RentalAgreement() {
 
     useEffect(() => {
         // Pobierz ID umowy z przekazanego state i pobierz dane umowy
-        const rentingId = location.state?.rentingId;
+        const { rentingId } = location.state || {}; // Destructure with fallback to prevent error
         if (rentingId) {
             fetchRentalAgreement(rentingId);
         } else {

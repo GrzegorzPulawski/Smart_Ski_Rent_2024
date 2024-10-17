@@ -3,9 +3,20 @@ import { Grid } from "@mui/material";
 import moment from "moment";
 import classes from "./DisplayRentalAgreement.module.css";
 import {Button} from "react-bootstrap";
+import {useState, useEffect} from "react";
 
 function DisplayRentalAgreement({ renting }) {
     console.log("Dane wypożyczenia:", renting);
+
+    const [companyData, setCompanyData] = useState({});
+
+    useEffect(() => {
+        // Pobieranie danych firmy z localStorage, jeśli nie są jeszcze dostępne
+        const storedCompanyData = JSON.parse(localStorage.getItem('companyData'));
+        if (storedCompanyData) {
+            setCompanyData(storedCompanyData);
+        }
+    }, []);
 
 
 
@@ -19,8 +30,8 @@ function DisplayRentalAgreement({ renting }) {
             </Grid>
             <Grid item xs={12}>Została zawarta z datą: {dateRentingFormat} godzina.</Grid>
             <Grid item xs={12}>Na wypożyczenie sprzętu zimowego</Grid>
-            <Grid item xs={12}>Od firmy: {renting.companyName|| "N/A"}</Grid>
-            <Grid item xs={12}>która ma NIP: {renting.companyNIP || "N/A"} </Grid>
+            <Grid item xs={12}>Od firmy: {companyData.companyName|| "N/A"}</Grid>
+            <Grid item xs={12}>która ma NIP: {companyData.companyNIP || "N/A"} </Grid>
             <Grid item xs={12}>Klient Pani/Pan: {renting.firstName} {renting.lastName}</Grid>
             <Grid item xs={12}>Nr telefonu kontaktowego: {renting.phoneNumber}</Grid>
             <Grid item xs={12}>Nr dowodu: {renting.identityCard}</Grid>

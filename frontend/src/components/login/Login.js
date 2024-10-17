@@ -7,6 +7,7 @@ import classes from "./Login.module.css";
 const Login = () => {
     const [appUserName, setAppUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [nameUser, setNameUser] = useState('');  // Nowe pole
     const navigate = useNavigate();
     const [error, setError] = useState('')
     const [successMessage, setSuccesMessage] = useState('');
@@ -18,6 +19,7 @@ const Login = () => {
         // Przechowywanie danych logowania w localStorage
         localStorage.setItem('username', appUserName);
         localStorage.setItem('password', password);
+        localStorage.setItem('nameUser', nameUser);
 
         connection.post("/api/appusers/login", {appUserName, password})
             .then(response => {
@@ -70,6 +72,14 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Hasło"
+                    required
+                    className={classes.InputField}
+                />
+                <input
+                    type="text"
+                    value={nameUser}
+                    onChange={(e) => setNameUser(e.target.value)}  // Obsługa pola nameUser
+                    placeholder="Wprowadź nazwę użytkownika"
                     required
                     className={classes.InputField}
                 />
