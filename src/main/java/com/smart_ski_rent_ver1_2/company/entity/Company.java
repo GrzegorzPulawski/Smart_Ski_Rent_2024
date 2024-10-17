@@ -1,7 +1,6 @@
 package com.smart_ski_rent_ver1_2.company.entity;
 
 import com.smart_ski_rent_ver1_2.company.DTO.CompanyDTO;
-import com.smart_ski_rent_ver1_2.security.entity.AppUser;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,7 +17,7 @@ public class Company {
     @Column(name = "company_nip")
     private String companyNIP;
 
-    @Column(name="user_company")
+    @Column(name="name_user_company")
     private String nameUserCompany;
 
 

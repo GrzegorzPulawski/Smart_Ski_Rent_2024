@@ -5,6 +5,7 @@ import com.smart_ski_rent_ver1_2.company.entity.Company;
 import com.smart_ski_rent_ver1_2.company.service.CompanyService;
 import com.smart_ski_rent_ver1_2.exception.CompanyNotExistsException;
 import com.smart_ski_rent_ver1_2.security.dto.UserCompanyDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,20 +13,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/api/company")
 public class CompanyController {
+    private final CompanyService companyService;
 
-    @Autowired
-    private CompanyService companyService;
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
+    }
 
-    // Endpoint to save company data
     @PostMapping("/save")
-    public ResponseEntity<CompanyDTO> saveCompanyData(@RequestBody CompanyDTO companyDTO) {
+    public ResponseEntity<Company> saveCompanyData(@RequestBody Company company) {
         try {
-            // Call the service to save company data
-            CompanyDTO savedCompany = companyService.saveCompanyData(companyDTO);
+            Company savedCompany = companyService.saveCompanyData(company);
+            log.info("Created company with name"+ company.getCompanyName());
             return ResponseEntity.ok(savedCompany);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

@@ -13,22 +13,18 @@ import java.util.Optional;
 
 @Service
 public class CompanyService {
-    @Autowired
-    private CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository;
+    public CompanyService(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
+    }
 
-
-    public CompanyDTO saveCompanyData(CompanyDTO companyDTO) {
-        Optional<Company> existingCompanyName = companyRepository.findByCompanyName(companyDTO.getCompanyName());
+    public Company saveCompanyData(Company company) {
+        Optional<Company> existingCompanyName = companyRepository.findByCompanyName(company.getCompanyName());
 
         if (existingCompanyName.isPresent()) {
-            throw new IllegalArgumentException("Firma " + companyDTO.getCompanyName() + " już istnieje w systemie.");
+            throw new IllegalArgumentException("Firma " + company.getCompanyName() + " już istnieje w systemie.");
         }
-
-        Company company = new Company();
-        company.setCompanyName(companyDTO.getCompanyName());
-        company.setCompanyNIP(companyDTO.getCompanyNIP());
-        companyRepository.save(company);
-        return companyDTO;
+        return companyRepository.save(company);
     }
 
     public List<CompanyDTO> finAllCompany() {
@@ -42,15 +38,13 @@ public class CompanyService {
 
     public Company findCompanyByUser(String nameUserCompany) {
         Optional<Company> company = companyRepository.findCompanyByNameUserCompany(nameUserCompany);
-
         if (company.isPresent()) {
-            return company.get(); // Jeśli firma istnieje, zwracamy ją
+            return company.get();
         } else {
             // Rzucamy wyjątek z własnym komunikatem, aby poinformować, że firma nie istnieje
             throw new CompanyNotExistsException("Firma dla użytkownika " + nameUserCompany + " nie została znaleziona.");
         }
     }
-
 
 }
 
