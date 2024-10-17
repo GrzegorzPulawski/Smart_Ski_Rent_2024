@@ -25,7 +25,9 @@ const Login = () => {
             .then(response => {
                 console.log("Logowanie udane:", response);
                 setSuccesMessage("Zalogowano poprawnie")
-                getCompanyData(appUserName);
+
+                getCompanyData(nameUser);
+
                 window.location.reload(); // Refresh the page after 5 seconds
                 setTimeout(()=>{
                     navigate("/");
@@ -41,21 +43,19 @@ const Login = () => {
                 }
             });
     };
-
-    const getCompanyData = (loginUser) => {
-        // connection.get(`/api/company/data`, { params: { loginUser } })
-        connection.get(`/api/company/data/${loginUser}`)
+    const getCompanyData = (nameUser) => {
+        connection.get(`/api/company/findByUser`, { params: { nameUser } })
             .then(response => {
                 console.log("Dane firmy pobrane:", response.data);
-
-                // Przechowywanie danych firmy w localStorage lub innym miejscu
                 localStorage.setItem('companyData', JSON.stringify(response.data));
-
             })
             .catch(err => {
                 console.error("Błąd pobierania danych firmy:", err);
+                setError("Wystąpił błąd podczas pobierania danych firmy.");
             });
     };
+
+
     return (
         <>
             <form onSubmit={handleSubmit} className={classes.LoginForm}>
@@ -83,6 +83,7 @@ const Login = () => {
                     required
                     className={classes.InputField}
                 />
+                {error && <p className={classes.ErrorText}>{error}</p>}
                 <button type="submit" className={classes.SubmitButton}>Zaloguj się</button>
                 {error && <p className={classes.ErrorText}>{error}</p>}
                 <Col>

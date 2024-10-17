@@ -6,8 +6,8 @@ import DisplayRentalAgreement from './DisplayRentalAgreement'; // Import your di
 import connection from "../../axios";
 
 function RentalAgreement() {
-    const [rentingShow, setRentingShow] = useState(null); // To store renting data
-    const [errorMessage, setErrorMessage] = useState(""); // To store error messages
+    const [rentingShow, setRentingShow] = useState(null);
+    const [errorMessage, setErrorMessage] = useState("");
     const location = useLocation(); // Hook to get the state (passed rentingId)
 
     // Function to fetch rental data by ID
@@ -31,10 +31,14 @@ function RentalAgreement() {
         const { rentingId } = location.state || {}; // Destructure with fallback to prevent error
         if (rentingId) {
             fetchRentalAgreement(rentingId);
-        } else {
-            setErrorMessage("No rental agreement ID provided.");
-        }
-    }, [location.state]);
+
+    } else {
+    setErrorMessage("No rental agreement ID provided.");
+    }
+        }, [location.state]);
+
+    const companyData = JSON.parse(localStorage.getItem('companyData'));
+
 
     return (
         <div>
