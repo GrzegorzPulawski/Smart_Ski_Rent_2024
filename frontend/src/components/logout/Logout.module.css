@@ -1,0 +1,30 @@
+.ActionButton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
+    background-color: #007bff; /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu */
+    border: none; /* Bez obramowania */
+    border-radius: 5px; /* Zaokrąglone rogi */
+    transition: background-color 0.3s ease; /* Animacja przy przejściu */
+    cursor: pointer; /* Zmiana kursora przy najechaniu */
+}
+
+.ActionButton:hover {
+    background-color: #0056b3; /* Kolor tła przycisku po najechaniu */
+}
+
+.Message {
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: center; /* Wyrównanie tekstu do środka */
+}
+
+.Success {
+    color: green; /* Kolor dla komunikatów sukcesu */
+}
+
+.Error {
+    color: red; /* Kolor dla komunikatów błędu */
+}

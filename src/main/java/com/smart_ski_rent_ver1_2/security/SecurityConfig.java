@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,30 +31,25 @@ public class SecurityConfig {
         this.appUserDetailsService = appUserDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers( "index.html","/api/appusers/login","api/","/").permitAll()
-                        // Tylko dla ADMIN: POST i DELETE na /api/formEquipment
+                        .requestMatchers("index.html", "/api/appusers/login", "/api/", "/").permitAll() // Publiczne endpointy
                         .requestMatchers("/api/appusers/devel/**").hasRole("DEVEL")
-
-                        .requestMatchers( "/api/equipments/add").hasAnyRole("ADMIN", "DEVEL")
-                        .requestMatchers( "/api/equipments/delete").hasRole("ADMIN")
-
-                        .requestMatchers(  "/api/**").hasAnyRole("USER", "ADMIN", "DEVEL")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/equipments/add").hasAnyRole("ADMIN", "DEVEL")
+                        .requestMatchers("/api/equipments/delete").hasRole("ADMIN")
+                        .requestMatchers("/api/**").hasAnyRole("USER", "ADMIN", "DEVEL")
+                        .anyRequest().authenticated() // Inne żądania muszą być uwierzytelnione
                 )
-                .formLogin(form -> form
-                        .loginProcessingUrl("/api/appusers/login") // Specify the endpoint for processing login
-                        .permitAll() // Allow everyone to see the login page
-                        .failureUrl("/api/appusers/login?error=true") // Redirect for failed login
-                )
-                .httpBasic(withDefaults());
+                .httpBasic() // Basic Authentication
+                .and()
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Bezpieczeństwo bezstanowe, co jest typowe dla REST API
 
         return http.build();
     }
+
+
 
 }

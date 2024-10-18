@@ -6,6 +6,7 @@ import moment from "moment";
 import ReturnRenting from "./ReturnRenting";
 import {Alert, Button} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 
 const RentingList = () => {
@@ -13,6 +14,9 @@ const RentingList = () => {
     const [selectedRentings, setSelectedRentings] = useState([])
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [nameUserCompany, setNameUserCompany] = useState("");
+    const [companyData, setCompanyData]= useState('');
+
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -43,6 +47,18 @@ const RentingList = () => {
         } else {
             setErrorMessage("Proszę zaznaczyć co najmniej jedną umowę.");
         }
+    };
+    const getCompanyData = (nameUserCompany) => {
+        axios.get(`/api/company/findByUser`, { params: { nameUserCompany } })
+            .then(response => {
+                console.log("Dane firmy pobrane:", response.data);
+                localStorage.setItem('companyData', JSON.stringify(response.data));
+                setCompanyData(response.data); // Aktualizacja stanu
+            })
+            .catch(err => {
+                console.error("Błąd pobierania danych firmy:", err);
+                setErrorMessage("Wystąpił błąd podczas pobierania danych firmy.");
+            });
     };
 
     return(
@@ -84,24 +100,37 @@ const RentingList = () => {
                     var dateOfReturnFormat = moment(dataZwro).format('DD/MM/YY HH:mm'); // Corrected to 'mm' for minutes
 
 
-                    return (<Grid container  className={classes.TableRow} key={value.idRenting}>
+                    return (<Grid container className={classes.TableRow} key={value.idRenting}>
                             <Grid item xs={1}>
                                 <Checkbox
                                     checked={selectedRentings.includes(value.idRenting)}
                                     onChange={() => handleCheckboxChange(value.idRenting)}
                                 />
                             </Grid>
-                        <Grid item xs={1}className={classes.RowCell}>{value.idRenting}</Grid>
-                        <Grid item xs={1}className={classes.RowCell}>{value.lastName}</Grid>
-                        <Grid item xs={1}className={classes.RowCell}>{dateRentingFormat}</Grid>
-                        <Grid item xs={1}className={classes.RowCell}>{value.nameEquipment}</Grid>
-                        <Grid item xs={1}className={classes.RowCell}>{dateOfReturnFormat}</Grid>
-                        <Grid item xs={1}className={classes.RowCell}>{value.priceOfDuration}</Grid>
-                        <Grid item xs={1}className={classes.RowCell}>{value.daysOfRental}</Grid>
-                    </Grid>)
-                })
-            }
+                            <Grid item xs={1} className={classes.RowCell}>{value.idRenting}</Grid>
+                            <Grid item xs={1} className={classes.RowCell}>{value.lastName}</Grid>
+                            <Grid item xs={1} className={classes.RowCell}>{dateRentingFormat}</Grid>
+                            <Grid item xs={1} className={classes.RowCell}>{value.nameEquipment}</Grid>
+                            <Grid item xs={1} className={classes.RowCell}>{dateOfReturnFormat}</Grid>
+                            <Grid item xs={1} className={classes.RowCell}>{value.priceOfDuration}</Grid>
+                            <Grid item xs={1} className={classes.RowCell}>{value.daysOfRental}</Grid>
+                        </Grid>
+                    );
+                })}
 
+            <form onSubmit={(e) => { e.preventDefault(); getCompanyData(nameUserCompany); }} className={classes.LoginForm}>
+                <input
+                    type="text"
+                    value={nameUserCompany}
+                    onChange={(e) => setNameUserCompany(e.target.value)}  // Obsługa pola nameUser
+                    placeholder="Wprowadź ponownie nazwę użytkownika"
+                    required
+                    className={classes.InputField}
+                />
+                    {errorMessage && <p className={classes.ErrorText}>{errorMessage}</p>}
+                    <button type="submit" className={classes.SubmitButton}>Potwierdż</button>
+                    {errorMessage && <p className={classes.ErrorText}>{errorMessage}</p>}
+                    </form>
         </div>
     );
 }
