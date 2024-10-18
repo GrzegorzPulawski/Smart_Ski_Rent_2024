@@ -49,7 +49,6 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginProcessingUrl("/api/appusers/login") // Specify the endpoint for processing login
                         .permitAll() // Allow everyone to see the login page
-                        .defaultSuccessUrl("/", true) // Redirect after successful login
                         .failureUrl("/api/appusers/login?error=true") // Redirect for failed login
                 )
                 .httpBasic(withDefaults());

@@ -56,6 +56,8 @@
 .CardText {
     text-align: justify;
     padding: 10px;
+    color: #fdfff2;
+
 }
 .Footer {
     position: fixed;
