@@ -36,7 +36,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers( "index.html","/api/appusers/login","api/home").permitAll()
+                        .requestMatchers( "index.html","/api/appusers/login","api/","/").permitAll()
                         // Tylko dla ADMIN: POST i DELETE na /api/formEquipment
                         .requestMatchers("/api/appusers/devel/**").hasRole("DEVEL")
 

@@ -28,7 +28,6 @@ const Login = () => {
 
                 getCompanyData(nameUserCompany);
 
-                window.location.reload(); // Refresh the page after 5 seconds
                 setTimeout(()=>{
                     navigate("/");
                 },3000);
