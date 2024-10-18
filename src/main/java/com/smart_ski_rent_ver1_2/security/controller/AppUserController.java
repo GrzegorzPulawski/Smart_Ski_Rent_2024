@@ -4,6 +4,8 @@ import com.smart_ski_rent_ver1_2.security.dto.AuthResponse;
 import com.smart_ski_rent_ver1_2.security.dto.LoginRequest;
 import com.smart_ski_rent_ver1_2.security.entity.AppUser;
 import com.smart_ski_rent_ver1_2.security.service.AppUserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,5 +51,10 @@ public class AppUserController {
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse("Zły login; "+e.getMessage()));
         }
+    }
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
+        appUserService.logout();
+        return ResponseEntity.ok("Wylogowano pomyślnie");
     }
 }

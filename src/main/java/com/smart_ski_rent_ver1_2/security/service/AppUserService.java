@@ -6,6 +6,7 @@ import com.smart_ski_rent_ver1_2.security.repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,4 +52,10 @@ public class AppUserService{
             throw new RuntimeException("Błędne dane");
         }
     }
+    public void logout() {
+        // Unieważnienie tokenu lub czyszczenie sesji
+        SecurityContextHolder.clearContext();
+    }
+
+
 }
