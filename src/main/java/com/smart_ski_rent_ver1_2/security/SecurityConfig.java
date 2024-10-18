@@ -40,16 +40,17 @@ public class SecurityConfig {
                         // Tylko dla ADMIN: POST i DELETE na /api/formEquipment
                         .requestMatchers("/api/appusers/devel/**").hasRole("DEVEL")
 
-                        .requestMatchers( "/api/equipments/add").hasRole("ADMIN")
+                        .requestMatchers( "/api/equipments/add").hasAnyRole("ADMIN", "DEVEL")
                         .requestMatchers( "/api/equipments/delete").hasRole("ADMIN")
 
                         .requestMatchers(  "/api/**").hasAnyRole("USER", "ADMIN", "DEVEL")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/api/appusers/login") // Wskazuje na niestandardową stronę logowania
-                        .defaultSuccessUrl("/") // Adres, na który przekieruje po udanym logowaniu
-                        .permitAll()
+                        .loginProcessingUrl("/api/appusers/login") // Specify the endpoint for processing login
+                        .permitAll() // Allow everyone to see the login page
+                        .defaultSuccessUrl("/", true) // Redirect after successful login
+                        .failureUrl("/api/appusers/login?error=true") // Redirect for failed login
                 )
                 .httpBasic(withDefaults());
 
