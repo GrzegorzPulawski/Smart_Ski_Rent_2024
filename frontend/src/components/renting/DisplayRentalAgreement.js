@@ -1,8 +1,8 @@
 import React from "react";
-import { Grid } from "@mui/material";
 import moment from "moment";
 import classes from "./DisplayRentalAgreement.module.css";
 import {Button} from "react-bootstrap";
+import {Grid} from "@mui/material";
 
 
 function DisplayRentalAgreement({ renting,companyData }) {

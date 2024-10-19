@@ -4,7 +4,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import React from "react";
 import classes from "./ClientList.module.css";
 import {useNavigate} from "react-router-dom";
-import Button from '@mui/material/Button';
+import {Button} from "react-bootstrap";
 
 const ClientList =  () => {
     const [clientList1, setterClientList] = useState([]);
