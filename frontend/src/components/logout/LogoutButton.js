@@ -1,7 +1,7 @@
+import classes from "./Logout.module.css";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import classes from "./Logout.module.css";
-import connection from "../../axios"; // Zakładam, że masz odpowiedni plik CSS
+import connection from "../../axios";
 
 const LogoutButton = () => {
     const [message, setMessage] = useState('');
@@ -9,20 +9,31 @@ const LogoutButton = () => {
 
     const handleLogout = async () => {
         try {
-            await connection.post('/api/appusers/logout', {}, {
-                auth: {
-                    username: localStorage.getItem('username'),
-                    password: localStorage.getItem('password')
-                }
-            });
+            // Sprawdzenie, czy dane logowania są dostępne w localStorage
+            const appUserName = localStorage.getItem('appUserName');
+            const password = localStorage.getItem('password');
 
-            localStorage.removeItem('username');
-            localStorage.removeItem('password');
-            setMessage("Poprawnie wylogowano.");
+            if (appUserName && password) {
+                // Opcjonalne wywołanie API do wylogowania
+                // await connection.post('/api/appusers/logout', {}, {
+                //     auth: {
+                //         username: appUserName,
+                //         password: password
+                //     }
+                // });
 
-            setTimeout(() => {
-                navigate("/api/appusers/login");
-            }, 2000);
+                // Usunięcie danych logowania z localStorage
+                localStorage.removeItem('appUserName');
+                localStorage.removeItem('password');
+                setMessage("Poprawnie wylogowano.");
+
+                // Przekierowanie po 2 sekundach
+                setTimeout(() => {
+                    navigate("/api/appusers/login"); // Upewnij się, że ścieżka jest poprawna
+                }, 2000);
+            } else {
+                setMessage("Brak danych logowania.");
+            }
         } catch (error) {
             setMessage("Wystąpił błąd podczas wylogowania.");
             console.error("Błąd wylogowania:", error);

@@ -1,8 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Alert } from 'react-bootstrap'; // Assuming you're using react-bootstrap
-import DisplayRentalAgreement from './DisplayRentalAgreement'; // Import your display component
+import { Alert } from 'react-bootstrap';
+import DisplayRentalAgreement from './DisplayRentalAgreement';
 import connection from "../../axios";
 
 function RentalAgreement() {
@@ -52,5 +51,4 @@ function RentalAgreement() {
         </div>
     );
 }
-
 export default RentalAgreement;

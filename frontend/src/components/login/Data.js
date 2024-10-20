@@ -1,10 +1,8 @@
-import classes from './Login.module.css'; // Zakładam, że masz odpowiedni plik CSS
-import React, { useEffect } from 'react';
+import classes from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const Data = () => {
     const navigate = useNavigate();
-
 
     return (
         <div>
