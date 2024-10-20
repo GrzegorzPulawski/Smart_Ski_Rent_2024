@@ -1,9 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_API_URL // Heroku URL lub inny URL produkcyjny
-    : 'http://localhost:8080'; // URL do lokalnego serwera backendu
-
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 const connection = axios.create({
     baseURL: apiUrl
 });
