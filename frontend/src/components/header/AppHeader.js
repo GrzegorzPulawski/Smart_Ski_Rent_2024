@@ -15,7 +15,7 @@ const AppHeader = () => {
 
     <div className={classes.HeaderRight}>
                 <Link to={"/login"}>
-                    <div>Dane</div>
+                    <div>Login</div>
                 </Link>
                 <Link to={"/"}>
                     <div>Home</div>

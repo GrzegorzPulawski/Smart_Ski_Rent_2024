@@ -13,30 +13,5 @@ export const configureAxios = (appUserName, password) => {
     const token = btoa(`${appUserName}:${password}`);
     connection.defaults.headers.common['Authorization'] = `Basic ${token}`;
 };
-export const handleLogin = async (appUserName, password) => {
-
-    try {
-        configureAxios(appUserName, password);
-
-        const response = await connection.post('/api/appusers/login');
-
-        const role = response.data.role;  // Pobierz rolę użytkownika
-        localStorage.setItem('appUserName', appUserName);
-        localStorage.setItem('password', password);
-        localStorage.setItem('role', response.data.role);  // Zapisz rolę użytkownika
-
-        console.log('Zalogowano pomyślnie:', response.data);
-
-
-
-    } catch (error) {
-        console.error('Błąd logowania:', error);
-        if (error.response && error.response.status === 401) {
-            alert('Niepoprawne dane logowania.');
-        } else {
-            alert('Błąd logowania. Sprawdź swoje dane.');
-        }
-    }
-};
 
 export default connection;

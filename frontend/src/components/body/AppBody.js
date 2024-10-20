@@ -3,7 +3,6 @@ import classes from "./AppBody.module.css";
 import {  Route, Routes} from "react-router-dom";
 import Home from "../home/Home";
 import EquipmentList from "../equipment/EquipmentList";
-import Data from "../login/Data";
 import LogoutButton from "../logout/LogoutButton";
 import FormEquipment from "../equipment/FormEquipment";
 import ClientList from "../client/ClientList";
@@ -19,6 +18,7 @@ import DeleteClient from "../client/DeleteClient";
 import CreateUser from "../user/CreateUser";
 import DeleteUser from "../user/DeleteUser";
 import UserList from "../user/UserList";
+import Login from "../login/Login";
 
 const AppBody = () => {
 
@@ -26,7 +26,7 @@ const AppBody = () => {
         <div className={classes.AppBody}>
             <Routes>
                 <Route path={"/"} element={<Home/>}></Route>
-                <Route path={"/login"} element={<Data/>}></Route>
+                <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/list"} element={<EquipmentList/>}> </Route>
                 <Route path={"/clientlist"} element={<ClientList/>}> </Route>
                 <Route path={"/logout"} element={<LogoutButton/>}></Route>
