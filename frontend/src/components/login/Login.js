@@ -1,6 +1,7 @@
 import classes from './Login.module.css';
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
+import connection from "../../axios";
 
 const Login = () => {
     const [appUserName, setAppUserName] = useState("");
@@ -18,76 +19,80 @@ const Login = () => {
             const token = btoa(`${appUserName}:${password}`);
 
             // Send a request to the backend to log in
-            const response = await fetch('/api/appusers/login', {
-                method: 'POST',
+            const response = await connection.post('/api/appusers/login', {}, {
                 headers: {
                     'Authorization': `Basic ${token}`, // Add Basic Auth header
                     'Content-Type': 'application/json',
                 }
             });
 
-            // Check for success
-            if (response.ok) {
-                // Optionally: store the token in localStorage to keep the user logged in
-                localStorage.setItem('authToken', token);
+            // Check for successful response
+            if (response.status === 200) {
+                // Optionally handle any data returned, e.g., JWT token if used
+                localStorage.setItem('authToken', token); // Store the token in localStorage
 
-                console.log('Login successful');
-                // Redirect the user or update UI (e.g., navigate to another page)
-            } else {
-                // Handle errors (invalid login, etc.)
-                const errorMsg = await response.text();
-                setErrorMessage(`Zły login: ${errorMsg}`);
+                // Redirect or update application state
+                navigate("/dashboard"); // Redirect to the dashboard or another page
             }
-        } catch (err) {
-            setErrorMessage('Błąd podczas logowania');
-            console.error('Login error:', err);
+        } catch (errorMessage) {
+            console.error('Error during login:', errorMessage);
+            if (errorMessage.response) {
+                // The request was made and the server responded with a status code
+                if (errorMessage.response.status === 401) {
+                    setErrorMessage('Zły login lub hasło.'); // Specific message for Unauthorized
+                } else {
+                    setErrorMessage('Wystąpił błąd. Spróbuj ponownie'); // General message
+                }
+            } else {
+                // The request was made but no response was received
+                setErrorMessage('Błąd z połączeniem. Sprawdź internet');
+            }
         }
+
+
+        return (
+            <div>
+                <h2>Logowanie</h2>
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <label>Nazwa użytkownika:</label>
+                        <input
+                            type="text"
+                            value={appUserName}
+                            onChange={(e) => setAppUserName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Hasło:</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit">Zaloguj</button>
+                </form>
+                {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
+                <button
+                    onClick={() => navigate('/companySave')}
+                    className={classes.ActionButton}
+                >
+                    Wprowadź dane firmy
+                </button>
+                <button
+                    onClick={() => navigate('/logout')} // Przekierowanie do komponentu wylogowania
+                    className={classes.ActionButton}
+                >
+                    Wylogowanie
+                </button>
+                <div className={classes.Footer}>
+                    Program napisała firma Mandragora. Kontakt w celu zakupu: tel.502109609
+                </div>
+            </div>
+
+        );
     };
-
-
-    return (
-        <div>
-            <h2>Logowanie</h2>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>Nazwa użytkownika:</label>
-                    <input
-                        type="text"
-                        value={appUserName}
-                        onChange={(e) => setAppUserName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Hasło:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Zaloguj</button>
-            </form>
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        <button
-            onClick={() => navigate('/companySave')}
-            className={classes.ActionButton}
-        >
-            Wprowadź dane firmy
-        </button>
-        <button
-            onClick={() => navigate('/logout')} // Przekierowanie do komponentu wylogowania
-            className={classes.ActionButton}
-        >
-            Wylogowanie
-        </button>
-        <div className={classes.Footer}>
-            Program napisała firma Mandragora. Kontakt w celu zakupu: tel.502109609
-        </div>
-    </div>
-
-    );
 };
-
 export default Login;
