@@ -36,7 +36,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("index.html", "/api/appusers/login", "/api/", "/").permitAll() // Publiczne endpointy
+                        .requestMatchers("index.html", "/api/appusers/login", "/api/", "/", "/static/**", "/favicon.ico").permitAll() // Publiczne endpointy
                         .requestMatchers("/api/appusers/devel/**").hasRole("DEVEL")
                         .requestMatchers("/api/equipments/add").hasAnyRole("ADMIN", "DEVEL")
                         .requestMatchers("/api/equipments/delete").hasRole("ADMIN")
