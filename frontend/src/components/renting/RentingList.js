@@ -42,18 +42,28 @@ const RentingList = () => {
     // Potwierdzenie i przekierowanie do umowy
     const handleConfirmSelection = () => {
         if (selectedRentings.length > 0) {
-            // Przekierowanie do komponentu RentalAgreement z ID umowy
-            navigate("/rentalAgreement", { state: { rentingId: selectedRentings[0] } }); // Zakładam, że wybierasz tylko jedną umowę
+            // Fetch company data before navigating
+            getCompanyData(nameUserCompany)
+                .then(() => {
+                    navigate("/rentalAgreement", {
+                        state: {
+                            rentingId: selectedRentings[0],
+                            companyData: companyData // Pass companyData to the next page
+                        }
+                    });
+                })
+                .catch((error) => {
+                    setErrorMessage("Failed to fetch company data.");
+                });
         } else {
-            setErrorMessage("Proszę zaznaczyć co najmniej jedną umowę.");
+            setErrorMessage("Please select at least one rental.");
         }
     };
     const getCompanyData = (nameUserCompany) => {
-        axios.get(`/api/company/findByUser`, { params: { nameUserCompany } })
+        return  axios.get(`/api/company/findByUser`, { params: { nameUserCompany } })
             .then(response => {
-                console.log("Dane firmy pobrane:", response.data);
-                localStorage.setItem('companyData', JSON.stringify(response.data));
-                setCompanyData(response.data); // Aktualizacja stanu
+                setCompanyData(response.data);
+                setSuccessMessage("Company data fetched successfully.");
             })
             .catch(err => {
                 console.error("Błąd pobierania danych firmy:", err);
@@ -63,6 +73,21 @@ const RentingList = () => {
 
     return(
         <div>
+        <form onSubmit={(e) => { e.preventDefault(); getCompanyData(nameUserCompany); }} className={classes.LoginForm}>
+        <input
+            type="text"
+            value={nameUserCompany}
+            onChange={(e) => setNameUserCompany(e.target.value)}  // Obsługa pola nameUser
+            placeholder="Wprowadź ponownie nazwę użytkownika"
+            required
+            className={classes.InputField}
+        />
+        {errorMessage && <p className={classes.ErrorText}>{errorMessage}</p>}
+        <button type="submit" className={classes.SubmitButton}>Potwierdż</button>
+        {errorMessage && <p className={classes.ErrorText}>{errorMessage}</p>}
+    </form>
+            {successMessage && <p className={classes.SuccessMessage}>{successMessage}</p>}
+
             <div className={classes.ButtonContainer}>
                 <Button
                     variant="primary" // Change the variant for a different color
@@ -118,19 +143,7 @@ const RentingList = () => {
                     );
                 })}
 
-            <form onSubmit={(e) => { e.preventDefault(); getCompanyData(nameUserCompany); }} className={classes.LoginForm}>
-                <input
-                    type="text"
-                    value={nameUserCompany}
-                    onChange={(e) => setNameUserCompany(e.target.value)}  // Obsługa pola nameUser
-                    placeholder="Wprowadź ponownie nazwę użytkownika"
-                    required
-                    className={classes.InputField}
-                />
-                    {errorMessage && <p className={classes.ErrorText}>{errorMessage}</p>}
-                    <button type="submit" className={classes.SubmitButton}>Potwierdż</button>
-                    {errorMessage && <p className={classes.ErrorText}>{errorMessage}</p>}
-                    </form>
+
         </div>
     );
 }

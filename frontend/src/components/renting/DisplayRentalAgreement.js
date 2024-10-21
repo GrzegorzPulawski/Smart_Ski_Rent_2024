@@ -3,12 +3,14 @@ import moment from "moment";
 import classes from "./DisplayRentalAgreement.module.css";
 import {Button} from "react-bootstrap";
 import {Grid} from "@mui/material";
+import {useLocation} from "react-router-dom";
 
+function DisplayRentalAgreement() {
 
-function DisplayRentalAgreement({ renting,companyData }) {
+    const location = useLocation();
+    const { renting, companyData } = location.state; // Retrieve renting and companyData from state
     console.log("Dane wypożyczenia:", renting);
 
-    // Format the renting date
     const dateRentingFormat = moment(renting.dateRenting).format('DD/MM/YY HH:mm');
 
     return (

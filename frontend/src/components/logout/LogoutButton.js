@@ -1,4 +1,5 @@
-import classes from "./Logout.module.css";
+import classes from './Logout.module.css';
+import connection from "../../axios";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,20 +9,25 @@ const LogoutButton = () => {
 
     const handleLogout = async () => {
         try {
-            // Remove the stored token from localStorage
-            const authToken = localStorage.getItem('authToken');
+            // Call the logout endpoint
+            const response = await connection.post('/api/appusers/logout', null, {
+                headers: {
+                    'Authorization': localStorage.getItem('authToken') // Use token from localStorage
+                }
+            });
 
-            if (authToken) {
+            // Check if logout was successful
+            if (response.status === 200) {
                 // Clear the auth token from localStorage
                 localStorage.removeItem('authToken');
                 setMessage("Poprawnie wylogowano.");
 
-                // Optionally, redirect to the login page after 2 seconds
+                // Optionally redirect to the login page after 2 seconds
                 setTimeout(() => {
-                    navigate("/login"); // Update the path to match your login route
+                    navigate("/login"); // Ensure the path matches your login route
                 }, 2000);
             } else {
-                setMessage("Brak danych logowania.");
+                setMessage("Błąd podczas wylogowania.");
             }
         } catch (error) {
             setMessage("Wystąpił błąd podczas wylogowania.");

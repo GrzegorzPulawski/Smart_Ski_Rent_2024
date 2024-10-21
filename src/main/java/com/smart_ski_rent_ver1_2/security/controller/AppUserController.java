@@ -6,6 +6,7 @@ import com.smart_ski_rent_ver1_2.security.entity.AppUser;
 import com.smart_ski_rent_ver1_2.security.service.AppUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,11 +51,16 @@ public class AppUserController {
         AppUser appUser = appUserService.loginUser(loginRequest.getAppUserName(), loginRequest.getPassword());
         return ResponseEntity.ok(appUser); // Or return a DTO with token information, etc.
     }
-
-
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
-        appUserService.logout();
+        // Unieważnienie sesji
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return ResponseEntity.ok("Wylogowano pomyślnie");
     }
+
+
+
 }

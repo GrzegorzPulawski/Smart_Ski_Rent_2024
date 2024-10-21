@@ -10,13 +10,15 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**") // umożliwia CORS dla wszystkich endpointów
+        registry.addMapping("/**") // umożliwia CORS dla wszystkich endpointów
                 .allowedOrigins(
                         "http://localhost:3000", // lokalny frontend
-                        "https://smart-ski-rent-01-35db1f76586e.herokuapp.com" // adres produkcyjny
+                        "https://smart-ski-rent-01-35db1f76586e.herokuapp.com", // adres produkcyjny
+                        "http://localhost:8080" //lokalny backend
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // metody HTTP
-                .allowedHeaders("*"); // wszystkie nagłówki
+                .allowedHeaders("*") // wszystkie nagłówki
+                .allowCredentials(true);
     }
 
     @Override
