@@ -40,21 +40,24 @@ const RentingList = () => {
         });
     };
     // Potwierdzenie i przekierowanie do umowy
-    const handleConfirmSelection = () => {
+    const handleConfirmSelection = async () => {
         if (selectedRentings.length > 0) {
-            // Fetch company data before navigating
-            getCompanyData(nameUserCompany)
-                .then(() => {
-                    navigate("/rentalAgreement", {
-                        state: {
-                            rentingId: selectedRentings[0],
-                            companyData: companyData // Pass companyData to the next page
-                        }
-                    });
-                })
-                .catch((error) => {
-                    setErrorMessage("Failed to fetch company data.");
-                });
+            if (nameUserCompany) {
+                // Fetch company data only if a company name is provided
+                try {
+                    await getCompanyData(nameUserCompany);
+                } catch (error) {
+                    // If company data fetching fails, proceed without company data
+                    setErrorMessage("Failed to fetch company data, proceeding without it.");
+                }
+            }
+            // Always navigate, even if companyData is not fetched
+            navigate("/rentalAgreement", {
+                state: {
+                    rentingId: selectedRentings[0],
+                    companyData: companyData || null // Pass companyData if available
+                }
+            });
         } else {
             setErrorMessage("Please select at least one rental.");
         }

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./AppBody.module.css";
-import {  Route, Routes} from "react-router-dom";
+import {  Route, Routes, Navigate} from "react-router-dom";
 import Home from "../home/Home";
 import EquipmentList from "../equipment/EquipmentList";
 import LogoutButton from "../logout/LogoutButton";
@@ -19,6 +19,12 @@ import CreateUser from "../user/CreateUser";
 import DeleteUser from "../user/DeleteUser";
 import UserList from "../user/UserList";
 import Login from "../login/Login";
+
+
+const PrivateRoute = ({ children }) => {
+    const isAuthenticated = !!localStorage.getItem('authToken');
+    return isAuthenticated ? children : <Navigate to="/login" />;
+};
 
 const AppBody = () => {
 
