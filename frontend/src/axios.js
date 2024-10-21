@@ -9,11 +9,10 @@ console.log('API_URL:', process.env.REACT_APP_API_URL);
 
 const loginUser = async (username, password) => {
     try {
-
-        axios.defaults.headers.common['Authorization'] = 'Basic ' + btoa(`${username}:${password}`);
-        const response = await axios.post('/api/appusers/login', {
-            appUserName: username,
-            password: password,
+        // Set the Authorization header here if you want to use it directly
+        const auth = 'Basic ' + btoa(`${username}:${password}`);
+        const response = await connection.post('/api/appusers/login', null, {
+            headers: { 'Authorization': auth }
         });
         // Handle successful login
         console.log('Login successful:', response.data);
