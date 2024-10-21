@@ -15,7 +15,7 @@ public class AppUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Konwersja roli na GrantedAuthority
-        return Collections.singleton(new SimpleGrantedAuthority(appUser.getRole().name()));
+        return Collections.singleton(new SimpleGrantedAuthority(appUser.getRole().getRoleName()));
     }
    @Override
     public String getPassword() {
@@ -26,16 +26,17 @@ public class AppUserDetails implements UserDetails {
     public String getUsername() {
         return appUser.getAppUserName();
     }
-
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
+    @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
+    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
 }

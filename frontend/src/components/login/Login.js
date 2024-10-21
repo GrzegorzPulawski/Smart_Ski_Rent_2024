@@ -1,7 +1,5 @@
 import classes from './Login.module.css';
 import React, { useState } from "react";
-import connection, { configureAxios } from "../../axios";
-
 import {useNavigate} from "react-router-dom";
 
 const Login = () => {
@@ -12,25 +10,40 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
-        e.preventDefault(); // Zatrzymanie domyślnej akcji formularza
-
-        configureAxios(appUserName, password); // Konfiguruj Axios
+        e.preventDefault();
+        setErrorMessage(null); // Reset any previous errors
 
         try {
-            const response = await connection.post('/api/appusers/login');
+            // Base64 encode the username and password
+            const token = btoa(`${appUserName}:${password}`);
 
-            // Zapisz dane logowania w localStorage
-            localStorage.setItem('appUserName', appUserName);
-            localStorage.setItem('role', response.data.role); // Zapisz rolę użytkownika
+            // Send a request to the backend to log in
+            const response = await fetch('/api/appusers/login', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Basic ${token}`, // Add Basic Auth header
+                    'Content-Type': 'application/json',
+                }
+            });
 
-            console.log('Zalogowano pomyślnie:', response.data);
-            // Przekierowanie po udanym logowaniu
-            window.location.href = "/"; // lub inna strona
-        } catch (error) {
-            console.error('Błąd logowania:', error);
-            setErrorMessage("Niepoprawne dane logowania.");
+            // Check for success
+            if (response.ok) {
+                // Optionally: store the token in localStorage to keep the user logged in
+                localStorage.setItem('authToken', token);
+
+                console.log('Login successful');
+                // Redirect the user or update UI (e.g., navigate to another page)
+            } else {
+                // Handle errors (invalid login, etc.)
+                const errorMsg = await response.text();
+                setErrorMessage(`Zły login: ${errorMsg}`);
+            }
+        } catch (err) {
+            setErrorMessage('Błąd podczas logowania');
+            console.error('Login error:', err);
         }
     };
+
 
     return (
         <div>

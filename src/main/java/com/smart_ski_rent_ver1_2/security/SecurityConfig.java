@@ -43,6 +43,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").hasAnyRole("USER", "ADMIN", "DEVEL")
                         .anyRequest().authenticated() // Inne żądania muszą być uwierzytelnione
                 )
+                .formLogin() // Użycie formularza logowania
+                .loginPage("/api/appusers/login") // Ścieżka do formularza logowania
+                .permitAll() // Zezwolenie na dostęp do formularza logowania
+                .and()
                 .httpBasic() // Basic Authentication
                 .and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Bezpieczeństwo bezstanowe, co jest typowe dla REST API

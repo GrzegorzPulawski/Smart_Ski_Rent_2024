@@ -1,7 +1,6 @@
 import classes from "./Logout.module.css";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import connection from "../../axios";
 
 const LogoutButton = () => {
     const [message, setMessage] = useState('');
@@ -9,27 +8,17 @@ const LogoutButton = () => {
 
     const handleLogout = async () => {
         try {
-            // Sprawdzenie, czy dane logowania są dostępne w localStorage
-            const appUserName = localStorage.getItem('appUserName');
-            const password = localStorage.getItem('password');
+            // Remove the stored token from localStorage
+            const authToken = localStorage.getItem('authToken');
 
-            if (appUserName && password) {
-                // Opcjonalne wywołanie API do wylogowania
-                // await connection.post('/api/appusers/logout', {}, {
-                //     auth: {
-                //         username: appUserName,
-                //         password: password
-                //     }
-                // });
-
-                // Usunięcie danych logowania z localStorage
-                localStorage.removeItem('appUserName');
-                localStorage.removeItem('password');
+            if (authToken) {
+                // Clear the auth token from localStorage
+                localStorage.removeItem('authToken');
                 setMessage("Poprawnie wylogowano.");
 
-                // Przekierowanie po 2 sekundach
+                // Optionally, redirect to the login page after 2 seconds
                 setTimeout(() => {
-                    navigate("/api/appusers/login"); // Upewnij się, że ścieżka jest poprawna
+                    navigate("/login"); // Update the path to match your login route
                 }, 2000);
             } else {
                 setMessage("Brak danych logowania.");
