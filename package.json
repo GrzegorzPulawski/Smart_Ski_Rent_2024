@@ -1,0 +1,9 @@
+{
+  "name": "smart-ski-rent2",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
+  },
+  "dependencies": {}
+}

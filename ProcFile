@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar backend/target/<nazwa-twojego-pliku-jar>.jar
+web: cd frontend && npm install && npm run build && cd .. && mvn package && java -jar target/smart-ski-rent2.jar
