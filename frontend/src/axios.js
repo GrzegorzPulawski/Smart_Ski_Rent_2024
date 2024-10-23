@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 const connection = axios.create({
-    baseURL: apiUrl
+    baseURL: "https://smart-ski-rent2-cc4beaf8669f.herokuapp.com"
 });
 
 // Interceptor dodający nagłówek Authorization dla Basic Auth
