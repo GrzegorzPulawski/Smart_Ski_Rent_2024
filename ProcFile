@@ -1,1 +1,2 @@
-web: cd frontend && npm install && npm run build && cd .. && mvn package && java -jar target/smart-ski-rent2.jar
+web: cd frontend && npm install && npm run build && cd .. && mvn clean package && java -Dserver.port=$PORT -jar target/smart_ski_rent_ver2-0.0.2-SNAPSHOT.jar
+

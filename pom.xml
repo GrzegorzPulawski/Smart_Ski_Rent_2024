@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com</groupId>
-    <artifactId>smart_ski_rent_ver1</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>smart_ski_rent_ver1.2</name>
-    <description>smart_ski_rent_ver1.2</description>
+    <artifactId>smart_ski_rent_ver2</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+    <name>smart_ski_rent_ver2</name>
+    <description>smart_ski_rent_ver2</description>
     <url/>
     <licenses>
         <license/>
