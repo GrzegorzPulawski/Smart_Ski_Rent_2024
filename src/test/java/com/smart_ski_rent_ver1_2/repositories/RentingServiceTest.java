@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,7 +37,7 @@ public class RentingServiceTest {
         //given
         createRentingRequest = new CreateRentingRequest();
                 createRentingRequest.setIdClient(1L);
-                createRentingRequest.setIdEquipment(1L);
+                createRentingRequest.setIdEquipment(Collections.singletonList(1L));
 
         Client client = new Client();
         client.setIdClient(1L);

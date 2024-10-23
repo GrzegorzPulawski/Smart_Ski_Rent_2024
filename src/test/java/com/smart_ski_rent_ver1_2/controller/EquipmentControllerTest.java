@@ -46,7 +46,7 @@ public class EquipmentControllerTest {
                 "Atomic", 50.0);
         doNothing().when(equipmentService).createEquipment(any(CreateEquipmentRequest.class));
         //when
-        mockMvc.perform(post("/api/equipments")
+        mockMvc.perform(post("/api/equipments/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(createEquipmentRequest)))
                 .andExpect(status().isOk());
