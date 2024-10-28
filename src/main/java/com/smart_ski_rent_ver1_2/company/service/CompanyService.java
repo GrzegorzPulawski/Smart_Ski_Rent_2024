@@ -2,9 +2,9 @@ package com.smart_ski_rent_ver1_2.company.service;
 
 import com.smart_ski_rent_ver1_2.company.DTO.CompanyDTO;
 import com.smart_ski_rent_ver1_2.company.entity.Company;
-import com.smart_ski_rent_ver1_2.repositories.repository.CompanyRepository;
+import com.smart_ski_rent_ver1_2.company.repository.CompanyRepository;
 import com.smart_ski_rent_ver1_2.exception.NoCompanyForThisLoginException;
-import com.smart_ski_rent_ver1_2.security.entity.AppUser;
+import com.smart_ski_rent_ver1_2.security.entity.AppUserEntity;
 import com.smart_ski_rent_ver1_2.security.repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,13 +35,13 @@ public class CompanyService {
     }
     public Company getCompanyByLoginUser(String loginUser) {
         // Znajdź użytkownika na podstawie loginu
-        Optional<AppUser> userOptional = appUserRepository.findByAppUserName(loginUser);
+        Optional<AppUserEntity> userOptional = appUserRepository.findByUserName(loginUser);
 
         // Jeśli użytkownik istnieje
         if (userOptional.isPresent()) {
-            AppUser user = userOptional.get();
+            AppUserEntity user = userOptional.get();
             // Wyszukaj firmę na podstawie nazwy użytkownika (nameUser)
-            Optional<Company> companyOptional = companyRepository.findByNameUser(user.getAppUserName());
+            Optional<Company> companyOptional = companyRepository.findByNameUser(user.getUsername());
 
             // Jeśli firma istnieje i nazwa użytkownika się zgadza
             if (companyOptional.isPresent() && companyOptional.get().getNameUser().equals(loginUser)) {

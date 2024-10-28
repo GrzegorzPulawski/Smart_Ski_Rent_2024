@@ -1,34 +1,33 @@
 package com.smart_ski_rent_ver1_2.security;
 
-import com.smart_ski_rent_ver1_2.security.service.AppUserDetailsService;
-import com.smart_ski_rent_ver1_2.security.service.AppUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.smart_ski_rent_ver1_2.security.dbauth.AppUserDetailsService;
+import edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+import static com.smart_ski_rent_ver1_2.security.entity.AppUserRole.DEVEL;
+import static edu.emory.mathcs.backport.java.util.concurrent.TimeUnit.DAYS;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
-     private final AppUserDetailsService appUserDetailsService;
-    private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(AppUserDetailsService appUserDetailsService, PasswordEncoder passwordEncoder) {
-        this.appUserDetailsService = appUserDetailsService;
+    private PasswordEncoder passwordEncoder;
+    private final AppUserDetailsService appUserDetailsService;
+
+    public SecurityConfig(PasswordEncoder passwordEncoder, AppUserDetailsService appUserDetailsService) {
         this.passwordEncoder = passwordEncoder;
+        this.appUserDetailsService = appUserDetailsService;
     }
 
     @Bean
@@ -36,41 +35,45 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers( "index.html","/api/appusers/login","api/home").permitAll()
-                        // Tylko dla ADMIN: POST i DELETE na /api/formEquipment
-                        .requestMatchers("/api/appusers/devel/**").hasRole("DEVEL")
-
-                        .requestMatchers( "/api/equipments/add").hasRole("ADMIN")
-                        .requestMatchers( "/api/equipments/delete").hasRole("ADMIN")
-
-                        .requestMatchers(  "/api/**").hasAnyRole("USER", "ADMIN", "DEVEL")
+                        .requestMatchers("/api/appusers/login", "/api/home","/", "index.html", "swagger-ui/**").permitAll()
+                        .requestMatchers("/api/appusers/devel/**").hasRole(DEVEL.name())
+                        .requestMatchers("/api/**").hasAnyRole(DEVEL.name())
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
-                        .loginPage("/api/appuser/login") // Wskazuje na niestandardową stronę logowania
-                        .defaultSuccessUrl("/") // Adres, na który przekieruje po udanym logowaniu
-                        .permitAll()
-                )
-                .httpBasic(withDefaults());
-        http.formLogin().disable();  // Wyłącz domyślny formularz logowania
-
+                .formLogin()
+                .loginPage("/login")
+                .passwordParameter("password2")
+                .usernameParameter("username2")
+                .defaultSuccessUrl("/api/home", true)
+                .permitAll()
+                .and()
+                .rememberMe()
+                .tokenValiditySeconds((int) DAYS.toSeconds(21))
+                .rememberMeParameter("pamietaj-mnie")
+                .key("jakis_strasznie_trudny_klucz")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "remember-me")
+                .logoutSuccessUrl("/login");
         return http.build();
+
     }
- //   @Bean
-   // public UserDetailsService userDetailsService() {
-     //   UserDetails user = User.builder()
-       //         .username("user")
-         //       .password(passwordEncoder().encode("password"))
-           //     .roles("USER")
-             //   .build();
-       // UserDetails api = User.builder()
-         //       .username("api")
-           //     .password(passwordEncoder().encode("password"))
-             //   .roles("API")
-               // .build();
-
-     //   return new InMemoryUserDetailsManager(user, api);
-   // }
 
 
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setUserDetailsService(appUserDetailsService);
+        return provider;
+    }
 }

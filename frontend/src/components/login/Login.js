@@ -1,69 +1,67 @@
 import React, { useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import connection from "../../axios";
-import {Button, Col} from "react-bootstrap";
 import classes from "./Login.module.css";
+
 
 const Login = () => {
     const [appUserName, setAppUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
-    const [error, setError] = useState('')
-    const [successMessage, setSuccesMessage] = useState('');
 
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        // Przechowywanie danych logowania w localStorage
-        localStorage.setItem('username', appUserName);
-        localStorage.setItem('password', password);
-
-        connection.post("/api/appusers/login", {appUserName, password})
-            .then(response => {
-                console.log("Logowanie udane:", response);
-                setSuccesMessage("Zalogowano poprawnie")
-                getCompanyData(appUserName);
-                window.location.reload(); // Refresh the page after 5 seconds
-                setTimeout(()=>{
-                    navigate("/");
-                },3000);
-
-            })
-            .catch(err => {
-                console.error("Błąd logowania:", err);
-                if (err.response && err.response.status === 401) {
-                    setError("Błędna nazwa użytkownika lub hasło.");
-                } else {
-                    setError("Wystąpił błąd. Spróbuj ponownie.");
-                }
+        try {
+            const response = await connection.post('/api/appusers/login', {
+                appUserName,
+                password,
             });
+
+            const { jwt } = response.data; // Extract the token from response
+            localStorage.setItem('token', jwt); // Store token in localStorage
+
+            // Decode the JWT token to get the appUserName (or use appUserName from state if it's the same)
+            const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
+            const appUserNameFromToken = decodedToken.sub; // Assuming 'sub' contains the username
+            const userRole = decodedToken.role; // Extract user role if needed
+            localStorage.setItem('role', userRole); // Store the role in localStorage
+
+            // Call getCompanyData using the appUserName (either from token or from input)
+            await getCompanyData(appUserNameFromToken || appUserName);
+
+            // Navigate to a protected route after successful login
+            setSuccessMessage("Login successful! Redirecting...");
+            navigate('/dashboard');
+        } catch (error) {
+            setErrorMessage('Login failed: ' + (error.response?.data?.message || error.message));
+        }
     };
 
-    const getCompanyData = (loginUser) => {
-        // connection.get(`/api/company/data`, { params: { loginUser } })
-        connection.get(`/api/company/data/${loginUser}`)
-            .then(response => {
-                console.log("Dane firmy pobrane:", response.data);
+    const getCompanyData = async (loginUser) => {
+        try {
+            const response = await connection.get(`/api/company/data/${loginUser}`);
+            console.log("Company data retrieved:", response.data);
 
-                // Przechowywanie danych firmy w localStorage lub innym miejscu
-                localStorage.setItem('companyData', JSON.stringify(response.data));
-
-            })
-            .catch(err => {
-                console.error("Błąd pobierania danych firmy:", err);
-            });
+            // Store the company data in localStorage or use it elsewhere
+            localStorage.setItem('companyData', JSON.stringify(response.data));
+        } catch (err) {
+            console.error("Error retrieving company data:", err);
+            setErrorMessage("Could not retrieve company data.");
+        }
     };
     return (
         <>
-            <form onSubmit={handleSubmit} className={classes.LoginForm}>
+            <form onSubmit={handleLogin} className={classes.LoginForm}>
                 <input
                     type="text"
                     value={appUserName}
                     onChange={(e) => setAppUserName(e.target.value)}
                     placeholder="Nazwa użytkownika"
                     required
-                    className={classes.InputField}
+                    className="InputField"
                 />
                 <input
                     type="password"
@@ -71,26 +69,35 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Hasło"
                     required
-                    className={classes.InputField}
+                    className="InputField"
                 />
-                <button type="submit" className={classes.SubmitButton}>Zaloguj się</button>
-                {error && <p className={classes.ErrorText}>{error}</p>}
-                <Col>
-                    <Button variant="primary" onClick={() => navigate('/companySave')} className={classes.ActionButton}>
+                <button type="submit" className={classes.Button}>Zaloguj się</button>
+                {error && <p className="ErrorText">{error}</p>}
+                {successMessage && <p className="SuccessText">{successMessage}</p>}
+
+                <div className="ActionButtons">
+                    <button
+                        type="button"
+                        onClick={() => navigate('/companySave')}
+                        className={classes.ActionButton}
+                    >
                         Wprowadź dane firmy
-                    </Button>
-                </Col>
-                <Col>
-                    <Button variant="outline-secondary" onClick={() => navigate('/logout')}
-                            className={classes.ActionButton}>
-                        <div>Wylogowanie</div>
-                    </Button>
-                </Col>
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => navigate('/logout')}
+                        className={classes.ActionButton}
+                    >
+                        Wylogowanie
+                    </button>
+                </div>
             </form>
-            <div className={classes.Footer}>
+
+            <footer className={classes.Footer}>
                 Program napisała firma Mandragora. Kontakt w celu zakupu: tel.502109609
-            </div>
+            </footer>
         </>
     );
 }
+
 export default Login;
