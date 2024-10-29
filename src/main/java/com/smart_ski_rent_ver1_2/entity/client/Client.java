@@ -1,10 +1,12 @@
 package com.smart_ski_rent_ver1_2.entity.client;
 
 import com.smart_ski_rent_ver1_2.dto.ClientDTO;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+
+import jakarta.persistence.*;
 
 @Data
 @NoArgsConstructor

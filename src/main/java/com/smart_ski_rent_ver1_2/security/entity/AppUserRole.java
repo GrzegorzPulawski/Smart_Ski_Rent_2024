@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import static com.smart_ski_rent_ver1_2.security.entity.AppUserPermission.*;
 
 public enum AppUserRole {
-
+    STUDENT(Sets.newHashSet()),
     COMPANY(Sets.newHashSet()),
     DEVEL(Sets.newHashSet(COMPANY_WRITE,COMPANY_READ)),
     ADMIN(Sets.newHashSet(COMPANY_READ));

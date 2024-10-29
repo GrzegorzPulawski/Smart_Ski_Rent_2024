@@ -1,9 +1,9 @@
 package com.smart_ski_rent_ver1_2.security.entity;
 
-import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
@@ -16,7 +16,7 @@ public class AppUserEntity implements UserDetails {
     private Long id;
     @Column(name = "password")
     private String password;
-    @Column(name = "app_user_name")
+    @Column(name = "user_name")
     private String userName;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -1,103 +1,85 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import connection from "../../axios";
 import classes from "./Login.module.css";
-
+import React from "react";
+import connection from "../../axios";
+import {useState} from "react";
 
 const Login = () => {
-    const [appUserName, setAppUserName] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const loginHandle = async (e) => {
+        e.preventDefault(); // Zatrzymaj domyślne zachowanie formularza
+
+        const authString = `Basic ${btoa(`${username}:${password}`)}`;
 
         try {
-            const response = await connection.post('/api/appusers/login', {
-                appUserName,
-                password,
+            const response = await connection.post('/login', {}, {
+                headers: {
+                    'Authorization': authString
+                }
             });
 
-            const { jwt } = response.data; // Extract the token from response
-            localStorage.setItem('token', jwt); // Store token in localStorage
-
-            // Decode the JWT token to get the appUserName (or use appUserName from state if it's the same)
-            const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
-            const appUserNameFromToken = decodedToken.sub; // Assuming 'sub' contains the username
-            const userRole = decodedToken.role; // Extract user role if needed
-            localStorage.setItem('role', userRole); // Store the role in localStorage
-
-            // Call getCompanyData using the appUserName (either from token or from input)
-            await getCompanyData(appUserNameFromToken || appUserName);
-
-            // Navigate to a protected route after successful login
-            setSuccessMessage("Login successful! Redirecting...");
-            navigate('/dashboard');
+            // Przechowuj token lub inne dane użytkownika (możesz użyć localStorage)
+            console.log('Logged in successfully:', response.data);
+            // Możesz również przekierować użytkownika do innej strony
+            navigate('/home'); // Zmień na odpowiednią stronę po zalogowaniu
         } catch (error) {
-            setErrorMessage('Login failed: ' + (error.response?.data?.message || error.message));
+            setError('Error logging in: ' + (error.response ? error.response.data : error.message));
+            console.error('Error logging in:', error.response ? error.response.data : error.message);
         }
     };
 
-    const getCompanyData = async (loginUser) => {
-        try {
-            const response = await connection.get(`/api/company/data/${loginUser}`);
-            console.log("Company data retrieved:", response.data);
-
-            // Store the company data in localStorage or use it elsewhere
-            localStorage.setItem('companyData', JSON.stringify(response.data));
-        } catch (err) {
-            console.error("Error retrieving company data:", err);
-            setErrorMessage("Could not retrieve company data.");
-        }
-    };
     return (
-        <>
-            <form onSubmit={handleLogin} className={classes.LoginForm}>
-                <input
-                    type="text"
-                    value={appUserName}
-                    onChange={(e) => setAppUserName(e.target.value)}
-                    placeholder="Nazwa użytkownika"
-                    required
-                    className="InputField"
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Hasło"
-                    required
-                    className="InputField"
-                />
-                <button type="submit" className={classes.Button}>Zaloguj się</button>
-                {error && <p className="ErrorText">{error}</p>}
-                {successMessage && <p className="SuccessText">{successMessage}</p>}
-
-                <div className="ActionButtons">
-                    <button
-                        type="button"
-                        onClick={() => navigate('/companySave')}
-                        className={classes.ActionButton}
-                    >
-                        Wprowadź dane firmy
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => navigate('/logout')}
-                        className={classes.ActionButton}
-                    >
-                        Wylogowanie
-                    </button>
+        <div className={classes.LoginContainer}>
+            <form onSubmit={loginHandle}>
+                <div>
+                    <label htmlFor="username">Nazwa użytkownika:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
                 </div>
+                <div>
+                    <label htmlFor="password">Hasło:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit" className={classes.LoginButton}>Zaloguj się</button>
+                {error && <p className={classes.Error}>{error}</p>}
             </form>
 
+            <div className="ActionButtons">
+                <button
+                    type="button"
+                    onClick={() => navigate('/companySave')}
+                    className={classes.ActionButton}
+                >
+                    Wprowadź dane firmy
+                </button>
+                <button
+                    type="button"
+                    onClick={() => navigate('/logout')}
+                    className={classes.ActionButton}
+                >
+                    Wylogowanie
+                </button>
+            </div>
             <footer className={classes.Footer}>
                 Program napisała firma Mandragora. Kontakt w celu zakupu: tel.502109609
             </footer>
-        </>
+        </div>
     );
-}
+};
 
 export default Login;

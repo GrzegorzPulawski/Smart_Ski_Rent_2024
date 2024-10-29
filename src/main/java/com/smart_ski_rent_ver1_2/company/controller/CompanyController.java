@@ -7,6 +7,7 @@ import com.smart_ski_rent_ver1_2.exception.NoCompanyForThisLoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
@@ -19,6 +20,7 @@ public class CompanyController {
 
     // Endpoint to save company data
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('devel:write')")
     public ResponseEntity<CompanyDTO> saveCompanyData(@RequestBody CompanyDTO companyDTO) {
         try {
             // Call the service to save company data
@@ -29,6 +31,7 @@ public class CompanyController {
         }
     }
     @GetMapping("/data/{loginUser}")
+
     public ResponseEntity<Company> getCompanyByLoginUser(@PathVariable String loginUser){
         try {
             Company company = companyService.getCompanyByLoginUser(loginUser);

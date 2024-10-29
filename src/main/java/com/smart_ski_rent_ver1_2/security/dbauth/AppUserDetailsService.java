@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class AppUserDetailsService implements UserDetailsService {
     private final UserService userService;
 
-    public AppUserDetailsService(@Qualifier("fake") UserService userService) {
+    public AppUserDetailsService(@Qualifier("mysql") UserService userService) {
         this.userService = userService;
     }
 

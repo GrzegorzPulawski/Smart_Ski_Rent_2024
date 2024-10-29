@@ -1,7 +1,8 @@
 package com.smart_ski_rent_ver1_2.security.entity;
 
-import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+
+import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity

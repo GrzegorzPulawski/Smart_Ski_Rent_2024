@@ -2,6 +2,8 @@ package com.smart_ski_rent_ver1_2.company.entity;
 
 import jakarta.persistence.*;
 
+
+
 @Entity
 @Table(name="companies")
 public class Company {
