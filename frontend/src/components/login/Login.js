@@ -10,25 +10,23 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const loginHandle = async (e) => {
-        e.preventDefault(); // Zatrzymaj domyślne zachowanie formularza
-
-        const authString = `Basic ${btoa(`${username}:${password}`)}`;
+    const loginHandle = async (event) => {
+        event.preventDefault();
 
         try {
-            const response = await connection.post('/login', {}, {
-                headers: {
-                    'Authorization': authString
-                }
-            });
+            const response = await connection.post('/api/auth/login', {username,
+                password},{
+                    withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json'}
+            }
+            );
+            console.log(response.data);
+            console.log('Login data:', { username, password });
 
-            // Przechowuj token lub inne dane użytkownika (możesz użyć localStorage)
-            console.log('Logged in successfully:', response.data);
-            // Możesz również przekierować użytkownika do innej strony
-            navigate('/home'); // Zmień na odpowiednią stronę po zalogowaniu
-        } catch (error) {
-            setError('Error logging in: ' + (error.response ? error.response.data : error.message));
-            console.error('Error logging in:', error.response ? error.response.data : error.message);
+        } catch (err) {
+            setError('Invalid username or password');
+            console.error('Login error:', err);
         }
     };
 

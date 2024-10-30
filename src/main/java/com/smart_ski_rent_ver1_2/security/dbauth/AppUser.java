@@ -13,7 +13,12 @@ public class AppUser implements UserDetails {
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
 
-    public AppUser(String password, String userName, Collection<? extends GrantedAuthority> authorities, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
+    public AppUser(String password, String userName,
+                   Collection<? extends GrantedAuthority> authorities,
+                   boolean isAccountNonExpired,
+                   boolean isAccountNonLocked,
+                   boolean isCredentialsNonExpired,
+                   boolean isEnabled) {
         this.password = password;
         this.userName = userName;
         this.authorities = authorities;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import connection from "../../axios";
 
 const LogoutButton = () => {
     const [message, setMessage] = useState('');
@@ -8,10 +8,9 @@ const LogoutButton = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post('/logout'); // Wyślij żądanie wylogowania do backendu
-            localStorage.removeItem('token'); // Usuń token z localStorage lub sessionStorage
-            setMessage('Poprawnie wylogowano'); // Ustaw wiadomość o sukcesie
-            setTimeout(() => navigate('/login'), 1000); // Przekieruj na stronę logowania po 1 sekundzie
+            await connection.post('/logout');
+            setMessage('Poprawnie wylogowano');
+            setTimeout(() => navigate('/login'), 5000); // Przekieruj na stronę logowania po 1 sekundzie
         } catch (error) {
             console.error('Error logging out:', error);
         }

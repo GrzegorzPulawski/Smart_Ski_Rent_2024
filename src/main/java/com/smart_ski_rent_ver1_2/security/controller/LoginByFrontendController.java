@@ -1,13 +1,14 @@
 package com.smart_ski_rent_ver1_2.security.controller;
 
+import com.smart_ski_rent_ver1_2.security.dto.LoginRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
@@ -24,23 +25,20 @@ import java.util.Base64;
         }
 
 
-        @GetMapping("/login")
-        public String login() {
-            return "login";
-        }
         @PostMapping("/login")
-        public ResponseEntity<?> authenticateUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
-            String[] credentials = decodeBasicAuthHeader(authHeader);
-            String username = credentials[0];
-            String password = credentials[1];
-
+        public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+            log.info("Attempting to log in user: {}", loginRequest.getUsername());
+            String username = loginRequest.getUsername();
+            String password = loginRequest.getPassword();
             try {
                 Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(username, password)
                 );
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                // Użytkownik uwierzytelniony
                 log.info("User {} authenticated successfully", username);
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
                 return ResponseEntity.ok("User authenticated successfully");
 
             } catch (AuthenticationException e) {
@@ -49,14 +47,6 @@ import java.util.Base64;
             }
         }
 
-        private String[] decodeBasicAuthHeader(String authHeader) {
-            if (authHeader != null && authHeader.startsWith("Basic ")) {
-                String base64Credentials = authHeader.substring("Basic ".length()).trim();
-                String credentials = new String(Base64.getDecoder().decode(base64Credentials));
-                return credentials.split(":", 2); // Zwracamy nazwę użytkownika i hasło
-            }
-            throw new IllegalArgumentException("Invalid Authorization Header");
-        }
 
     }
 

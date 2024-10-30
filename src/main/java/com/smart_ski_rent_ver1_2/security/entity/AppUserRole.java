@@ -1,13 +1,14 @@
 package com.smart_ski_rent_ver1_2.security.entity;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import com.google.common.collect.Sets;
 import java.util.Set;
 import java.util.stream.Collectors;
 import static com.smart_ski_rent_ver1_2.security.entity.AppUserPermission.*;
-
+@Slf4j
 public enum AppUserRole {
-    STUDENT(Sets.newHashSet()),
+    STUDENT(Sets.newHashSet(COMPANY_WRITE,COMPANY_READ)),
     COMPANY(Sets.newHashSet()),
     DEVEL(Sets.newHashSet(COMPANY_WRITE,COMPANY_READ)),
     ADMIN(Sets.newHashSet(COMPANY_READ));
@@ -27,6 +28,8 @@ public enum AppUserRole {
                 .map(permision -> new SimpleGrantedAuthority(permision.getPermission()))
                 .collect(Collectors.toSet());
         permissions.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        permissions.forEach(permission -> log.debug("Permission added: " + permission.getAuthority()));
+
         return permissions;
     }
 }

@@ -7,6 +7,9 @@ import com.smart_ski_rent_ver1_2.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +17,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/clients")
-
 public class ClientController {
     private final ClientService clientService;
 
@@ -28,6 +30,9 @@ public class ClientController {
     }
     @GetMapping
     public List<ClientDTO> clientsList(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Current user accessing /api/clients: " + authentication.getName());
+
         List<ClientDTO> clientList = clientService.findAllClients();
         log.info("List of clients has: " + clientList.size() + " positions");
         return clientService.findAllClients();

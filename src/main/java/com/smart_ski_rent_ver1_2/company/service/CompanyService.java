@@ -35,7 +35,7 @@ public class CompanyService {
     }
     public Company getCompanyByLoginUser(String loginUser) {
         // Znajdź użytkownika na podstawie loginu
-        Optional<AppUserEntity> userOptional = appUserRepository.findByUserName(loginUser);
+        Optional<AppUserEntity> userOptional = appUserRepository.findByUsername(loginUser);
 
         // Jeśli użytkownik istnieje
         if (userOptional.isPresent()) {

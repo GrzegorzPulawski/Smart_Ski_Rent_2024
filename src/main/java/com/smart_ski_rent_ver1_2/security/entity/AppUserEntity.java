@@ -17,7 +17,7 @@ public class AppUserEntity implements UserDetails {
     @Column(name = "password")
     private String password;
     @Column(name = "user_name")
-    private String userName;
+    private String username;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -43,10 +43,9 @@ public class AppUserEntity implements UserDetails {
         return password;
     }
 
-
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override

@@ -1,15 +1,15 @@
 package com.smart_ski_rent_ver1_2.security.dto;
 
 public class LoginRequest {
-    private String appUserName;
+    private String username;
     private String password;
 
-    public String getAppUserName() {
-        return appUserName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAppUserName(String appUserName) {
-        this.appUserName = appUserName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

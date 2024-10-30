@@ -16,10 +16,10 @@ public class MySqlUserService implements UserService {
         this.appUserRepository = appUserRepository;
     }
     @Override
-    public Optional<AppUser> getApplicationUserBy(String userName) {
+    public Optional<AppUser> getApplicationUserBy(String username) {
         return getApplicationUsers()
                 .stream()
-                .filter(user -> user.getUsername().equals(userName))
+                .filter(user -> user.getUsername().equals(username))
                 .findFirst();
     }
   public List<AppUser> getApplicationUsers() {
