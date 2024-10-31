@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class AppUserDetailsService implements UserDetailsService {
     private final UserService userService;
 
-    public AppUserDetailsService(@Qualifier("mysql") UserService userService) {
+    public AppUserDetailsService(@Qualifier("fake") UserService userService) {
         this.userService = userService;
     }
 

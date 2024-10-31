@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.smart_ski_rent_ver1_2.security.entity.AppUserRole.DEVEL;
+import static com.smart_ski_rent_ver1_2.security.entity.AppUserRole.STUDENT;
 
 @Service("fake")
 public class FakeUserService implements UserService{
@@ -18,18 +19,18 @@ public class FakeUserService implements UserService{
         this.passwordEncoder = passwordEncoder;
     }
     @Override
-    public Optional<AppUser> getApplicationUserBy(String userName) {
+    public Optional<AppUser> getApplicationUserBy(String username) {
         return getApplicationUsers()
                 .stream()
-                .filter(user -> user.getUsername().equals(userName))
+                .filter(user -> user.getUsername().equals(username))
                 .findFirst();
     }
     private List<AppUser> getApplicationUsers() {
         return Lists.newArrayList(
                 new AppUser(
                         passwordEncoder.encode("123456"),
-                        "develop",
-                        DEVEL.getGrantedAuthorities(),
+                        "student",
+                        STUDENT.getGrantedAuthorities(),
                         true,
                         true,
                         true,

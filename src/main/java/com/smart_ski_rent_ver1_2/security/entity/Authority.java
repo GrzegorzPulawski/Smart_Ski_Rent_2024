@@ -13,7 +13,6 @@ public class Authority implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     private String authority;
 
     @Override
@@ -36,10 +35,10 @@ public class Authority implements GrantedAuthority {
         Authority authority1 = (Authority) o;
         return Objects.equals(id, authority1.id) && Objects.equals(authority, authority1.authority);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, authority);
     }
+
 
 }

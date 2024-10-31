@@ -11,9 +11,7 @@ const ClientList =  () => {
     const navigate = useNavigate();
 
     useEffect(() =>{
-        const url = '/api/clients';
-        console.log('Sending request to:', url);
-        connection.get(url)
+          connection.get('/api/clients')
 
             .then((response)=>{
                 console.log(response);

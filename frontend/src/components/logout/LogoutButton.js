@@ -8,9 +8,9 @@ const LogoutButton = () => {
 
     const handleLogout = async () => {
         try {
-            await connection.post('/logout');
+            await connection.post('/api/auth/logout', {}, { withCredentials: true }); // Ensure credentials are included if needed
             setMessage('Poprawnie wylogowano');
-            setTimeout(() => navigate('/login'), 5000); // Przekieruj na stronę logowania po 1 sekundzie
+            setTimeout(() => navigate('/login'), 5000); // Redirect to login after 5 seconds
         } catch (error) {
             console.error('Error logging out:', error);
         }
@@ -25,4 +25,3 @@ const LogoutButton = () => {
 };
 
 export default LogoutButton;
-

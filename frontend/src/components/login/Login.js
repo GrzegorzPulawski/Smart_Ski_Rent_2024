@@ -1,31 +1,38 @@
 import { useNavigate } from 'react-router-dom';
 import classes from "./Login.module.css";
-import React from "react";
+import React, { useState } from "react";
 import connection from "../../axios";
-import {useState} from "react";
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState(''); // New state for success message
     const navigate = useNavigate();
 
     const loginHandle = async (event) => {
         event.preventDefault();
+        setError(''); // Clear any previous error messages
+        setSuccess(''); // Clear any previous success messages
 
         try {
-            const response = await connection.post('/api/auth/login', {username,
-                password},{
-                    withCredentials: true,
-            headers: {
-                'Content-Type': 'application/json'}
-            }
-            );
+            const response = await connection.post('/api/auth/login', {username, password
+            }, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             console.log(response.data);
             console.log('Login data:', { username, password });
 
+
+            // Set the success message
+            setSuccess('Zalogowano poprawnie!');
+            setTimeout(() => navigate('/home'), 2000); // Navigate after 2 seconds (adjust as needed)
+
         } catch (err) {
-            setError('Invalid username or password');
+            setError('Zły login lub hasło');
             console.error('Login error:', err);
         }
     };
@@ -55,6 +62,7 @@ const Login = () => {
                 </div>
                 <button type="submit" className={classes.LoginButton}>Zaloguj się</button>
                 {error && <p className={classes.Error}>{error}</p>}
+                {success && <p className={classes.Success}>{success}</p>}
             </form>
 
             <div className="ActionButtons">

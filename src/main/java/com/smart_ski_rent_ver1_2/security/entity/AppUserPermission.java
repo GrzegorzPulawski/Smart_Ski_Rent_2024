@@ -4,11 +4,9 @@ public enum AppUserPermission {
     COMPANY_WRITE("company:write"),
     COMPANY_READ("company:read");
     private final String permission;
-
     AppUserPermission(String permission) {
         this.permission = permission;
     }
-
     public String getPermission() {
         return permission;
     }
