@@ -133,7 +133,16 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.6.14</version> <!-- Użyj najnowszej dostępnej wersji -->
         </dependency>
-
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.5.Final</version> <!-- Upewnij się, że jest to najnowsza wersja -->
+        </dependency>
     </dependencies>
 
     <build>

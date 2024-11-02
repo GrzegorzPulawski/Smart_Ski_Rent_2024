@@ -5,4 +5,5 @@ import java.util.Optional;
 public interface UserService {
 
     Optional<AppUser> getApplicationUserBy(String userName);
+
 }
