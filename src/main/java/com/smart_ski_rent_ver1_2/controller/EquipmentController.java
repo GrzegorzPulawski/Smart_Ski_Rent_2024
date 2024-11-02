@@ -4,8 +4,6 @@ import com.smart_ski_rent_ver1_2.dto.EquipmentDTO;
 import com.smart_ski_rent_ver1_2.request.CreateEquipmentRequest;
 import com.smart_ski_rent_ver1_2.service.EquipmentService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,9 +24,6 @@ public class EquipmentController {
     }
     @GetMapping
     public List<EquipmentDTO> equipmentsList(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("Current user accessing /api/equipments: " + authentication.getName());
-
         List<EquipmentDTO> equipmentList = equipmentService.listEquipments();
         log.info("List of equipments has: "+  equipmentList.size() +" positions");
         return equipmentService.listEquipments();

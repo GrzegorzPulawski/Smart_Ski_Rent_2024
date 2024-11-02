@@ -75,7 +75,7 @@ public class EquipmentServiceTest {
     public void givenEquipments_whenFindAllEquipments_thenReturnEquipmentDTOList(){
         //given
         Equipment equipment1 = new Equipment(1L, "Atomic", 50.0);
-        Equipment equipment2 = new Equipment(2L, "Rossignol", 40.0);
+        Equipment equipment2 = new Equipment(3L, "Rossignol", 40.0);
         List<Equipment> equipmentList = Arrays.asList(equipment1,equipment2);
         given(equipmentRepository.findAll()).willReturn(equipmentList);
 

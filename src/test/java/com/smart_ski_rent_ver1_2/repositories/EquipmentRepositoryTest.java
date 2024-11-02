@@ -32,7 +32,7 @@ public class EquipmentRepositoryTest {
     public void givenEquipment_whenFindAll_thenReturnListOfEquipment(){
         //given
         Equipment equipment1 = new Equipment(1L, "Atomic", 50.0);
-        Equipment equipment2 = new Equipment(2L, "Rossignol", 40.0);
+        Equipment equipment2 = new Equipment(3L, "Rossignol", 40.0);
 
         equipmentRepository.save(equipment1);
         equipmentRepository.save(equipment2);
