@@ -1,10 +1,13 @@
 package com.smart_ski_rent_ver1_2.security.jwtnew;
 
+import com.smart_ski_rent_ver1_2.security.newuserrole.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +24,6 @@ public class User {
     private String lastname;
     private  String login;
     private  String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

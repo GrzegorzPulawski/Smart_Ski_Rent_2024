@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.security.jwtnew;
 
+import com.smart_ski_rent_ver1_2.security.newuserrole.Role;
 import com.smart_ski_rent_ver1_2.security.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class UserServiceNew {
             throw  new AppException("Login already exists", HttpStatus.BAD_REQUEST);
         }
         User user = userMapper.signUpToUser(userDto);
+        user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
         User savedUser = userRepository.save(user);
         return userMapper.toUserDto(user);

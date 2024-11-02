@@ -1,6 +1,5 @@
 package com.smart_ski_rent_ver1_2.security.jwtnew;
 
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

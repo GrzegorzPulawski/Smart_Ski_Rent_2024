@@ -1,5 +1,6 @@
 package com.smart_ski_rent_ver1_2.security.jwtnew;
 
+import com.smart_ski_rent_ver1_2.security.newuserrole.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,5 @@ public class UserDto {
     private String lastname;
     private  String login;
     private  String token;
+    private Role role;
 }

@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.smart_ski_rent_ver1_2.security.dbauth.UserService;
+
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
@@ -23,6 +24,7 @@ public class UserAuthProvider {
     @Value("${security.jwt.token.secret-key:secret-value}")
     private String secretKey;
     private final UserServiceNew userServiceNew;
+    private final User user;
 
     @PostConstruct
     protected void init() {
@@ -33,9 +35,10 @@ public class UserAuthProvider {
         Date validity = new Date(now.getTime()+ 3_600_000);
 
         return JWT.create()
-                .withIssuer(login)
+                .withIssuer(user.getLogin())
                 .withIssuedAt(now)
                 .withIssuedAt(validity)
+                .withClaim("role", user.getRole().name() )
                 .sign(Algorithm.HMAC256(secretKey));
     }
     public Authentication validateToken(String token){
@@ -46,6 +49,6 @@ public class UserAuthProvider {
         UserDto user = userServiceNew.findByLogin(decoded.getIssuer());
 
         return  new
-                UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                UsernamePasswordAuthenticationToken(user, null, Arrays.asList(user.getRole()));
     }
 }
