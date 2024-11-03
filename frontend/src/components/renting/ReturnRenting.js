@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import connection from "../../axios";
+import connection from "../../axios_helper";
 import classes from "./ReturnRenting.module.css";
 
 const ReturnRenting = ({ selectedRentings, setSuccessMessage, setErrorMessage }) => {

@@ -14,10 +14,10 @@ public class FartController {
     }
     @GetMapping("/devel/farts")
     @PreAuthorize("hasAuthority('DEVEL')")
-    public ResponseEntity<MessageDto> farts() { return ResponseEntity.ok(new MessageDto("DEVELOP'S farts"));
+    public ResponseEntity<MessageDto> develFarts() { return ResponseEntity.ok(new MessageDto("DEVELOP'S farts"));
     }
     @GetMapping("/admin/farts")
     @PreAuthorize("hasAuthority('AMIN')")
-    public ResponseEntity<MessageDto> farts() { return ResponseEntity.ok(new MessageDto("ADMIN'S farts"));
+    public ResponseEntity<MessageDto> adminFarts() { return ResponseEntity.ok(new MessageDto("ADMIN'S farts"));
     }
 }

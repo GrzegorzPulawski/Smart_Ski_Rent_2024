@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import connection from "../../axios";
+import connection from "../../axios_helper";
 
 const LogoutButton = () => {
     const [message, setMessage] = useState('');

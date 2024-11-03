@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import connection from "../../axios";
+import connection from "../../axios_helper";
 
 const DeleteClient = () => {
     const [idClient, setIdClient] = useState('');

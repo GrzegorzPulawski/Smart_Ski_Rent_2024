@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import connection from "../../axios"; // Importowanie instancji Axios
+import connection from "../../axios_helper"; // Importowanie instancji Axios
 
 const DeleteUser = () => {
     const [idUser, setIdUser] = useState('');  // Przechowuje ID użytkownika do usunięcia

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classes from "./RentalAgreement.module.css";
 import { Button, Form, Alert } from "react-bootstrap";
-import connection from "../../axios";
+import connection from "../../axios_helper";
 import DisplayRentalAgreement from "./DisplayRentalAgreement"; // Import the display component
 import { useLocation } from "react-router-dom"; // Hook to get passed state
 

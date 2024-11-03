@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import connection from "../../axios";
+import connection from "../../axios_helper";
 import {useNavigate} from "react-router-dom";
 import {Col} from "react-bootstrap";
 

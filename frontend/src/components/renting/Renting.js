@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import classes from './Renting.module.css';
-import connection from "../../axios";
+import connection from "../../axios_helper";
 
 function Renting() {
     const [clients, setClients] = useState([]);

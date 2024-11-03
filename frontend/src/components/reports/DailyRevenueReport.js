@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Alert } from 'react-bootstrap';
-import connection from "../../axios";
+import connection from "../../axios_helper";
 import classes from "./DailyRevenueReport.module.css"
 
 const DailyRevenueReport = () => {

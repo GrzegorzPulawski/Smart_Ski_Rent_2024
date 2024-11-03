@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "./FormClient.module.css";
 import { Link } from "react-router-dom";
-import connection from "../../axios";
+import connection from "../../axios_helper";
 
 const FormClient = () => {
     const [formData, setFormData] = useState({

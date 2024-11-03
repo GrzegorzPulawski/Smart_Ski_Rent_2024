@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import connection from "../../axios";
+import connection from "../../axios_helper";
 import { useNavigate } from 'react-router-dom';
 
 const EquipmentDelete = () => {

@@ -1,4 +1,4 @@
-import connection from "../../axios";
+import  { request, getAuthToken, setAuthToken } from "../../axios_helper";
 import {useState, useEffect} from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import React from "react";
@@ -11,7 +11,7 @@ const ClientList =  () => {
     const navigate = useNavigate();
 
     useEffect(() =>{
-          connection.get('/api/clients')
+          request('get','/api/clients')
 
             .then((response)=>{
                 console.log(response);

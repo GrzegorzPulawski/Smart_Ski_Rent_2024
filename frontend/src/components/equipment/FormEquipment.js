@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./FormEquipment.module.css";
-import connection from "../../axios";
+import connection from "../../axios_helper";
 import {useState} from "react";
 
 

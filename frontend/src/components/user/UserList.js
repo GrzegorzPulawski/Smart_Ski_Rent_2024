@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import connection from "../../axios";
+import connection from "../../axios_helper";
 import classes from './UserList.module.css'; // Create a CSS module for styling
 
 const UserList = () => {

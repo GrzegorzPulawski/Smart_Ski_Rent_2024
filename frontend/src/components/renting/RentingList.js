@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Grid, Checkbox} from "@mui/material";
 import classes from "./RentingList.module.css"
-import connection from "../../axios";
+import connection from "../../axios_helper";
 import moment from "moment";
 import ReturnRenting from "./ReturnRenting";
 import {Alert, Button} from "react-bootstrap";
