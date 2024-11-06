@@ -3,20 +3,21 @@ import classes from "./AppHeader.module.css";
 import {Link} from "react-router-dom";
 
 const AppHeader = () => {
-    const username = localStorage.getItem('username');
+    const userlog = localStorage.getItem('');
     return (
         <div className={classes.AppHeader}>
             <div className={classes.HeaderLeft}>
                 <Link to={"/createUser"}>
                     <div className={classes.HeaderTitle}>Smart Ski Rent</div>
                 </Link>
-                <div className={classes.HeaderUser}>Zalogowany jest: {username}</div>
+                <div className={classes.HeaderUser}>Zalogowany jest: {userlog}</div>
             </div>
 
     <div className={classes.HeaderRight}>
-                <Link to={"/login"}>
-                    <div>Login</div>
+                 <Link to={"/newlogin"}>
+                     <div>Login</div>
                 </Link>
+
                 <Link to={"/"}>
                     <div>Home</div>
                 </Link>

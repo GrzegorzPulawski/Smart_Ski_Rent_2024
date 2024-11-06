@@ -1,7 +1,7 @@
 import React from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import styles from "./Home.module.css";
-import classes from "../login/Login.module.css";
+
 function Home() {
     return(
         <>        <div className={styles.ImageContainer}>
@@ -117,9 +117,7 @@ function Home() {
                 </Card>
             </Col>
         </Row>
-            <div className={classes.Footer}>
-                Program napisała firma Mandragora. Kontakt w celu zakupu: tel.502109609
-            </div>
+
         </>
 
     )

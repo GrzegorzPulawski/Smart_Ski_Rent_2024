@@ -20,7 +20,6 @@ public class CompanyController {
 
     // Endpoint to save company data
     @PostMapping("/save")
-    @PreAuthorize("hasAuthority('devel:write')")
     public ResponseEntity<CompanyDTO> saveCompanyData(@RequestBody CompanyDTO companyDTO) {
         try {
             // Call the service to save company data
@@ -30,16 +29,7 @@ public class CompanyController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    @GetMapping("/data/{loginUser}")
 
-    public ResponseEntity<Company> getCompanyByLoginUser(@PathVariable String loginUser){
-        try {
-            Company company = companyService.getCompanyByLoginUser(loginUser);
-            return ResponseEntity.ok(company);
-        } catch (NoCompanyForThisLoginException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
 }
 
 

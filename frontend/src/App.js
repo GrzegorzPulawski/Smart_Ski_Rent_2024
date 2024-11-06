@@ -9,7 +9,6 @@ function App() {
       <div className={classes.App}>
         <AppHeader/>
         <AppBody/>
-          <AuthContent/>
       </div>
   );
 }

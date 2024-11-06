@@ -1,7 +1,7 @@
 import classes from "./EquipmentList.module.css";
 import React from "react";
 import {Grid} from "@mui/material";
-import connection from "../../axios_helper.js";
+import {request} from "../../axios_helper.js";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -11,10 +11,7 @@ const EquipmentList = () => {
     const navigate = useNavigate(); // Hook do nawigacji
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        console.log("Token:", token); // Dodaj to logowanie
-
-        connection.get("/api/equipments")
+            request('get',"/api/equipments")
             .then((response) => {
                 if (Array.isArray(response.data)) {
                     setterDoKolekcji(response.data); // Ustaw dane, jeśli to tablica
