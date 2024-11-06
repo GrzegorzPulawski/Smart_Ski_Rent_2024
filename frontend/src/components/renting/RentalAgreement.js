@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classes from "./RentalAgreement.module.css";
 import { Button, Form, Alert } from "react-bootstrap";
-import connection from "../../axios_helper";
+import {request} from "../../axios_helper";
 import DisplayRentalAgreement from "./DisplayRentalAgreement"; // Import the display component
 import { useLocation } from "react-router-dom"; // Hook to get passed state
 
@@ -12,8 +12,7 @@ function RentalAgreement() {
 
     // Function to fetch rental data by ID
     const fetchRentalAgreement = (rentingId) => {
-        connection
-            .get("/api/rentings/show", { params: { idRenting: rentingId } })
+        request("GET", `/api/rentings/show?idRenting=${rentingId}` )
             .then((response) => {
                 console.log("OK! ", response.data);
                 setRentingShow(response.data); // Pass the data to the display component

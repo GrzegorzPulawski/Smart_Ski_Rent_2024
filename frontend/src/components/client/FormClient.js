@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "./FormClient.module.css";
 import { Link } from "react-router-dom";
-import connection from "../../axios_helper";
+import {request} from "../../axios_helper";
 
 const FormClient = () => {
     const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const FormClient = () => {
 
     const submit = async () => {
         try {
-            const response = await connection.post("/api/clients", formData);
+            const response = await request("POST","/api/clients", formData);
             console.log(response);
             setConfirmationMessage("Klient został pomyslnie dodany!");
             setFormData({

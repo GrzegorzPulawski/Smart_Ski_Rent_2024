@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import connection from "../../axios_helper";
+import {request} from "../../axios_helper";
 import { useNavigate } from 'react-router-dom';
 
 const EquipmentDelete = () => {
@@ -13,7 +13,7 @@ const EquipmentDelete = () => {
         event.preventDefault();
 
         // Wykonanie żądania DELETE do backendu
-        connection.delete("/api/equipments/delete", {params:{idEquipment}})
+        request("DELETE", `/api/equipments/delete?idEquipment=${idEquipment}`)
             .then((response) => {
                 console.log("Sprzęt usunięty:", response);
                 setSuccessMessage(`Sprzęt o ID ${idEquipment} został pomyślnie usunięty.`);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Alert } from 'react-bootstrap';
-import connection from "../../axios_helper";
+import  {request} from "../../axios_helper";
 import classes from "./DailyRevenueReport.module.css"
 
 const DailyRevenueReport = () => {
@@ -14,7 +14,7 @@ const DailyRevenueReport = () => {
         setErrorMessage(''); // Resetuj komunikat o błędzie
 
         try {
-            const response = await connection.get(`/api/rentings/report?date=${date}`);
+            const response = await request("GET",`/api/rentings/report?date=${date}`);
             setRevenue(response.data); // Ustaw przychody z odpowiedzi
         } catch (error) {
             setErrorMessage('Wystąpił błąd podczas pobierania raportu.');

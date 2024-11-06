@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./FormEquipment.module.css";
-import connection from "../../axios_helper";
+import  {request} from "../../axios_helper";
 import {useState} from "react";
 
 
@@ -17,7 +17,7 @@ function FormEquipment() {
             'priceEquipment': price
         };
 
-        connection.post("/api/equipments/add", createEquipment)
+        request("POST","/api/equipments/add", createEquipment)
             .then((response) => {
                 console.log("Odpowiedź serwera:", response);
                 setConfirmationMessage("Sprzęt został pomyślnie dodany!"); // Ustawiamy komunikat sukcesu

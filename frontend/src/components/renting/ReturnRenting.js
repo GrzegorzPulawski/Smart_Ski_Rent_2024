@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import connection from "../../axios_helper";
+import connection, {request} from "../../axios_helper";
 import classes from "./ReturnRenting.module.css";
 
 const ReturnRenting = ({ selectedRentings, setSuccessMessage, setErrorMessage }) => {
@@ -10,7 +10,7 @@ const ReturnRenting = ({ selectedRentings, setSuccessMessage, setErrorMessage })
         selectedRentings.forEach(idRenting => {
             const updateRenting = {}; // You can add properties here if needed
 
-            connection.put(`/api/rentings/return/${idRenting}`, updateRenting)
+            request("PUT", `/api/rentings/return/${idRenting}`, updateRenting)
                 .then((response) => {
                     setSuccessMessage(`Zwrot wypożyczenia z Nr ID: ${idRenting} został pomyślnie zatwierdzony.`);
                     setTimeout(() => {

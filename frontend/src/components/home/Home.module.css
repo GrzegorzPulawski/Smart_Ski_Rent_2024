@@ -16,6 +16,10 @@
     flex-wrap: wrap; /* Pozwala na zawijanie kolumn na mniejszych ekranach */
     margin: 20px 0;
 }
+.CardText {
+    color: black; /* Zmiana koloru na czarny */
+}
+
 
 .Col {
     flex-basis: calc(33.333% - 20px); /* Trzy kolumny w jednym rzędzie z odstępem */

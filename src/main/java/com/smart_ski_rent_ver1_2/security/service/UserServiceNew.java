@@ -7,8 +7,10 @@ import com.smart_ski_rent_ver1_2.security.dto.SignUpDto;
 import com.smart_ski_rent_ver1_2.security.dto.UserDto;
 import com.smart_ski_rent_ver1_2.security.userrole.Role;
 import com.smart_ski_rent_ver1_2.security.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,10 @@ public class UserServiceNew {
       User savedUser = userRepository.save(user);
        return userMapper.toUserDto(user);
      }
-
+    public UserDto getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + id));
+        return userMapper.toUserDto(user); // Map User to UserDTO
+    }
 
 }

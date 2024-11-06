@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import connection from "../../axios_helper";
+import {request} from "../../axios_helper";
 
 const DeleteClient = () => {
     const [idClient, setIdClient] = useState('');
     const [message, setMessage] = useState('');
 
     const handleDelete = () => {
-        connection.delete(`/api/clients/delete`, { params: { idClient } })
+        request('DELETE', `/api/clients/delete?idClient=${idClient}`)
             .then((response) => {
                 setMessage(`Klient o ID ${idClient} został usunięty.`);
                 console.log("Klient usunięty:", response.data);

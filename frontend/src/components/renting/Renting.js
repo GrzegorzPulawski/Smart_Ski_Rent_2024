@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import classes from './Renting.module.css';
-import connection from "../../axios_helper";
+import connection, {request} from "../../axios_helper";
 
 function Renting() {
     const [clients, setClients] = useState([]);
@@ -16,14 +16,14 @@ function Renting() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        connection.get('/api/clients')
+        request("GET",'/api/clients')
             .then(response => {
                 setClients(response.data);
                 setFilteredClients(response.data);  // Initialize with full list
             })
             .catch(error => console.error("Error fetching clients:", error));
 
-        connection.get('/api/equipments')
+        request("GET",'/api/equipments')
             .then(response => setEquipment(response.data))
             .catch(error => console.error("Error fetching equipment:", error));
     }, []);
@@ -42,7 +42,7 @@ function Renting() {
             idEquipment: selectedEquipment // Selected equipment IDs
         };
 
-        connection.post('/api/rentings', createRenting)
+        request("POST",'/api/rentings', createRenting)
             .then(response => {
                 setConfirmationMessage("Utworzono wypożyczenie!");
                 setSelectedClient("");

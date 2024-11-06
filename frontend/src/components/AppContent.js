@@ -10,7 +10,7 @@ export default class AppContent extends React.Component {
         super(props);
         this.state = {
             componentToShow: "welcome",
-
+            errorMessage: ""
 
         };
     };
@@ -56,7 +56,10 @@ export default class AppContent extends React.Component {
                 <Buttons login={this.login} logout={this.logout}/>
                 {this.state.errorMessage && <p style={{ color: "red" }}>{this.state.errorMessage}</p>}
                 {this.state.componentToShow === "welcome" && <WelcomeContent/>}
-                {this.state.componentToShow === "messages" && <AuthContent/> }
+                {this.state.componentToShow === "messages" && (
+                    // Przekazujemy actionType do AuthContent, aby wiedziało, który komunikat wyświetlić
+                    <AuthContent actionType="login" />
+                )}
                 {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister}/>}
 
 

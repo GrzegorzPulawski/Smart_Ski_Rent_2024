@@ -7,10 +7,7 @@ import com.smart_ski_rent_ver1_2.security.dto.UserDto;
 import com.smart_ski_rent_ver1_2.security.service.UserServiceNew;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -35,4 +32,5 @@ public class AuthController {
         return ResponseEntity.created(URI.create("/user/"+ user.getId()))
                 .body(user);
     }
+
 }
