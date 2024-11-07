@@ -87,3 +87,12 @@
         max-width: 100%;
     }
 }
+.footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    width: calc(91vw - 19px);
+    font-size: 14px;
+}

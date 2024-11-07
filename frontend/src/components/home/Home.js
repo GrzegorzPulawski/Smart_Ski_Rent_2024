@@ -117,7 +117,10 @@ function Home() {
                 </Card>
             </Col>
         </Row>
-
+            {/* Stopka z informacją */}
+            <footer className={styles.footer}>
+                <p>Program napisała firma Mandragora</p>
+            </footer>
         </>
 
     )

@@ -38,8 +38,13 @@ public class UserAuthProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + 3_600_000);
 
+        UserDto user = userServiceNew.findByLogin(login);
+
         return JWT.create()
                 .withIssuer(login)
+                .withClaim("userId", String.valueOf(user.getId()))
+                .withClaim("firstName", user.getFirstName())  // Dodanie firstName
+                .withClaim("lastName", user.getLastName())    // Dodanie lastName
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .sign(Algorithm.HMAC256(secretKey));
@@ -61,4 +66,23 @@ public class UserAuthProvider {
             throw new RuntimeException("Invalid JWT token", exception);
         }
     }
+    public Long extractUserId(String token) {
+        try {
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey))
+                    .build();
+            DecodedJWT decoded = verifier.verify(token);
+
+            // Pobierz `userId` z payloadu tokenu (załóżmy, że token zawiera `userId` jako klucz w payload)
+            String userIdString = decoded.getClaim("userId").asString();
+
+            if (userIdString != null) {
+                return Long.valueOf(userIdString);
+            } else {
+                throw new RuntimeException("Token does not contain userId");
+            }
+        } catch (JWTVerificationException exception) {
+            throw new RuntimeException("Invalid JWT token", exception);
+        }
+    }
+
 }

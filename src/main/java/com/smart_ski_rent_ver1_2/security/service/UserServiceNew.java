@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.CharBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 @RequiredArgsConstructor
 @Service
@@ -55,5 +57,12 @@ public class UserServiceNew {
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + id));
         return userMapper.toUserDto(user); // Map User to UserDTO
     }
-
+    public List<UserDto> getAllUsers() {
+        List<User> userlist = userRepository.findAll();
+        List<UserDto> userDtoList = new ArrayList<>();
+        for (User user : userlist) {
+            userDtoList.add(userMapper.toUserDto(user));
+        }
+        return userDtoList;
+    }
 }

@@ -11,14 +11,10 @@ import RentingList from "../renting/RentingList";
 import ReturnRenting from "../renting/ReturnRenting";
 import RentalAgreement from "../renting/RentalAgreement";
 import EquipmentDelete from "../equipment/EquipmentDelete";
-import CompanySave from "../company/CompanySave";
 import DailyRevenueReport from "../reports/DailyRevenueReport";
 import DeleteClient from "../client/DeleteClient";
-import CreateUser from "../user/CreateUser";
-import DeleteUser from "../user/DeleteUser";
-import UserList from "../user/UserList";
-import AppContent from "../AppContent";
-
+import AppContent from "../security/AppContent";
+import UserList from "../login/UserList";
 
 const AppBody = () => {
 
@@ -35,13 +31,10 @@ const AppBody = () => {
                 <Route path={"/returnRenting"} element={<ReturnRenting/>}></Route>
                 <Route path={"/rentalAgreement"} element={<RentalAgreement/>}></Route>
                 <Route path={"/equipmentDelete"} element={<EquipmentDelete/>}></Route>
-                <Route path={"/companySave"} element={<CompanySave/>}></Route>
                 <Route path={"/dailyReport"} element={<DailyRevenueReport/>}></Route>
                 <Route path={"/deleteClient"} element={<DeleteClient/>}></Route>
-                <Route path={"/createUser"} element={<CreateUser/>}></Route>
-                <Route path={"/deleteUser"} element={<DeleteUser/>}></Route>
-                <Route path={"/userList"} element={<UserList/>}></Route>
                 <Route path={"/newlogin"} element={<AppContent/>}></Route>
+                <Route path={"/user-list"} element={<UserList/>}></Route>
             </Routes>
         </div>
     );

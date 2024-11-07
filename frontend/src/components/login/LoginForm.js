@@ -98,7 +98,7 @@ export default class LoginForm extends React.Component {
                                             className="form-control"
                                             onChange={this.onChangeHandler}
                                         />
-                                        <label className="form-label" htmlFor="firstName">First Name</label>
+                                        <label className="form-label" htmlFor="firstName">Nazwa firmy</label>
                                     </div>
                                     <div className="form-outline mb-4">
                                         <input
@@ -108,7 +108,7 @@ export default class LoginForm extends React.Component {
                                             className="form-control"
                                             onChange={this.onChangeHandler}
                                         />
-                                        <label className="form-label" htmlFor="lastName">Last Name</label>
+                                        <label className="form-label" htmlFor="lastName">NIP firmy</label>
                                     </div>
                                     <div className="form-outline mb-4">
                                         <input

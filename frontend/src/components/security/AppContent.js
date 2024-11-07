@@ -1,38 +1,57 @@
 import * as React from 'react';
 import AuthContent from "./AuthContent";
-import {request, setAuthToken} from "../axios_helper";
-import LoginForm from './LoginForm'
-import Buttons from './Buttons'
+import {request, setAuthToken} from "../../axios_helper";
+import LoginForm from '../login/LoginForm'
+import Buttons from '../login/Buttons'
 import WelcomeContent from "./WelcomeContent";
+import MessagesContent from './MessagesContent';
 
 export default class AppContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             componentToShow: "welcome",
-            errorMessage: ""
-
+            errorMessage: "",
+            logoutMessage: "",
+            userDetails: { firstName: ' ' }
         };
     };
     login = () => {
         this.setState({componentToShow: "login", errorMessage: "" });
     };
     logout = () => {
-        this.setState({componentToShow: "welcome"});
+        this.setState({componentToShow: "welcome",
+        logoutMessage: "Wylogowano użytkownika"});
+
         setAuthToken(null);
     };
     showMessages = () => {
         this.setState({ componentToShow: "messages" });
-    }
+    };
     onLogin = (e, username, password) => {
         e.preventDefault();
         request("POST", "/api/auth/login", {login: username, password: password}
         ).then((response)=> {
-            this.setState({componentToShow: "messages"})
+
             setAuthToken(response.data.token);
+
+           request("GET", "/api/user/details")
+            .then ((userDetailsResponse) => {
+                const userData = userDetailsResponse.data;
+
+            sessionStorage.setItem('userDetails', JSON.stringify(userData));
+
+            this.setState({componentToShow: "messages",
+                userDetails: userData});
+
         }).catch((error)=> {
             this.setState({componentToShow: "welcome"})
         });
+    })
+            .catch((error) => {
+                console.error('Login failed:', error);
+                this.setState({ componentToShow: "welcome" });
+            });
     };
     onRegister = (e, firstName, lastName, username, password) => {
         e.preventDefault();
@@ -47,7 +66,7 @@ export default class AppContent extends React.Component {
             setAuthToken(response.data.token);
         }).catch((error)=> {
             console.error("Registration error:", error);
-            this.setState({componentToShow: "welcome"})
+            this.setState({componentToShow: "welcome", errorMessage:"Błąd w rejestracji"})
         });
     };
     render() {
@@ -55,12 +74,14 @@ export default class AppContent extends React.Component {
             <div>
                 <Buttons login={this.login} logout={this.logout}/>
                 {this.state.errorMessage && <p style={{ color: "red" }}>{this.state.errorMessage}</p>}
+                {this.state.logoutMessage && <p style={{ color: "green" }}>{this.state.logoutMessage}</p>}
                 {this.state.componentToShow === "welcome" && <WelcomeContent/>}
                 {this.state.componentToShow === "messages" && (
                     // Przekazujemy actionType do AuthContent, aby wiedziało, który komunikat wyświetlić
                     <AuthContent actionType="login" />
-                )}
+                ) && <MessagesContent userDetails={this.state.userDetails} />}
                 {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister}/>}
+
 
 
             </div>
