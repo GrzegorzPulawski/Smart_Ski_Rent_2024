@@ -6,7 +6,7 @@
     "heroku-postbuild": "cd frontend && npm install && npm run build",
     "start": "java -Dserver.port=$PORT -jar target/smart_ski_rent_ver2-0.0.2-SNAPSHOT.jar",
     "build": "cd frontend && npm run build",
-    "copy-to-static": "cp -r frontend/build/* src/main/resources/static/",
+    "copy-to-static": "cp -ru frontend/build/* ../src/main/resources/static/",
     "build-and-copy": "npm run build && npm run copy-to-static"
   },
   "dependencies": {
