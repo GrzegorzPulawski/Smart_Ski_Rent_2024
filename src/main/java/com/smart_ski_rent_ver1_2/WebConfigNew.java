@@ -1,4 +1,4 @@
-package com.smart_ski_rent_ver1_2.security.config;
+package com.smart_ski_rent_ver1_2;
 
 import io.swagger.models.HttpMethod;
 
@@ -20,7 +20,8 @@ public class WebConfigNew {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000"); // Allow specific origin
+        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("https://smart-ski-a8fba8950c38.herokuapp.com ");
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.AUTHORIZATION,
                 HttpHeaders.CONTENT_TYPE,

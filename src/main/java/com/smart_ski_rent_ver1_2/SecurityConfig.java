@@ -1,4 +1,4 @@
-package com.smart_ski_rent_ver1_2.security.config;
+package com.smart_ski_rent_ver1_2;
 
 import com.smart_ski_rent_ver1_2.security.service.JwtAuthFilter;
 import com.smart_ski_rent_ver1_2.security.service.UserAuthProvider;
@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS )
                 .and()
                 .authorizeHttpRequests((requests)-> requests
-                        .requestMatchers( "/api/auth/login", "/api/auth/register").permitAll()
+                        .requestMatchers("/", "/favicon.ico", "/api/auth/login", "/api/auth/register", "/api/public/**").permitAll()
                         .anyRequest().authenticated()
                 );
         return  http.build();
