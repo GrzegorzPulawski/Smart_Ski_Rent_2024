@@ -24,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "copy-to-static": "cp -r build/* ../src/main/resources/static/",
+    "build-and-copy": "npm run build && npm run copy-to-static"
   },
   "eslintConfig": {
     "extends": [
