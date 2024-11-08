@@ -24,12 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "cd frontend && npm install && npm run build",
-    "start-java": "java -Dserver.port=$PORT -jar target/smart_ski_rent_ver2-0.0.2-SNAPSHOT.jar",
-    "build-frontend": "cd frontend && npm run build",
-    "copy-to-static": "cp -r build/* src\\main\\resources\\static\\ -Force",
-    "build-and-copy": "cd frontend && npm run build && xcopy /E /I /H /Y frontend\\build\\* src\\main\\resources\\static\\"
+    "eject": "react-scripts eject"
   },
 
   "eslintConfig": {
