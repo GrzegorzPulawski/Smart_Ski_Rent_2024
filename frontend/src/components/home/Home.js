@@ -18,12 +18,10 @@ function Home() {
                         </Card.Title>
                         <Card.Text className={styles.CardText}>
                             Logujesz się przy pomocy nazwy i hasła. Zwróć uwagę na wielkość liter.
-                            Login administratora pozwala dodawać nowy sprzęt do bazy i go usuwać. Login Usera nie ma tych uprawnień
+                            Login kierownika pozwala dodawać nowy sprzęt do bazy i go usuwać. Login pracownika nie ma tych uprawnień
                         </Card.Text>
                     </Card.Body>
-                    <Card.Footer className={styles.CardFooter}> Ważne: Wprować dane firmy,
-                        które będą przypisane do Twojego loginu i będą drukować się na umowie.
-                        Jak masz dwa loginy lub wiecej to dla każdego musisz wprowadzć dane firmy </Card.Footer>
+                    <Card.Footer className={styles.CardFooter}> Ważne: Dane firmy, które podasz Administratowi będą wyświetlane na umowie wypożyczenia.Nazwa firmy i NIP</Card.Footer>
                 </Card>
             </Col>
             <Col className={styles.Col}>
@@ -37,9 +35,7 @@ function Home() {
                            Nowo dodany klient będzie Ci się wyświetlał na początku listy.
                         </Card.Text>
                     </Card.Body>
-                    <Card.Footer className={styles.CardFooter}> Ważne: Pamiętaj o zapisaniu numeru telefonu.
-                        Będzie on potrzebny gdybyś chciał skorzystać z wyszukiwarki klientów,
-                        ponieważ wyszukujemy po nr telefonu.</Card.Footer>
+                    <Card.Footer className={styles.CardFooter}> Ważne: Pamiętaj o zapisaniu nazwiska. Pożniej wyszukujemy po nazwisku klienta</Card.Footer>
                 </Card>
             </Col>
             <Col className={styles.Col}>
@@ -89,7 +85,7 @@ function Home() {
                           Sprzęt
                         </Card.Title>
                         <Card.Text className={styles.CardText}>
-                           Dodawać i usuwać sprzę może tylko użytkownik z uprawnieniami ADMIN.
+                           Dodawać i usuwać sprzę może tylko użytkownik z uprawnieniami Kierownika.
                             Logika wypożyczenie polega na wielokrotnym wypożyczeniu tego samego zestawu.
                             Tak powiniśmy tworzyć nazwy zestawu aby było wiadomo o co chodzi, np. Buty snowbordowe lub Narty dorosły.
                             Cena może zawierać grosze, np. 45,50.
