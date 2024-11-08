@@ -6,6 +6,7 @@ import com.smart_ski_rent_ver1_2.security.service.UserAuthProvider;
 import com.smart_ski_rent_ver1_2.security.dto.UserDto;
 import com.smart_ski_rent_ver1_2.security.service.UserServiceNew;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,11 @@ public class AuthController {
         user.setToken(userAuthProvider.createToken(user.getLogin()));
         return ResponseEntity.created(URI.create("/user/"+ user.getId()))
                 .body(user);
+    }
+    @GetMapping("/login")
+    public ResponseEntity<String> loginGet() {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                .body("Use POST method");
     }
 
 }

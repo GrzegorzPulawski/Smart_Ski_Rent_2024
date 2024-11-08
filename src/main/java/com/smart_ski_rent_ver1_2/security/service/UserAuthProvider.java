@@ -24,7 +24,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Component
 public class UserAuthProvider {
-    @Value("${security.jwt.token.secret-key:secret-value}")
+    @Value("${security.jwt.token.secret-key}")
     private String secretKey;
     private final UserServiceNew userServiceNew;
 
