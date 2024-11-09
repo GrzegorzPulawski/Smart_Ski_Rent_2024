@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
+
     @GetMapping("/")
     public String home() {
-        return "Witaj w aplikacji!";
+        return "index.html"; // Upewnij się, że plik index.html jest w katalogu static
     }
-
     @GetMapping("/favicon.ico")
     public void favicon() {
         // Możemy zwrócić pustą odpowiedź lub skomentować ten metodę, aby nie powodowała błędów.

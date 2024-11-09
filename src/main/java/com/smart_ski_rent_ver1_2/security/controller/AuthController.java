@@ -33,10 +33,5 @@ public class AuthController {
         return ResponseEntity.created(URI.create("/user/"+ user.getId()))
                 .body(user);
     }
-    @GetMapping("/login")
-    public ResponseEntity<String> loginGet() {
-        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
-                .body("Use POST method");
-    }
 
 }
