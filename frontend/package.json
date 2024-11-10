@@ -28,6 +28,10 @@
     "copy-to-static": "cp -r build/* ../src/main/resources/static/",
     "build-and-copy": "npm run build && npm run copy-to-static"
   },
+  "engines": {
+    "node": "20.12.2",
+    "npm": "10.5.0"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
