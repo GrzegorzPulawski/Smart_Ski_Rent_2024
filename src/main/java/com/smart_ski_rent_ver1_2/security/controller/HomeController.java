@@ -8,7 +8,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "index.html"; // Upewnij się, że plik index.html jest w katalogu static
+        return "Witaj w aplikacji"; // Upewnij się, że plik index.html jest w katalogu static
     }
     @GetMapping("/favicon.ico")
     public void favicon() {
