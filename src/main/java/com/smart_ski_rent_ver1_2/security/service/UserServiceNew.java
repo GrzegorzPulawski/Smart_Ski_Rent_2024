@@ -40,14 +40,13 @@ public class UserServiceNew {
         throw new AppException("Złe hasło", HttpStatus.BAD_REQUEST);
     }
 
-
       public UserDto register(SignUpDto userDto){
           Optional<User> optionalUser = userRepository.findByLogin(userDto.getLogin());
        if(optionalUser.isPresent()){
             throw  new AppException("Login already exists", HttpStatus.BAD_REQUEST);
        }
         User user = userMapper.signUpToUser(userDto);
-     user.setRole(Role.USER);
+         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
       User savedUser = userRepository.save(user);
        return userMapper.toUserDto(user);

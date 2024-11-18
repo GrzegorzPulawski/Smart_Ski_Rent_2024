@@ -4,6 +4,7 @@ import com.smart_ski_rent_ver1_2.dto.EquipmentDTO;
 import com.smart_ski_rent_ver1_2.request.CreateEquipmentRequest;
 import com.smart_ski_rent_ver1_2.service.EquipmentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
 @RequestMapping("/api/equipments")
 public class EquipmentController {
     private final EquipmentService equipmentService;
-
     public EquipmentController(EquipmentService equipmentService) {
         this.equipmentService = equipmentService;
     }
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     public void createEquipment(@RequestBody CreateEquipmentRequest createEquipmentRequest){
         log.info("Create equipment" + createEquipmentRequest);

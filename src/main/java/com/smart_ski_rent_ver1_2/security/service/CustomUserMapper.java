@@ -3,6 +3,7 @@ package com.smart_ski_rent_ver1_2.security.service;
 import com.smart_ski_rent_ver1_2.security.dto.SignUpDto;
 import com.smart_ski_rent_ver1_2.security.dto.UserDto;
 import com.smart_ski_rent_ver1_2.security.entity.User;
+import com.smart_ski_rent_ver1_2.security.userrole.Role;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +18,7 @@ public class CustomUserMapper {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setLogin(user.getLogin());
-        // Pomiń hasło, jeśli nie jest potrzebne
+        userDto.setRole(user.getRole()); // Dodajemy mapowanie roli
         return userDto;
     }
 
@@ -30,6 +31,7 @@ public class CustomUserMapper {
         user.setLastName(signUpDto.getLastName());
         user.setLogin(signUpDto.getLogin());
         user.setPassword(signUpDto.getPassword());
+        user.setRole(Role.USER);
         return user;
     }
 }

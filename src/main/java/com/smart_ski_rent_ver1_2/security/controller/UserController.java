@@ -9,6 +9,7 @@ import com.smart_ski_rent_ver1_2.security.service.UserServiceNew;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class UserController {
 
         return ResponseEntity.ok(userDetails);
     }
+    @PreAuthorize("hasAuthority('DEVEL')")
     @GetMapping("/all")
     public List<UserDto> getAllUsers(){
         List <UserDto> userDtoList = userService.getAllUsers();

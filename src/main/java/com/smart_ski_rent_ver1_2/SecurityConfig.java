@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,7 +18,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
-//@EnableMethodSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     private final UserAuthenticationEntryPoint userAuthenticationEntryPoint;
     private final UserAuthProvider userAuthProvider;
@@ -32,7 +33,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS )
                 .and()
                 .authorizeHttpRequests((requests)-> requests
-                        .requestMatchers("index.html","/", "/favicon.ico", "/api/auth/login", "/api/auth/register").permitAll()
+                        .requestMatchers("index.html","/", "/favicon.ico", "/api/auth/login","/api/auth/register").permitAll()
                         .anyRequest().authenticated()
                 );
         return  http.build();

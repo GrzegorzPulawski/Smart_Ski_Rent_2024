@@ -8,6 +8,7 @@ import com.smart_ski_rent_ver1_2.security.service.UserServiceNew;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -26,10 +27,11 @@ public class AuthController {
         user.setToken(userAuthProvider.createToken(user.getLogin()));
         return ResponseEntity.ok(user);
     }
+
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody SignUpDto signUpDto) {
         UserDto user = userServiceNew.register(signUpDto);
-        user.setToken(userAuthProvider.createToken(user.getLogin()));
+       user.setToken(userAuthProvider.createToken(user.getLogin()));
         return ResponseEntity.created(URI.create("/user/"+ user.getId()))
                 .body(user);
     }

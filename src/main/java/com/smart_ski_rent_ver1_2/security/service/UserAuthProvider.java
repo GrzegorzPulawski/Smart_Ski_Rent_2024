@@ -47,6 +47,7 @@ public class UserAuthProvider {
                 .withClaim("lastName", user.getLastName())    // Dodanie lastName
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
+                .withClaim("role", user.getRole().name())
                 .sign(Algorithm.HMAC256(secretKey));
     }
 
@@ -59,7 +60,7 @@ public class UserAuthProvider {
             UserDto user = userServiceNew.findByLogin(decoded.getIssuer());
 
             return new
-                    UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                    UsernamePasswordAuthenticationToken(user, null, Arrays.asList(user.getRole()));
         } catch (
                 JWTVerificationException exception) {
             // Obsługa wyjątku, gdy token jest nieprawidłowy
