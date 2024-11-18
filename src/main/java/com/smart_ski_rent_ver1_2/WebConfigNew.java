@@ -21,7 +21,7 @@ public class WebConfigNew {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000"); // Allow specific origin
+        config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedOrigin("https://frontend-smart-ski-ed51f9e974f1.herokuapp.com");
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.AUTHORIZATION,
