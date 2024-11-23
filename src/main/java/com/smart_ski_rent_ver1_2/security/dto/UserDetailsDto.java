@@ -3,8 +3,9 @@ package com.smart_ski_rent_ver1_2.security.dto;
 public class UserDetailsDto {
     private String firstName;
     private String lastName;
+    private boolean calendar;
 
-    // Getters and setters
+
     public String getFirstName() {
         return firstName;
     }
@@ -19,5 +20,13 @@ public class UserDetailsDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public boolean isCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(boolean calendar) {
+        this.calendar = calendar;
     }
 }

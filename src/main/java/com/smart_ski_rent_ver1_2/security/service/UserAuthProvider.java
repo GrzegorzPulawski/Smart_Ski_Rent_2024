@@ -43,8 +43,9 @@ public class UserAuthProvider {
         return JWT.create()
                 .withIssuer(login)
                 .withClaim("userId", String.valueOf(user.getId()))
-                .withClaim("firstName", user.getFirstName())  // Dodanie firstName
-                .withClaim("lastName", user.getLastName())    // Dodanie lastName
+                // .withClaim("firstName", user.getFirstName())
+                .withClaim("lastName", user.getLastName())
+                .withClaim("calendar", user.isCalendar())
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .withClaim("role", user.getRole().name())

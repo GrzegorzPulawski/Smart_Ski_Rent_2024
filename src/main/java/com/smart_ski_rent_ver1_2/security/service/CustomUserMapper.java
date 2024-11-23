@@ -6,6 +6,8 @@ import com.smart_ski_rent_ver1_2.security.entity.User;
 import com.smart_ski_rent_ver1_2.security.userrole.Role;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+
 @Service
 public class CustomUserMapper {
 
@@ -18,7 +20,8 @@ public class CustomUserMapper {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setLogin(user.getLogin());
-        userDto.setRole(user.getRole()); // Dodajemy mapowanie roli
+        userDto.setRole(user.getRole());
+        userDto.setCalendar(user.isCalendar());
         return userDto;
     }
 
@@ -32,6 +35,7 @@ public class CustomUserMapper {
         user.setLogin(signUpDto.getLogin());
         user.setPassword(signUpDto.getPassword());
         user.setRole(Role.USER);
+        //user.setCalendar();
         return user;
     }
 }

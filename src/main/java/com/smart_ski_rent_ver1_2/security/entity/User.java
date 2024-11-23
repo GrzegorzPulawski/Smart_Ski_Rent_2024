@@ -19,15 +19,18 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private boolean calendar=false;
 
-    public User(Long id, String firstName, String lastName, String login, String password, Role role) {
+    public User(Long id, String firstName, String lastName, String login, String password, Role role, boolean calendar) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
         this.role = role;
+        this.calendar = calendar;
     }
+
     public User(){};
 
     public Long getId() {
@@ -76,5 +79,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean isCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(boolean calendar) {
+        this.calendar = calendar;
     }
 }

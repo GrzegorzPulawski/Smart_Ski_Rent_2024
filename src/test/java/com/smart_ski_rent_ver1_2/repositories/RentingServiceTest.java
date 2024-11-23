@@ -5,6 +5,7 @@ import com.smart_ski_rent_ver1_2.entity.equipment.Equipment;
 import com.smart_ski_rent_ver1_2.entity.renting.Renting;
 import com.smart_ski_rent_ver1_2.request.CreateRentingRequest;
 import com.smart_ski_rent_ver1_2.service.RentingService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -32,6 +33,10 @@ public class RentingServiceTest {
     private RentingService rentingService;
     private CreateRentingRequest createRentingRequest;
 
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
     @Test
     public void givenRenting_whenCreateRequest_thenRentingSaved(){
         //given
@@ -57,9 +62,11 @@ public class RentingServiceTest {
                 .should()
                 .save(ArgumentMatchers.any(Renting.class));
     }
-
     @Test
     void givenValidId_whenReturnRenting_thenRentingIsUpdated() {
+        // Użyj Mockito do zainicjowania mocków
+        MockitoAnnotations.openMocks(this);
+
         // given
         Long rentingId = 1L;
 
@@ -72,13 +79,17 @@ public class RentingServiceTest {
                 .dateRenting(LocalDateTime.now().minusDays(3))
                 .dateOfReturn(null)  // oznacza, że sprzęt nie został jeszcze zwrócony
                 .priceOfDuration(0.0)
-                .daysOfRental(3L)
+                .daysOfRental(0L) // All will be calculated during the test
                 .build();
 
         when(rentingRepository.findById(rentingId)).thenReturn(Optional.of(renting));
 
+        // Mockowanie tokenu, jeśli służysz do jego pozyskania
+        // UserDto user = new UserDto(...);
+        String token = "some_valid_token"; // Simulacja tokenu, może być zbędne w testach
+
         // when
-        Renting updatedRenting = rentingService.returnRenting(rentingId, renting);
+        Renting updatedRenting = rentingService.returnRenting(rentingId, renting, token);
 
 
         // then
@@ -89,9 +100,13 @@ public class RentingServiceTest {
 
         assertNotNull(capturedRenting);
         assertNotNull(capturedRenting.getDateOfReturn());
-        assertTrue(capturedRenting.getDaysOfRental() > 0);
-        assertEquals(40.0 * capturedRenting.getDaysOfRental(), capturedRenting.getPriceOfDuration());
+
+        // Calculate expected values
+        long expectedDaysOfRental = 3L; // Ustal wartość dni wypożyczenia
+        assertEquals(expectedDaysOfRental, capturedRenting.getDaysOfRental());
+        assertEquals(40.0 * expectedDaysOfRental, capturedRenting.getPriceOfDuration());
     }
+
 }
 
 

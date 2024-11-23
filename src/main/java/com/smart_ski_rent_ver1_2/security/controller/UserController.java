@@ -18,10 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-
     private final UserServiceNew userService;
     private final UserAuthProvider userAuthProvider;
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto userDTO = userService.getUserById(id);
@@ -37,8 +35,9 @@ public class UserController {
         UserDto user = userService.getUserById(userId);
 
         UserDetailsDto userDetails = new UserDetailsDto();
-        userDetails.setFirstName(user.getFirstName());
+        //userDetails.setFirstName(user.getFirstName());
         userDetails.setLastName(user.getLastName());
+        userDetails.setCalendar(user.isCalendar());
 
         return ResponseEntity.ok(userDetails);
     }
