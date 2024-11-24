@@ -26,8 +26,5 @@ public class RentingDTO {
     private String dateOfReturn;
     private Double priceOfDuration;
     private Long daysOfRental;
-  //  private String companyName;   //Firma
-  //  private String nip;           //Firma
-
 
 }
