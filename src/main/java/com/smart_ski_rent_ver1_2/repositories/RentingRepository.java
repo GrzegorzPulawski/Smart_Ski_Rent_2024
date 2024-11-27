@@ -18,4 +18,8 @@ public interface RentingRepository extends JpaRepository<Renting, Long> {
 
     @Query("SELECT r FROM Renting r WHERE r.idRenting IN :idRentings")
     List<Renting> findByIdRentingsIn(@Param("idRentings") List<Long> idRentings);
+
+
+    @Query("SELECT r FROM Renting r WHERE r.dateOfReturn > :cutoffTime")
+    List<Renting> findByDateOfReturnGreaterThan(LocalDateTime cutoffTime);
 }

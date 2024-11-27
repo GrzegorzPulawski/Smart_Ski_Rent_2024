@@ -17,6 +17,7 @@ import com.smart_ski_rent_ver1_2.security.service.UserServiceNew;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
@@ -136,11 +137,29 @@ public class RentingService {
                 .mapToDouble(Renting::getPriceOfDuration)
                 .sum();
     }
-    public List<RentingDTO> findRentingsByIds(List<Long> idRentings) {
-        return rentingRepository.findByIdRentingsIn(idRentings).stream()
+    public List<RentingDTO> findRentingsByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+        try {
+            List<Renting> rentings = rentingRepository.findByIdRentingsIn(ids);
+            return rentings.stream()
+                    .map(this::mapRentingToDTO) // lub mapRentingToDTOWithFormattedDates, zależnie od implementacji
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            log.error("Error fetching rentings by IDs: {}", ids, e);
+            throw e; // Przerzuć wyjątek na kontroler
+        }
+    }
+
+    public List<RentingDTO> findRecentlyReturnedRentings() {
+        LocalDateTime cutoffTime = LocalDateTime.now().minusMinutes(15);
+        List<Renting> rentings = rentingRepository.findByDateOfReturnGreaterThan(cutoffTime);
+        return rentings.stream()
                 .map(this::mapRentingToDTO)
                 .collect(Collectors.toList());
     }
+
     private RentingDTO mapRentingToDTO(Renting renting) {
         return new RentingDTO(
                 renting.getIdRenting(),

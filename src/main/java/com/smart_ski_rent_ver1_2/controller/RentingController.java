@@ -84,12 +84,22 @@ public class RentingController {
         if (idRentings == null || idRentings.isEmpty()) {
             return ResponseEntity.badRequest().body(Collections.emptyList()); // Return an empty list for consistency
         }
-
         try {
             List<RentingDTO> rentingsDTO = rentingService.findRentingsByIds(idRentings);
             return ResponseEntity.ok(rentingsDTO);
         } catch (Exception e) {
             // Log exception and return a server error response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+        }
+    }
+
+    @GetMapping("/recentlyReturned") // Nowy endpoint
+    public ResponseEntity<List<RentingDTO>> getRecentlyReturnedRentings() {
+        try {
+            List<RentingDTO> rentings = rentingService.findRecentlyReturnedRentings();
+            return ResponseEntity.ok(rentings);
+        } catch (Exception e) {
+            log.error("Error fetching recently returned rentings:", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
     }
