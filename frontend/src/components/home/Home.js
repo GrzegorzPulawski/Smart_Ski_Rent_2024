@@ -4,7 +4,9 @@ import styles from "./Home.module.css";
 
 function Home() {
     return(
-        <>        <div className={styles.ImageContainer}>
+        <div className="wrapper">
+        <div className="content">
+             <div className={styles.ImageContainer}>
             <img src="https://picsum.photos/id/1036/1200/800" alt="Main" />
         </div>
             <Row className={styles.Row}>
@@ -16,13 +18,12 @@ function Home() {
                                 Login
                             </Card.Title>
                             <Card.Text className={styles.CardText}>
-                                Logujesz się przy pomocy nazwy i hasła. Zwróć uwagę na wielkość liter.
+                                Logujesz się przy pomocy nazwy i hasła. Program sam wyloguje użytkownika po 1 godzinie.
                             </Card.Text>
                         </Card.Body>
                         <Card.Footer className={styles.CardFooter}> Ważne: Podaj adminstartorwi, który cykl wypożyczenia: dobowy(24h), czy kalendarzowy(dzień), będziesz używał</Card.Footer>
                     </Card>
-                </Col>
-                <Col className={styles.Col}>
+
                     <Card className={styles.Card}>
                         <Card.Body>
                             <Card.Title className={styles.CardTitle}>
@@ -115,11 +116,12 @@ function Home() {
                     </Card>
                 </Col>
             </Row>
+        </div>
             {/* Stopka z informacją */}
             <footer className={styles.footer}>
                 <p>Program napisała firma Mandragora. Kontakt: Grzegorz 502 109 609</p>
             </footer>
-        </>
+        </div>
 
     )
 }

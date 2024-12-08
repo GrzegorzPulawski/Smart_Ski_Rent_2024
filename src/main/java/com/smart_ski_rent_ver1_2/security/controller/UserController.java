@@ -8,8 +8,11 @@ import com.smart_ski_rent_ver1_2.security.service.UserAuthProvider;
 import com.smart_ski_rent_ver1_2.security.service.UserServiceNew;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,10 +46,13 @@ public class UserController {
     }
     @PreAuthorize("hasAuthority('DEVEL')")
     @GetMapping("/all")
-    public List<UserDto> getAllUsers(){
+    public ResponseEntity<List<UserDto>> getAllUsers(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated())
+        { return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); }
         List <UserDto> userDtoList = userService.getAllUsers();
         log.info("List of all users");
-        return userDtoList;
+        return ResponseEntity.ok(userDtoList);
 
     }
 }

@@ -1,89 +1,36 @@
-.TableRow.returned {
-    background-color: #28a745; /* Delikatny zielony odcień dla zwróconych wypożyczeń */
-}
-.TableHeader {
-    background-color: #f1f1f1;
-    font-weight: bold;
-    padding: 10px 0;
-    text-align: center;
-    display: flex; /* Zmiana na flexbox */
-    flex-wrap: wrap; /* Umożliwienie zawijania elementów w nowym wierszu */
-    justify-content: space-between; /* Rozłożenie komórek */
+.mt-3 {
+    margin-top: 1rem; /* Standard margin */
 }
 
-.HeaderCell {
-    padding: 10px 5px;
-    text-align: center;
-    border-bottom: 2px solid #ccc;
-    flex: 1 1 100px; /* Ustawienie elastycznej szerokości komórek */
-    min-width: 80px;
+.me-2 {
+    margin-right: 0.5rem; /* Margin for Bootstrap button separation */
 }
 
-.TableRow {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    display: flex; /* Zmiana na flexbox */
-    flex-wrap: wrap; /* Umożliwienie zawijania elementów w nowym wierszu */
-    justify-content: space-between; /* Rozłożenie komórek */
+/* Styles for returned rows */
+.bg-success {
+    background-color: #28a745 !important;
 }
-
-
-.RowCell {
-    padding: 10px 5px;
-    text-align: center;
-    font-size: 0.9rem;
-    flex: 1 1 100px; /* Ustawienie elastycznej szerokości komórek */
-    min-width: 80px; /* Ustalenie minimalnej szerokości komórek */
+.checkbox {
+    transform: translateY(-25px); /* Adjust this value to fine-tune the vertical position */
 }
-
-.TableRow:nth-of-type(even) {
-    background-color: #fafafa;
-}
-.ButtonContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    align-items: center; /* This will vertically align the buttons */
-}
-
-.CustomButton {
-    padding: 12px 4px;
-    font-size: 18px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-    margin-right: 10px; /* Add some margin to separate the buttons */
-}
-
-.CustomButton:hover {
-    background-color: #0056b3;
-    color: white;
-}
-
-/* Responsywność */
-@media (max-width: 768px) { /* Dostosowania dla ekranów o szerokości 768px i mniejszych */
-    .HeaderCell,
-    .RowCell {
-        font-size: 0.8rem; /* Mniejszy rozmiar czcionki */
-        padding: 8px 3px; /* Mniejsze odstępy */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px; /* Mniejszy padding na małych ekranach */
     }
 
-    .ButtonContainer {
-        flex-direction: column; /* Umożliwienie przyciskom ułożenie w kolumnie */
-        align-items: center; /* Wyśrodkowanie przycisków */
+    h2 {
+        font-size: 1.5rem; /* Zmniejszony rozmiar nagłówka */
     }
 
-    .TableHeader {
-        font-size: 1rem; /* Dostosowane do mniejszych ekranów */
+    /* Użycie większego paddingu dla kolumn w nagłówku */
+    .bg-light {
+        padding: 10px; /* Padding dla nagłówka tabeli */
     }
 
-    .CustomButton {
-        width: 100%; /* Umożliwienie przyciskom wypełnienia kontenera */
-        max-width: 300px; /* Ustalenie max szerokości przycisku */
-        padding: 12px 0; /* Zwiększenie poduszek */
+    /* Poprawienie paddingu dla wszystkich wierszy tabeli */
+    .py-2 {
+        padding-top: 8px; /* Mniejszy padding górny */
+        padding-bottom: 8px; /* Mniejszy padding dolny */
     }
-
 }
-
-
-
 

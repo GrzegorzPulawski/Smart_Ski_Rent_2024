@@ -27,11 +27,11 @@ public class AuthController {
         user.setToken(userAuthProvider.createToken(user.getLogin()));
         return ResponseEntity.ok(user);
     }
-
+    @PreAuthorize("hasAuthority('DEVEL')")
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody SignUpDto signUpDto) {
         UserDto user = userServiceNew.register(signUpDto);
-       user.setToken(userAuthProvider.createToken(user.getLogin()));
+        user.setToken(userAuthProvider.createToken(user.getLogin()));
         return ResponseEntity.created(URI.create("/user/"+ user.getId()))
                 .body(user);
     }

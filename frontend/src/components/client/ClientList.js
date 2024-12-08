@@ -1,15 +1,15 @@
-import  { request, getAuthToken, setAuthToken} from "../../axios_helper";
+import  { request} from "../../axios_helper";
 import {useState, useEffect} from "react";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row, Button} from "react-bootstrap";
 import React from "react";
 import classes from "./ClientList.module.css";
 import {useNavigate} from "react-router-dom";
-import Button from '@mui/material/Button';
-
 
 const ClientList =  () => {
     const [clientList1, setterClientList] = useState([]);
     const navigate = useNavigate();
+    const [filteredClients, setFilteredClients] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() =>{
 
@@ -18,6 +18,7 @@ const ClientList =  () => {
             .then((response)=>{
                 console.log(response);
                 setterClientList(response.data)
+                setFilteredClients(response.data); // Initialize filtered clients with all clients
             })
             .catch((error)=>{
                 console.error("Błąd podczas pobierania klientów",error);
@@ -30,19 +31,36 @@ const ClientList =  () => {
     const goToDeleteClient = () =>{
         navigate("/deleteClient");
     }
+    const handleSearch = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        // Filter clients by last name
+        setFilteredClients(clientList1.filter(client =>
+            client.lastName.toLowerCase().includes(query.toLowerCase())
+        ));
+    };
     return(
         <div>
             <h2>Lista klientów</h2>
+
+                <div>
+                    <label className={classes.formInputLabel}>Wyszukaj klienta po nazwisku:</label>
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={handleSearch}
+                        placeholder="Wpisz nazwisko klienta"
+                        className={classes.formInputField}
+                    />
+                </div>
             <Button
-                variant="contained"
-                color="primary"
+                variant="primary"
                 onClick={goToAddClient}
                 style={{ margin: '10px' }}>
                 Dodaj Klienta
             </Button>
             <Button
-                variant="contained"
-                color="primary"
+                variant="primary"
                 onClick={goToDeleteClient}
                 style={{ margin: '10px' }}>
                 Usuń Klienta
@@ -57,7 +75,7 @@ const ClientList =  () => {
                     <Col md={2}>Numer telefonu</Col>
                 </Row>
             </Container>
-            {clientList1.map(value => (
+            {filteredClients.map(value => (
                 <Container key={value.idClient} className={classes.FormRow}>
                     <Row>
                         <Col md={1}>{value.idClient}</Col>
