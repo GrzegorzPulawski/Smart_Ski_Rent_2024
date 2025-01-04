@@ -36,7 +36,7 @@ public class UserAuthProvider {
 
     public String createToken(String login) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + 3_600_000);
+        Date validity = new Date(now.getTime() + 18_000_000);
 
         UserDto user = userServiceNew.findByLogin(login);
 
